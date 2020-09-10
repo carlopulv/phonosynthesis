@@ -10,6 +10,12 @@ function Chord(tonal, mode) {
 
 var generalKey=0;
 var chordsPlayed=[];
+var chordDistances=[];
+var listnotes=[];
+var circleOfFifthForMode=[0,4,1,5,2,6,3];
+var circleOfFifthForKey=[0,7,2,9,4,11,6,1,8,3,10,5];
+
+
 /**
  * Get the key selected from the user before starting playing.
  */
@@ -19,15 +25,20 @@ function getKey(){
 
 const keys = "awsdrftghujikolpzxcvbnm";
 /**
- * Recognize chords.
+ * Recognize chords. 
+ * It fills the array chordsPlayed with objects of type Chord.
  * @param {Double} notes List of the pitches of the notes played in frequency.
  */
 function typeChord(notes){
 	var distance=' ';
   var type=' ';
   var distForModeRecog=[];
-	notes.sort();
+  var tempnotes=[];
+  notes.sort();
+  tempnotes.push(notes[0],notes[1],notes[2],notes[3]);
+  listnotes.push(tempnotes);
   var adj=0;
+  var oldChordsPLayedLength=chordsPlayed.length;
 	//TODO:accordi con note in un ottava diversa da quella delle altre note non sono riconosciuti
 
 	for(var i=0;i<notes.length;i++){
@@ -255,6 +266,61 @@ function typeChord(notes){
       }
     }
     console.log(chordsPlayed);
+    if(chordsPlayed.length>1&&oldChordsPLayedLength<chordsPlayed.length){
+      harmonicDistance();
+    }
+    console.log(chordDistances);
+}
+
+/**
+ * Calculate the harmonic distance following a TPS-like algorithm based on the differences of key, mode and sigle notes played.
+ * It fills the array with the distance between the actual chord and the previous chord in the even indexes and the minimum distance between the actual chord and all the others played yet in the odd indexes. 
+ */
+function harmonicDistance(){
+  var ii;
+  var distance;
+  var modeDistance;
+  var keydistance;
+  var len=chordsPlayed.length-1;
+  var minDistance=100;
+
+  for(ii=len;ii>0;ii--){
+    hammingDistance=0;
+    for(j=0;j<4;j++){
+      if(listnotes[len][j]!=listnotes[ii-1][0]&&listnotes[len][j]!=listnotes[ii-1][1]&&listnotes[len][j]!=listnotes[ii-1][2]&&listnotes[len][j]!=listnotes[ii-1][3]){
+        hammingDistance++;
+      }
+    }
+
+    //this part is useful for the phrigyan mode and its position in the circle of fifths.
+    indexForMode1=circleOfFifthForMode.indexOf(chordsPlayed[len].mode);
+    indexForMode2=circleOfFifthForMode.indexOf(chordsPlayed[ii-1].mode);
+    if(indexForMode1==6&&indexForMode1==6){
+      modeDistance=0;
+    }
+    else if(indexForMode1==6){
+      modeDistance=indexForMode2+1;
+    }
+    else if(indexForMode2==6){
+      modeDistance=indexForMode1+1;
+    }
+    else{
+      modeDistance=Math.abs(indexForMode1-indexForMode2);
+    }
+    keydistance=Math.abs(circleOfFifthForKey.indexOf(chordsPlayed[len].tonal)-circleOfFifthForKey.indexOf(chordsPlayed[ii-1].tonal));
+    //implements the circularity of the circle of fifth.
+    if(keydistance>6){
+      keydistance=12-keydistance;
+    }
+
+    distance=keydistance+modeDistance+hammingDistance;
+
+    if(ii==len){
+       chordDistances.push(distance);
+    }
+    minDistance=Math.min(minDistance, distance);
+  }
+  chordDistances.push(minDistance);
 }
 
 
@@ -281,7 +347,7 @@ function resume_context() {
 
 gains = {}
 document.body.onkeydown = function(e) {
-    if(e.key == "v") {lfoo.frequency.value = 10; return;}
+    //if(e.key == "v") {lfoo.frequency.value = 10; return;}
     if(e.repeat)return;
 
     o = c.createOscillator();
@@ -319,89 +385,6 @@ document.body.onkeyup = function(e) {
     }*/
 }
 
-
-
-
-
-/**
- * Select a color in a restricted area of the color space to avoid white, black, brown.
- */
-function rgbselector(){
-  if (red==255){
-    if(green<200&&blue<100){
-      green=green+1;
-    }
-    else if(blue<100){
-      blue=blue+1;
-    }
-    else{
-      if(blue<200){
-        blue=blue+1;
-        if(blue==110){
-          green=0;
-        }
-      }
-      else if(green<100){
-        green=green+1;
-      }
-      else{
-        red=100;
-        green=255;
-        blue=0;
-      } 
-    }
-  }
-  if (green==255){
-    if(red<200&&blue<100){
-      red=red+1;
-    }
-    else if(blue<100){
-      blue=blue+1;
-    }
-    else{
-      if(blue<200){
-        blue=blue+1;
-        if(blue==110){
-          red=0;
-        }
-      }
-      else if(red<100){
-        red=red+1;
-      }
-      else{
-        red=100;
-        green=0;
-        blue=255;
-      } 
-    }
-  }
-  if (blue==255){
-    if(red<200&&green<100){
-      red=red+1;
-    }
-    else if(green<100){
-      green=green+1;
-    }
-    else{
-      if(green<200){
-        green=green+1;
-        if(green==110){
-          red=0;
-        }
-      }
-      else if(red<100){
-        red=red+1;
-      }
-      else{
-        red=255;
-        green=100;
-        blue=0;
-      } 
-    }
-  }
-  array=[red, green, blue];
-  return array;
-}
 
 //graphics
 
