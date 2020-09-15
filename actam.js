@@ -23,7 +23,7 @@ function getKey(){
   generalKey=document.key.key.value;
 }
 
-const keys = "awsdrftghujikolpzxcvbnm";
+const keys = "q2we4r5ty7u8i9opzsxcfvgbhnmk";
 /**
  * Recognize chords. 
  * It fills the array chordsPlayed with objects of type Chord.
@@ -327,7 +327,7 @@ function harmonicDistance(){
 
 //connecting keybord to play sounds
 
-const duration=1;
+/*const duration=1;
 const c = new AudioContext();
 const lfog = c.createGain();
 const lfoo = c.createOscillator();
@@ -335,9 +335,21 @@ lfog.connect(c.destination);
 lfoo.frequency.value = 10;
 lfoo.connect(lfog.gain);
 lfoo.frequency.value = 0;
-lfoo.start();
+lfoo.start();*/
 var notes=[];
-resume_context()
+//resume_context()
+
+
+var duration=4;
+var selectedPreset=_tone_0000_Aspirin_sf2_file;
+var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+var audioContext = new AudioContextFunc();
+var player=new WebAudioFontPlayer();
+player.loader.decodeAfterLoading(audioContext, '_tone_0000_JCLive_sf2_file');
+
+function playKey(pitch){
+	player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_Aspirin_sf2_file, 0, pitch, 0.75);
+}
 
 function resume_context() {
     c.resume();
@@ -346,7 +358,7 @@ function resume_context() {
 //const keys = "awsedftgyhujkolp";
 
 gains = {}
-document.body.onkeydown = function(e) {
+/*document.body.onkeydown = function(e) {
     //if(e.key == "v") {lfoo.frequency.value = 10; return;}
     if(e.repeat)return;
 
@@ -357,32 +369,40 @@ document.body.onkeydown = function(e) {
     g.gain.value = 0;
 
     const position = keys.indexOf(e.key);
-    const pitch = 440*Math.pow(2, position/12);
+    const pitch = Math.round(440*Math.pow(2, position/12));
     o.frequency.value = pitch;
     o.type = "sine";
     o.start()
     g.gain.linearRampToValueAtTime(1, c.currentTime + 0.1);
     gains[e.key] = g;
     notes.push(pitch);
+}*/
+
+document.body.onkeydown = function(e) {
+  duration=3;
+  if(e.repeat)return;
+  var position = keys.indexOf(e.key);
+  if(position>=0){
+    var pitch = Math.round(440*Math.pow(2, position/12));
+    midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
+    player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
+    notes.push(pitch);
+  }  
 }
 
 
+
 document.body.onkeyup = function(e) {
-    if(notes.length>3){
+  if(notes.length>3){
         typeChord(notes);
-        //mapChordToVertex(chordsPlayed[chordsPlayed.length-1]);
-    }
-    /*if(e.key == "v") {lfoo.frequency.value = 0; return;}*/
+  }
+  else if(notes.length==1){
+    player.cancelQueue(audioContext);
+  }
+    /*if(e.key == "v") {lfoo.frequency.value = 0; return;}
     gains[e.key].gain.setValueAtTime(1, c.currentTime);
-    gains[e.key].gain.linearRampToValueAtTime(0, c.currentTime + 0.1)
+    gains[e.key].gain.linearRampToValueAtTime(0, c.currentTime + 0.1)*/
     notes.pop();
-    /*if(notes.length==0){
-        cont++;
-    }
-    if(cont==2){
-        computeProbability();
-        cont==0;
-    }*/
 }
 
 
