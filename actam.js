@@ -1,11 +1,13 @@
 /**
  * @class Represent the object "Chord"
  * @param {Integer} tonal Tonal note of the chord, the number represent the distance from the key selected by the user. 
- * @param {String} mode Represent the mode of the chord. It is a number between 1 and 7.
+ * @param {Integer} mode Represent the mode of the chord. It is a number between 1 and 7.
+ * @param {Integer} other Gives information for augmented, diminished, suspended chords and also added note. This field is equal to: "2" add2, "4" sus4, "5" aum5, "7" diminished in case the chord is locrian or 7maj in case of minor chords, "9" add9.
  */
-function Chord(tonal, mode) {
+function Chord(tonal, mode, other) {
 	this.tonal=tonal;
-	this.mode = mode;
+  this.mode = mode;
+  this.other = other;
 }
 
 var generalKey=0;
@@ -23,7 +25,16 @@ function getKey(){
   generalKey=document.key.key.value;
 }
 
-const keys = "q2we4r5ty7u8i9opzsxcfvgbhnmk";
+/**
+ * Compares integer numbers.
+ * @param {*} a first factor
+ * @param {*} b second factor
+ */
+function compareNumbers(a, b) {
+  return a - b;
+}
+
+const keys = "q2we4r5ty7u8i9opazsxcfvgbhnmk";
 /**
  * Recognize chords. 
  * It fills the array chordsPlayed with objects of type Chord.
@@ -34,12 +45,11 @@ function typeChord(notes){
   var type=' ';
   var distForModeRecog=[];
   var tempnotes=[];
-  notes.sort();
+  notes.sort(compareNumbers);
   tempnotes.push(notes[0],notes[1],notes[2],notes[3]);
   listnotes.push(tempnotes);
   var adj=0;
-  var oldChordsPLayedLength=chordsPlayed.length;
-	//TODO:accordi con note in un ottava diversa da quella delle altre note non sono riconosciuti
+  var oldChordsPlayedLength=chordsPlayed.length;
 
 	for(var i=0;i<notes.length;i++){
     if(i<notes.length-1){
@@ -58,215 +68,337 @@ function typeChord(notes){
     }
     distForModeRecog.push(temp1);
   }
+  console.log("distance: "+ distance);
+  console.log(distForModeRecog);
 
 //TODO ottimizzare sta merda
   //major chords, 1 e 4 modes
 	if(distance==' 4 3 4 '){
     if(distForModeRecog[0]==0){
-      chordsPlayed.push(new Chord(0,1)); 
+      chordsPlayed.push(new Chord(0,1,0)); 
     }
     else if(distForModeRecog[0]==5){
-      chordsPlayed.push(new Chord(0,4));
+      chordsPlayed.push(new Chord(0,4,0));
     }
     else{
-      chordsPlayed.push(new Chord(distForModeRecog[0],1))
+      chordsPlayed.push(new Chord(distForModeRecog[0],1,0))
     }
   }
   if(distance==' 3 4 1 '){
     if(distForModeRecog[3]==0){
-      chordsPlayed.push(new Chord(0,1));
+      chordsPlayed.push(new Chord(0,1,0));
     }
     else if(distForModeRecog[3]==5){
-      chordsPlayed.push(new Chord(0,4));
+      chordsPlayed.push(new Chord(0,4,0));
     }
     else{
-      chordsPlayed.push(new Chord(distForModeRecog[3],1))
+      chordsPlayed.push(new Chord(distForModeRecog[3],1,0))
     }
   }
   if(distance==' 4 1 4 '){
     if(distForModeRecog[2]==0){
-      chordsPlayed.push(new Chord(0,1));
+      chordsPlayed.push(new Chord(0,1,0));
     }
     else if(distForModeRecog[2]==5){
-      chordsPlayed.push(new Chord(0,4));
+      chordsPlayed.push(new Chord(0,4,0));
     }
     else{
-      chordsPlayed.push(new Chord(distForModeRecog[2],1))
+      chordsPlayed.push(new Chord(distForModeRecog[2],1,0))
     }
   }
   if(distance==' 1 4 3 '){
     if(distForModeRecog[1]==0){
-      chordsPlayed.push(new Chord(0,1));
+      chordsPlayed.push(new Chord(0,1,0));
     }
     else if(distForModeRecog[1]==5){
-      chordsPlayed.push(new Chord(0,4));
+      chordsPlayed.push(new Chord(0,4,0));
     }
     else{
-      chordsPlayed.push(new Chord(distForModeRecog[1],1))
+      chordsPlayed.push(new Chord(distForModeRecog[1],1,0))
     }
   }
   
   //minor chords, 2 3 6 modes, when there is a change of key it is considere a chord in second mode.
   if(distance==' 3 4 3 '){
     if(distForModeRecog[0]==2){
-      chordsPlayed.push(new Chord(0,2));
+      chordsPlayed.push(new Chord(0,2,0));
     }
     else if(distForModeRecog[0]==4){
-      chordsPlayed.push(new Chord(0,3));
+      chordsPlayed.push(new Chord(0,3,0));
     }
     else if(distForModeRecog[0]==9){
-      chordsPlayed.push(new Chord(0,6));
+      chordsPlayed.push(new Chord(0,6,0));
     }
     else{
       if(distForModeRecog[0]-1<0){
         adj=12;
       }
-      chordsPlayed.push(new Chord((distForModeRecog[0]-1)+adj,2));
+      chordsPlayed.push(new Chord((distForModeRecog[0]-1)+adj,2,0));
     }
   }
   if(distance==' 4 3 2 '){
     if(distForModeRecog[3]==2){
-      chordsPlayed.push(new Chord(0,2));
+      chordsPlayed.push(new Chord(0,2,0));
     }
     else if(distForModeRecog[3]==4){
-      chordsPlayed.push(new Chord(0,3));
+      chordsPlayed.push(new Chord(0,3,0));
     }
     else if(distForModeRecog[3]==9){
-      chordsPlayed.push(new Chord(0,6));
+      chordsPlayed.push(new Chord(0,6,0));
     }
     else{
       if(distForModeRecog[3]-1<0){
         adj=12;
       }
-      chordsPlayed.push(new Chord((distForModeRecog[3]-1)+adj,2));
+      chordsPlayed.push(new Chord((distForModeRecog[3]-1)+adj,2,0));
     }
   }
   if(distance==' 3 2 3 '){
     if(distForModeRecog[2]==2){
-      chordsPlayed.push(new Chord(0,2));
+      chordsPlayed.push(new Chord(0,2,0));
     }
     else if(distForModeRecog[2]==4){
-      chordsPlayed.push(new Chord(0,3));
+      chordsPlayed.push(new Chord(0,3,0));
     }
     else if(distForModeRecog[2]==9){
-      chordsPlayed.push(new Chord(0,6));
+      chordsPlayed.push(new Chord(0,6,0));
     }
     else{
       if(distForModeRecog[2]-1<0){
         adj=12;
       }
-      chordsPlayed.push(new Chord((distForModeRecog[2]-1)+adj,2));
+      chordsPlayed.push(new Chord((distForModeRecog[2]-1)+adj,2,0));
     }
   }
   if(distance==' 2 3 4 '){
 		if(distForModeRecog[1]==2){
-      chordsPlayed.push(new Chord(0,2));
+      chordsPlayed.push(new Chord(0,2,0));
     }
     else if(distForModeRecog[1]==4){
-      chordsPlayed.push(new Chord(0,3));
+      chordsPlayed.push(new Chord(0,3,0));
     }
     else if(distForModeRecog[1]==9){
-      chordsPlayed.push(new Chord(0,6));
+      chordsPlayed.push(new Chord(0,6,0));
     }
     else{
       if(distForModeRecog[1]-1<0){
         adj=12;
       }
-      chordsPlayed.push(new Chord((distForModeRecog[1]-1)+adj,2));
+      chordsPlayed.push(new Chord((distForModeRecog[1]-1)+adj,2,0));
     }
   }
   //Dominant chord
     if(distance==' 4 3 3 '){
       if(distForModeRecog[0]==7){
-        chordsPlayed.push(new Chord(0,5));
+        chordsPlayed.push(new Chord(0,5,0));
       }
       else{
         if(distForModeRecog[0]-7<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[0]-7)+adj,5));
+        chordsPlayed.push(new Chord((distForModeRecog[0]-7)+adj,5,0));
       }
     }
     if(distance==' 3 3 2 '){
       if(distForModeRecog[3]==7){
-        chordsPlayed.push(new Chord(0,5));
+        chordsPlayed.push(new Chord(0,5,0));
       }
       else{
         if(distForModeRecog[3]-7<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[3]-7)+adj,5));
+        chordsPlayed.push(new Chord((distForModeRecog[3]-7)+adj,5,0));
       }
     }
     if(distance==' 3 2 4 '){
       if(distForModeRecog[2]==7){
-        chordsPlayed.push(new Chord(0,5));
+        chordsPlayed.push(new Chord(0,5,0));
       }
       else{
         if(distForModeRecog[2]-7<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[2]-7)+adj,5));
+        chordsPlayed.push(new Chord((distForModeRecog[2]-7)+adj,5,0));
       }
     }
     if(distance==' 2 4 3 '){
       if(distForModeRecog[1]==7){
-        chordsPlayed.push(new Chord(0,5));
+        chordsPlayed.push(new Chord(0,5,0));
       }
       else{
         if(distForModeRecog[1]-7<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[1]-7)+adj,5));
+        chordsPlayed.push(new Chord((distForModeRecog[1]-7)+adj,5,0));
       }
     }
     //Locrian Chord
     if(distance==' 3 3 4 '){
       if(distForModeRecog[0]==11){
-        chordsPlayed.push(new Chord(0,7));
+        chordsPlayed.push(new Chord(0,7,0));
       }
       else{
         if(distForModeRecog[0]-11<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[0]-11)+adj,7));
+        chordsPlayed.push(new Chord((distForModeRecog[0]-11)+adj,7,0));
       }
     }
     if(distance==' 3 4 2 '){
       if(distForModeRecog[3]==11){
-      chordsPlayed.push(new Chord(0,7));
+      chordsPlayed.push(new Chord(0,7,0));
       }
       else{
         if(distForModeRecog[3]-11<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[3]-11)+adj,7));
+        chordsPlayed.push(new Chord((distForModeRecog[3]-11)+adj,7,0));
       }
     } 
     if(distance==' 4 2 3 '){
       if(distForModeRecog[2]==11){
-        chordsPlayed.push(new Chord(0,7));
+        chordsPlayed.push(new Chord(0,7,0));
       }
       else{
         if(distForModeRecog[2]-11<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[2]-11)+adj,7));
+        chordsPlayed.push(new Chord((distForModeRecog[2]-11)+adj,7,0));
       }
     }
     if(distance==' 2 3 3 '){
       if(distForModeRecog[1]==11){
-        chordsPlayed.push(new Chord(0,7));
+        chordsPlayed.push(new Chord(0,7,0));
       }
       else{
         if(distForModeRecog[1]-11<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[1]-11)+adj,7));
+        chordsPlayed.push(new Chord((distForModeRecog[1]-11)+adj,7,0));
       }
     }
+
+    //Other common chords
+
+    //major chord add2
+    if(distance==' 2 2 3 '){
+      chordsPlayed.push(new Chord(distForModeRecog[0],1,2));
+    }
+    if(distance==' 2 3 5 '){
+      chordsPlayed.push(new Chord(distForModeRecog[3],1,2));
+    }
+    if(distance==' 3 5 2 '){
+      chordsPlayed.push(new Chord(distForModeRecog[2],1,2));
+    }
+    if(distance==' 5 2 2 '){
+      chordsPlayed.push(new Chord(distForModeRecog[1],1,2));
+    }
+
+    //major chord add9
+    if(distance==' 4 3 7 '){
+      chordsPlayed.push(new Chord(distForModeRecog[0],1,9));
+    }
+
+    //minor 7maj
+    if(distance==' 3 4 4 '){
+      if(distForModeRecog[0]-9<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[0]-9+adj,6,7));
+    }
+    if(distance==' 4 4 1 '){
+      if(distForModeRecog[3]-9<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[3]-9+adj,6,7));    
+    }
+    if(distance==' 4 1 3 '){
+      if(distForModeRecog[2]-9<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[2]-9+adj,6,7));    
+    }
+    if(distance==' 1 3 4 '){
+      if(distForModeRecog[1]-9<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[1]-9+adj,6,7));    
+    }
+
+    //minor add2
+    if(distance==' 2 1 4 '){
+      if(distForModeRecog[0]-9<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[0]-9+adj,6,7));    
+    }
+    if(distance==' 1 4 5 '){
+      if(distForModeRecog[3]-9<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[3]-9+adj,6,7));    
+    }
+    if(distance==' 4 5 2 '){
+      if(distForModeRecog[2]-9<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[2]-9+adj,6,7));    
+    }
+    if(distance==' 5 2 1 '){
+      if(distForModeRecog[1]-9<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[1]-9+adj,6,7));    
+    }
+
+    //minor chord add9
+    if(distance==' 3 4 7 '){
+      if(distForModeRecog[0]-9<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[0]-9+adj,6,9));
+    }
+
+    //diminished chord
+    if(distance==' 3 3 3 '){
+      if(distForModeRecog[0]-11<0){
+        adj=12;
+      }
+      chordsPlayed.push(new Chord(distForModeRecog[0]-11+adj,7,7));
+    }
+
+    //augmented chord
+    if(distance==' 4 4 2 '){
+      chordsPlayed.push(new Chord(distForModeRecog[0],1,5));  
+    }
+    if(distance==' 4 2 2 '){
+      chordsPlayed.push(new Chord(distForModeRecog[3],1,5));  
+    }
+    if(distance==' 2 2 4 '){
+      chordsPlayed.push(new Chord(distForModeRecog[2],1,5));  
+    }
+    if(distance==' 2 4 4 '){
+      chordsPlayed.push(new Chord(distForModeRecog[2],1,5));  
+    }
+
+    //suspended fourth chord
+    if(distance==' 5 2 3 '){
+      chordsPlayed.push(new Chord(distForModeRecog[0],1,4));  
+    }
+    if(distance==' 2 3 2 '){
+      chordsPlayed.push(new Chord(distForModeRecog[3],1,4));  
+    }
+    if(distance==' 3 2 5 '){
+      chordsPlayed.push(new Chord(distForModeRecog[2],1,4));  
+    }
+    if(distance==' 2 5 2 '){
+      chordsPlayed.push(new Chord(distForModeRecog[2],1,4));  
+    }
+
+
+
     console.log(chordsPlayed);
-    if(chordsPlayed.length>1&&oldChordsPLayedLength<chordsPlayed.length){
+    if(chordsPlayed.length>1&&oldChordsPlayedLength<chordsPlayed.length){
       harmonicDistance();
     }
     console.log(chordDistances);
