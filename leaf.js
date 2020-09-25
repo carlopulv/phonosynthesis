@@ -64,13 +64,6 @@ class Leaf{
         let c1 = color(124,162,62);
         let height3=119;
 
-        /*let x7=this.startPointX;
-        let y7=this.startPointY-36-2;
-        let x8=this.startPointX-43;
-        let y8=this.startPointY-36-43-1;
-        let x9=this.startPointX;
-        let y9=this.startPointY-36-119;*/
-
         let x7=x4+Math.cos(alpha);
         let y7=y4-Math.sin(alpha);
         let x8=x6+Math.cos(alpha);
