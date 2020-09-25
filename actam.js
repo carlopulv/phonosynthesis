@@ -542,8 +542,11 @@ document.body.onkeyup = function(e) {
 
 function setup() {
   createCanvas(400, 400);
+  background(220);
+  l=new Leaf(200,200,200,0);
+  l.plot();
 }
 
 function draw() {
-  background(220);
+  
 }
