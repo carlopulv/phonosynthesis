@@ -541,9 +541,9 @@ document.body.onkeyup = function(e) {
 //graphics
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(800, 800);
   background(220);
-  l=new Leaf(200,200,200,0);
+  l=new Leaf(0.2,400,400,250);
   l.plot();
 }
 

@@ -16,8 +16,8 @@ class Leaf{
     plot(){
         //triangle1
         let c3 = color(56,87,35);
-        let height=36;
-        let width=51;
+        let height=36*this.size;
+        let width=51*this.size;
         let hypotenuse=Math.pow(Math.pow(height,2)+Math.pow(width,2),1/2);
         let alpha=Math.PI/2-this.angle;
         let beta=Math.PI-Math.acos(width/hypotenuse)-this.angle;
@@ -39,7 +39,7 @@ class Leaf{
 
         //triangle2
         let c2 = color(84,130,53);
-        let height2=43;
+        let height2=43*this.size;
         let width2=height2;
         let hypotenuse2=height2*Math.pow(2,1/2);
         let beta22=Math.PI-Math.acos(width2/hypotenuse2)-this.angle;
@@ -62,7 +62,7 @@ class Leaf{
 
         //triangle3
         let c1 = color(124,162,62);
-        let height3=119;
+        let height3=119*this.size;
 
         let x7=x4+Math.cos(alpha);
         let y7=y4-Math.sin(alpha);
