@@ -539,14 +539,27 @@ document.body.onkeyup = function(e) {
 
 
 //graphics
-
+let angle=0;
 function setup() {
+ 
   createCanvas(800, 800);
   background(220);
-  l=new Leaf(0.2,400,400,250);
-  l.plot();
+  
 }
 
 function draw() {
-  
+  clear();
+  l=new Leaf(1,400,400,angle);
+  l.transform(1,400,400,angle++);
+  l.plot();
+  t=new Trunk(0.3,0,787,90);
+  t.plot();
+  t.transform(0.3,0+(920-196)*0.3,787,90);
+  t.plot();
+  t.transform(0.3,(920-196)*0.3*2,787,90);
+  t.plot();
+  t.transform(0.3,(920-196)*0.3*3,787,90);
+  t.plot();
+  t.transform(0.3,(920-196)*0.3*4,787,90);
+  t.plot();
 }

@@ -89,4 +89,11 @@ class Leaf{
         triangle(x7,y7,x8,y8,x9,y9);
         triangle(x77,y77,x88,y88,x99,y99);
     }
+
+    transform(size,startPointX,startPointY,angle){
+        this.size=size;
+        this.startPointX=startPointX;
+        this.startPointY=startPointY;
+        this.angle=angle/180*Math.PI;
+    }
 }
