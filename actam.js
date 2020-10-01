@@ -546,20 +546,34 @@ function setup() {
   background(220);
   
 }
-
 function draw() {
   clear();
-  l=new Leaf(1,400,400,angle);
-  l.transform(1,400,400,angle++);
-  l.plot();
-  t=new Trunk(0.3,0,787,90);
-  t.plot();
-  t.transform(0.3,0+(920-196)*0.3,787,90);
-  t.plot();
-  t.transform(0.3,(920-196)*0.3*2,787,90);
-  t.plot();
-  t.transform(0.3,(920-196)*0.3*3,787,90);
-  t.plot();
-  t.transform(0.3,(920-196)*0.3*4,787,90);
-  t.plot();
+  t = new Trunk(0.3, 0, windowHeight, 0);
+  let i = windowHeight/((920-196)*0.3);
+  do{             /*disegna il tronco*/
+    t.transform(0.3, 0-13, (920-196)*0.3*i, 0 );
+    t.plot();
+    i--;
+  }while((920-196)*0.3*i>0);  
+  
+  l = new Leaf(1, 400, 400, angle);
+  let scale = windowHeight/1000; 
+  let j = 0.33;
+  do{           /*disegna le foglie*/
+    l.transform(scale, 13, windowHeight*j, angle+60);
+    l.plot();
+    button = createButton('play');
+    button.position(50, windowHeight*j);
+    j+=0.33;
+  } while(j<1);   /*vedere sminchiamento zoom*/
+  
+  /*button = createButton('play');
+  button.position(50, windowHeight/3);
+  button = createButton('Open file');
+  button.position(50, windowHeight/2);
+  button = createButton('Enter to a garden');
+  button.position(50, windowHeight);*/
+  
 }
+
+
