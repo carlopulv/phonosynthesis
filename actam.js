@@ -16,6 +16,7 @@ var chordDistances=[];
 var listnotes=[];
 var circleOfFifthForMode=[0,4,1,5,2,6,3];
 var circleOfFifthForKey=[0,7,2,9,4,11,6,1,8,3,10,5];
+var keysshown=false;
 
 
 /**
@@ -538,30 +539,85 @@ document.body.onkeyup = function(e) {
 }
 
 
+/*button opens on click*/
+function showKeys() {
+  keysshown = true;
+}
+
+
+
 //graphics
 let angle=0;
+let scale = 1;
 function setup() {
+
+ /* button = createButton("play");
+  button.position(130,windowHeight/3);
+  button.mousePressed(listKeys);
+ */
   createCanvas(windowWidth, windowHeight);
+  background(220,254,55,255);
+  
 }
-
-function draw() {
+function draw() {  /*vedere sminchiamento zoom*/
   clear();
-  background(0,151,198);
-  l=new Leaf(1,400,400,angle);
-  l.transform(1,400,400,angle++);
-  l.plot();
-  t=new Trunk(0.3,0,windowHeight-13,90);
-  t.plot();
-  let i=0;
-  do{
-    t.transform(0.3,(920-196)*0.3*i,windowHeight-13,90);
+
+  t = new Trunk(0.3, 0, windowHeight, 0);
+  let i = windowHeight/((920-196)*0.3);
+  while((920-196)*0.3*i>0){             /*disegna il tronco*/
+    t.transform(0.3, 0-13, (920-196)*0.3*i, 0 );
     t.plot();
-    i++;
-  }while((920-196)*0.3*i<windowWidth);
-  c=new Cloud(1,200,200);
-  c.plot();
+    i--;
+  } 
+  
+  l = new Leaf(1, 400, 400, angle);
+  scale = windowHeight/900; 
+  let j = 0.25;
+
+  if (keysshown==false){
+    l.transform(scale, 13, windowHeight*j, angle+60);
+    l.plot();
+  }
+  else{
+    document.querySelectorAll(".initial-button")[0].style.display="none";
+    //disegna rametto, stesso colore scrittura
+    noFill();
+    strokeWeight(4);
+    stroke(56,87,35);
+    beginShape();
+    vertex(0, windowHeight*j);
+    vertex(150/*windowWidth*/, windowHeight*j-70);
+    vertex(260, windowHeight*j-55);
+    vertex(340, windowHeight*j-75);
+    vertex(440, windowHeight*j-30);
+    vertex(540, windowHeight*j);
+    vertex(600, windowHeight*j-20);
+    vertex(700, windowHeight*j+10);
+    vertex(820, windowHeight*j-5);
+    vertex(930, windowHeight*j-5);
+    vertex(990, windowHeight*j-40);
+    endShape();
+
+
+
+
+
+  }
+  j+=0.25;
+  l.transform(scale, 13, windowHeight*j, angle+60);
+  l.plot();
+  j+=0.25;
+  l.transform(scale, 13, windowHeight*j, angle+60);
+  l.plot();
+  
+  
+  
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
+document.querySelectorAll(".initial-button")[0].onclick=showKeys;
+
+
+/*function listKeys(){
+    button.position(200, 200);
+    //button.style("background-color", "black");
+    button.classList.add("button");}*/
