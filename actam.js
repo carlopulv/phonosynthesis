@@ -555,24 +555,25 @@ function setup() {
   button.position(130,windowHeight/3);
   button.mousePressed(listKeys);
  */
-  createCanvas(windowWidth, windowHeight);
+  
   background(220,254,55,255);
   
 }
 function draw() {  /*vedere sminchiamento zoom*/
+  createCanvas(windowWidth, windowHeight);
   clear();
 
-  t = new Trunk(0.3, 0, windowHeight, 0);
-  let i = windowHeight/((920-196)*0.3);
-  while((920-196)*0.3*i>0){             /*disegna il tronco*/
-    t.transform(0.3, 0-13, (920-196)*0.3*i, 0 );
+  t = new Trunk(0.3, 0, windowHeight, 180);
+  let i = ceil(windowHeight/((920-196)*0.3));
+  while((920-196)*0.3*i>=0){             /*disegna il tronco*/
+    t.transform(0.3, 0+13, (920-196)*0.3*i, 180 );
     t.plot();
     i--;
   } 
   
   l = new Leaf(1, 400, 400, angle);
   scale = windowHeight/900; 
-  let j = 0.25;
+  let j = 0.3;
 
   if (keysshown==false){
     l.transform(scale, 13, windowHeight*j, angle+60);
@@ -597,10 +598,6 @@ function draw() {  /*vedere sminchiamento zoom*/
     vertex(930, windowHeight*j-5);
     vertex(990, windowHeight*j-40);
     endShape();
-
-
-
-
 
   }
   j+=0.25;
