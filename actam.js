@@ -606,10 +606,10 @@ function draw() {  /*vedere sminchiamento zoom*/
   j+=0.25;
   l.transform(scale, 13, windowHeight*j, angle+60);
   l.plot();
-  
-  
-  
 }
+
+
+
 
 document.querySelectorAll(".initial-button")[0].onclick=showKeys;
 

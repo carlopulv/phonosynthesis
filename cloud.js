@@ -13,8 +13,8 @@ class Cloud{
     }
 
     plot(){
-        let width=130;
-        let height=112;
+        let width=130*this.size;
+        let height=112*this.size;
         let c1 = color(217,217,217);
         let c2 = color(242,242,242);
         let c3 = color(255,255,255);
@@ -69,21 +69,73 @@ class Cloud{
         let x21=x19+width/2;
         let y21=y19;
 
+        let x22=x19-1;
+        let y22=y19;
+        let x23=x22-width/2;
+        let y23=y20;
+        let x24=x22;
+        let y24=y23;
+
+        let height3=height2*2;
+        let x25=x22-width-1;
+        let y25=y22;
+        let x26=x25;
+        let y26=y25-height3;
+        let x27=x22-1;
+        let y27=y25;
+
+        let x28=x25-1;
+        let y28=y25;
+        let x29=x28-width/1.74;
+        let y29=y26;
+        let x30=x28;
+        let y30=y29;
+
+        let x31=x28-width-1;
+        let y31=y25;
+        let x32=x31;
+        let y32=y31-width;
+        let x33=x28-1;
+        let y33=y31;
+
+        let x34=x31-1;
+        let y34=y31;
+        let x35=x34-width*Math.cos(Math.PI/10);
+        let y35=y34-width*Math.sin(Math.PI/10);
+        let x36=x34;
+        let y36=y32;
+
+        let x37=x1-1;
+        let y37=y1;
+        let x38=x35;
+        let y38=y35+1;
+        let x39=x34-1
+        let y39=y34+1;
+
 
         noStroke();
         fill(c1);
         triangle(x1,y1,x2,y2,x3,y3);
+        
         fill(c2);
         triangle(x4,y4,x5,y5,x6,y6);
+        triangle(x13,y13,x14,y14,x15,y15);
+        triangle(x22,y22,x23,y23,x24,y24);
+        triangle(x28,y28,x29,y29,x30,y30);
+        triangle(x37,y37,x38,y38,x39,y39);
+
         fill(c3);
         triangle(x7,y7,x8,y8,x9,y9);
-        fill(c3);
         triangle(x10,y10,x11,y11,x12,y12);
-        fill(c2);
-        triangle(x13,y13,x14,y14,x15,y15);
-        fill(c3);
         triangle(x16,y16,x17,y17,x18,y18);
-        fill(c3);
         triangle(x19,y19,x20,y20,x21,y21);
+        triangle(x25,y25,x26,y26,x27,y27);
+        triangle(x31,y31,x32,y32,x33,y33);
+        triangle(x34,y34,x35,y35,x36,y36);
+    }
+    transform(size,startPointX,startPointY){
+        this.size=size;
+        this.startPointX=startPointX;
+        this.startPointY=startPointY;
     }
 }
