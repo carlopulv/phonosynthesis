@@ -1,3 +1,10 @@
-.ciao{
-    color:red;
+.container{
+    position:absolute;
+    top:33%;
+    left:10%;
+
+    display:block;
+    height:200px;
+    width:200px;
+    background-color: blue;
 }

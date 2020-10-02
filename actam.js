@@ -84,7 +84,7 @@ function typeChord(notes){
       chordsPlayed.push(new Chord(distForModeRecog[0],1,0))
     }
   }
-  if(distance==' 3 4 1 '){
+  else if(distance==' 3 4 1 '){
     if(distForModeRecog[3]==0){
       chordsPlayed.push(new Chord(0,1,0));
     }
@@ -95,7 +95,7 @@ function typeChord(notes){
       chordsPlayed.push(new Chord(distForModeRecog[3],1,0))
     }
   }
-  if(distance==' 4 1 4 '){
+  else if(distance==' 4 1 4 '){
     if(distForModeRecog[2]==0){
       chordsPlayed.push(new Chord(0,1,0));
     }
@@ -106,7 +106,7 @@ function typeChord(notes){
       chordsPlayed.push(new Chord(distForModeRecog[2],1,0))
     }
   }
-  if(distance==' 1 4 3 '){
+  else if(distance==' 1 4 3 '){
     if(distForModeRecog[1]==0){
       chordsPlayed.push(new Chord(0,1,0));
     }
@@ -119,7 +119,7 @@ function typeChord(notes){
   }
   
   //minor chords, 2 3 6 modes, when there is a change of key it is considere a chord in second mode.
-  if(distance==' 3 4 3 '){
+  else if(distance==' 3 4 3 '){
     if(distForModeRecog[0]==2){
       chordsPlayed.push(new Chord(0,2,0));
     }
@@ -136,7 +136,7 @@ function typeChord(notes){
       chordsPlayed.push(new Chord((distForModeRecog[0]-1)+adj,2,0));
     }
   }
-  if(distance==' 4 3 2 '){
+  else if(distance==' 4 3 2 '){
     if(distForModeRecog[3]==2){
       chordsPlayed.push(new Chord(0,2,0));
     }
@@ -153,7 +153,7 @@ function typeChord(notes){
       chordsPlayed.push(new Chord((distForModeRecog[3]-1)+adj,2,0));
     }
   }
-  if(distance==' 3 2 3 '){
+  else if(distance==' 3 2 3 '){
     if(distForModeRecog[2]==2){
       chordsPlayed.push(new Chord(0,2,0));
     }
@@ -170,7 +170,7 @@ function typeChord(notes){
       chordsPlayed.push(new Chord((distForModeRecog[2]-1)+adj,2,0));
     }
   }
-  if(distance==' 2 3 4 '){
+  else if(distance==' 2 3 4 '){
 		if(distForModeRecog[1]==2){
       chordsPlayed.push(new Chord(0,2,0));
     }
@@ -188,7 +188,7 @@ function typeChord(notes){
     }
   }
   //Dominant chord
-    if(distance==' 4 3 3 '){
+    else if(distance==' 4 3 3 '){
       if(distForModeRecog[0]==7){
         chordsPlayed.push(new Chord(0,5,0));
       }
@@ -199,7 +199,7 @@ function typeChord(notes){
         chordsPlayed.push(new Chord((distForModeRecog[0]-7)+adj,5,0));
       }
     }
-    if(distance==' 3 3 2 '){
+    else if(distance==' 3 3 2 '){
       if(distForModeRecog[3]==7){
         chordsPlayed.push(new Chord(0,5,0));
       }
@@ -210,7 +210,7 @@ function typeChord(notes){
         chordsPlayed.push(new Chord((distForModeRecog[3]-7)+adj,5,0));
       }
     }
-    if(distance==' 3 2 4 '){
+    else if(distance==' 3 2 4 '){
       if(distForModeRecog[2]==7){
         chordsPlayed.push(new Chord(0,5,0));
       }
@@ -221,7 +221,7 @@ function typeChord(notes){
         chordsPlayed.push(new Chord((distForModeRecog[2]-7)+adj,5,0));
       }
     }
-    if(distance==' 2 4 3 '){
+    else if(distance==' 2 4 3 '){
       if(distForModeRecog[1]==7){
         chordsPlayed.push(new Chord(0,5,0));
       }
@@ -233,7 +233,7 @@ function typeChord(notes){
       }
     }
     //Locrian Chord
-    if(distance==' 3 3 4 '){
+    else if(distance==' 3 3 4 '){
       if(distForModeRecog[0]==11){
         chordsPlayed.push(new Chord(0,7,0));
       }
@@ -244,7 +244,7 @@ function typeChord(notes){
         chordsPlayed.push(new Chord((distForModeRecog[0]-11)+adj,7,0));
       }
     }
-    if(distance==' 3 4 2 '){
+    else if(distance==' 3 4 2 '){
       if(distForModeRecog[3]==11){
       chordsPlayed.push(new Chord(0,7,0));
       }
@@ -255,7 +255,7 @@ function typeChord(notes){
         chordsPlayed.push(new Chord((distForModeRecog[3]-11)+adj,7,0));
       }
     } 
-    if(distance==' 4 2 3 '){
+    else if(distance==' 4 2 3 '){
       if(distForModeRecog[2]==11){
         chordsPlayed.push(new Chord(0,7,0));
       }
@@ -266,7 +266,7 @@ function typeChord(notes){
         chordsPlayed.push(new Chord((distForModeRecog[2]-11)+adj,7,0));
       }
     }
-    if(distance==' 2 3 3 '){
+    else if(distance==' 2 3 3 '){
       if(distForModeRecog[1]==11){
         chordsPlayed.push(new Chord(0,7,0));
       }
@@ -281,44 +281,44 @@ function typeChord(notes){
     //Other common chords
 
     //major chord add2
-    if(distance==' 2 2 3 '){
+    else if(distance==' 2 2 3 '){
       chordsPlayed.push(new Chord(distForModeRecog[0],1,2));
     }
-    if(distance==' 2 3 5 '){
+    else if(distance==' 2 3 5 '){
       chordsPlayed.push(new Chord(distForModeRecog[3],1,2));
     }
-    if(distance==' 3 5 2 '){
+    else if(distance==' 3 5 2 '){
       chordsPlayed.push(new Chord(distForModeRecog[2],1,2));
     }
-    if(distance==' 5 2 2 '){
+    else if(distance==' 5 2 2 '){
       chordsPlayed.push(new Chord(distForModeRecog[1],1,2));
     }
 
     //major chord add9
-    if(distance==' 4 3 7 '){
+    else if(distance==' 4 3 7 '){
       chordsPlayed.push(new Chord(distForModeRecog[0],1,9));
     }
 
     //minor 7maj
-    if(distance==' 3 4 4 '){
+    else if(distance==' 3 4 4 '){
       if(distForModeRecog[0]-9<0){
         adj=12;
       }
       chordsPlayed.push(new Chord(distForModeRecog[0]-9+adj,6,7));
     }
-    if(distance==' 4 4 1 '){
+    else if(distance==' 4 4 1 '){
       if(distForModeRecog[3]-9<0){
         adj=12;
       }
       chordsPlayed.push(new Chord(distForModeRecog[3]-9+adj,6,7));    
     }
-    if(distance==' 4 1 3 '){
+    else if(distance==' 4 1 3 '){
       if(distForModeRecog[2]-9<0){
         adj=12;
       }
       chordsPlayed.push(new Chord(distForModeRecog[2]-9+adj,6,7));    
     }
-    if(distance==' 1 3 4 '){
+    else if(distance==' 1 3 4 '){
       if(distForModeRecog[1]-9<0){
         adj=12;
       }
@@ -326,25 +326,25 @@ function typeChord(notes){
     }
 
     //minor add2
-    if(distance==' 2 1 4 '){
+    else if(distance==' 2 1 4 '){
       if(distForModeRecog[0]-9<0){
         adj=12;
       }
       chordsPlayed.push(new Chord(distForModeRecog[0]-9+adj,6,7));    
     }
-    if(distance==' 1 4 5 '){
+    else if(distance==' 1 4 5 '){
       if(distForModeRecog[3]-9<0){
         adj=12;
       }
       chordsPlayed.push(new Chord(distForModeRecog[3]-9+adj,6,7));    
     }
-    if(distance==' 4 5 2 '){
+    else if(distance==' 4 5 2 '){
       if(distForModeRecog[2]-9<0){
         adj=12;
       }
       chordsPlayed.push(new Chord(distForModeRecog[2]-9+adj,6,7));    
     }
-    if(distance==' 5 2 1 '){
+    else if(distance==' 5 2 1 '){
       if(distForModeRecog[1]-9<0){
         adj=12;
       }
@@ -352,7 +352,7 @@ function typeChord(notes){
     }
 
     //minor chord add9
-    if(distance==' 3 4 7 '){
+    else if(distance==' 3 4 7 '){
       if(distForModeRecog[0]-9<0){
         adj=12;
       }
@@ -360,7 +360,7 @@ function typeChord(notes){
     }
 
     //diminished chord
-    if(distance==' 3 3 3 '){
+    else if(distance==' 3 3 3 '){
       if(distForModeRecog[0]-11<0){
         adj=12;
       }
@@ -368,35 +368,35 @@ function typeChord(notes){
     }
 
     //augmented chord
-    if(distance==' 4 4 2 '){
+    else if(distance==' 4 4 2 '){
       chordsPlayed.push(new Chord(distForModeRecog[0],1,5));  
     }
-    if(distance==' 4 2 2 '){
+    else if(distance==' 4 2 2 '){
       chordsPlayed.push(new Chord(distForModeRecog[3],1,5));  
     }
-    if(distance==' 2 2 4 '){
+    else if(distance==' 2 2 4 '){
       chordsPlayed.push(new Chord(distForModeRecog[2],1,5));  
     }
-    if(distance==' 2 4 4 '){
+    else if(distance==' 2 4 4 '){
       chordsPlayed.push(new Chord(distForModeRecog[2],1,5));  
     }
 
     //suspended fourth chord
-    if(distance==' 5 2 3 '){
+    else if(distance==' 5 2 3 '){
       chordsPlayed.push(new Chord(distForModeRecog[0],1,4));  
     }
-    if(distance==' 2 3 2 '){
+    else if(distance==' 2 3 2 '){
       chordsPlayed.push(new Chord(distForModeRecog[3],1,4));  
     }
-    if(distance==' 3 2 5 '){
+    else if(distance==' 3 2 5 '){
       chordsPlayed.push(new Chord(distForModeRecog[2],1,4));  
     }
-    if(distance==' 2 5 2 '){
+    else if(distance==' 2 5 2 '){
       chordsPlayed.push(new Chord(distForModeRecog[2],1,4));  
     }
-
-
-
+    else{
+      listnotes.pop();
+    }
     console.log(chordsPlayed);
     if(chordsPlayed.length>1&&oldChordsPlayedLength<chordsPlayed.length){
       harmonicDistance();
@@ -541,25 +541,27 @@ document.body.onkeyup = function(e) {
 //graphics
 let angle=0;
 function setup() {
- 
-  createCanvas(800, 800);
-  background(220);
-  
+  createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
   clear();
+  background(0,151,198);
   l=new Leaf(1,400,400,angle);
   l.transform(1,400,400,angle++);
   l.plot();
-  t=new Trunk(0.3,0,787,90);
+  t=new Trunk(0.3,0,windowHeight-13,90);
   t.plot();
-  t.transform(0.3,0+(920-196)*0.3,787,90);
-  t.plot();
-  t.transform(0.3,(920-196)*0.3*2,787,90);
-  t.plot();
-  t.transform(0.3,(920-196)*0.3*3,787,90);
-  t.plot();
-  t.transform(0.3,(920-196)*0.3*4,787,90);
-  t.plot();
+  let i=0;
+  do{
+    t.transform(0.3,(920-196)*0.3*i,windowHeight-13,90);
+    t.plot();
+    i++;
+  }while((920-196)*0.3*i<windowWidth);
+  c=new Cloud(1,200,200);
+  c.plot();
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
