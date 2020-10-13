@@ -30,13 +30,11 @@ var cutoffFreq = minFreq + (cutoffknob.value*(maxFreq-minFreq))/100;
      }
 
     
-     const synth = new Tone.Synth().toDestination();
-     var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback).toDestination();
-     var reverb = new Tone.Reverb(decay).toDestination();
-     var filter = new Tone.Filter(cutoffFreq, "lowpass").toDestination();
-
-
-
+    
+    var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
+    var reverb = new Tone.Reverb(decay);
+    var filter = new Tone.Filter(100, "lowpass");   
+    const synth = new Tone.Synth();
 
 
     function on(){
@@ -46,15 +44,13 @@ var cutoffFreq = minFreq + (cutoffknob.value*(maxFreq-minFreq))/100;
     feedbackDelay.dispose();
     reverb.dispose();
 
-    feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback).toDestination();
-    reverb = new Tone.Reverb(decay).toDestination();
-    filter = new Tone.Filter(cutoffFreq, "lowpass").toDestination();
-  
-    //Tone.Destination.chain(feedbackDelay,reverb);
-    synth.oscillator.type = "sine";
-    synth.triggerAttackRelease("C5", "10n");
-
+    feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
+    reverb = new Tone.Reverb(decay);
+    filter = new Tone.Filter(cutoffFreq, "lowpass");
     
+    synth.connect(Tone.Destination.chain(filter,feedbackDelay,reverb));
+    synth.oscillator.type = "sine";
+    synth.triggerAttackRelease("C6", "10n");
 }
 
 
