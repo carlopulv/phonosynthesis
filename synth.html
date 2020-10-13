@@ -1,0 +1,70 @@
+<html>
+    <script src="input-knobs.js"></script>
+    <script src=" https://unpkg.com/tone@latest/build/Tone.js"></script>
+    
+    
+<head>
+    <link rel="stylesheet" type="text/css" href="synth.css">
+</head>
+
+<body>
+    <button onclick="on()">Click me</button>
+    <div class = "synth_container">
+        <div class="osc">
+            <h1> Oscillators </h1>
+        </div>
+        
+        <div class="filter">
+            <h1> Filters </h1>
+            <div class="filter_container">
+                <form method="POST">
+                    <input type="radio" name="filter" class="filter_type" value="0" id="lowpass"/>
+                    <label for="lowpass">L</label>
+                    <input type="radio" name="filter" class="filter_type" value = "1" id="bandpass"/>
+                    <label for="bandpass">B</label>
+                    <input type="radio" name="filter" class="filter_type" value= "2" id="highpass"/>
+                    <label for="highpass">H</label>
+                </form>
+                <input type="range" class="input-knob" id="cutoffknob" oninput="modifyCutoffFreq()"/>
+                <input type="range" class="input-knob" id="resonance" oninput="modifyResonance()"/>
+            </div>
+        </div>
+
+        <div class="effects">
+            <h1> Effects </h1>
+            <input type="range" class="input-knob" id="delay" oninput="modifyDelayTime()"/>
+            <input type="range" class="input-knob" id="reverb" oninput="modifyReverbDecay()"/>
+            <input type="range" class="input-knob"/>
+        </div>
+        <div class="output">
+            <h1> Out </h1>
+        </div>
+    </div>
+       
+    
+    <div class="ext_knob">
+        <div class="knob"></div>
+    </div>
+
+    <div class="box">
+        <div class="box1">
+          <div class="box2">
+            <div class="tick"></div>
+          </div>
+          </div>
+        </div>
+
+        <div class="knobb">
+            <div class="int">
+                <div class="int1">
+                    <div class="tick1">
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+
+    
+    <script src="synth.js"></script>
+</html> 
