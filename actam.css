@@ -17,7 +17,7 @@ body{
     left: 20vh;  
     text-align: center;
     font-size:30px;
-    font-size: 6vh; /*scala a finestra*/
+    font-size: 6vh; /*scala a view height*/
     height: 120px;
 }
 .initial-button:hover{
@@ -38,7 +38,9 @@ body{
 
 .keys_button{
     position: absolute;
-    color: white;    
-    /*background-color: brown;*/
-    font-size: 5vh;
-    }
+    color: white;   
+    font-size: 4.5vh;
+}
+.keys_button:hover{
+    cursor: pointer;
+}

@@ -17,6 +17,7 @@ var listnotes=[];
 var circleOfFifthForMode=[0,4,1,5,2,6,3];
 var circleOfFifthForKey=[0,7,2,9,4,11,6,1,8,3,10,5];
 var keysshown=false;
+var game_state = 0;
 
 
 /**
@@ -24,7 +25,11 @@ var keysshown=false;
  */
 function getKey(){
   generalKey=this.value;
-  console.log(generalKey);
+  game_state = 1;
+  keys_list.style.display = "none";
+  document.querySelectorAll(".initial-button")[1].style.display = "none";
+  document.querySelectorAll(".initial-button")[2].style.display = "none";
+
 }
 
 /**
@@ -546,8 +551,8 @@ function showKeys() {
   let i = 0;
   let name_key = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
   let freq_key = ["440", "466", "494", "523", "554", "587", "622", "659", "698", "740", "784", "831"];
-  let position_x_keyButton = ["6vw","13vw","20vw","24vw","30vw","37vw","43vw","51.5vw","58vw","65vw","70.5vw","76vw"];
-  let position_y_keyButton = ["17vh","22vh","15vh","29vh","33vh","23.5vh","34vh","27vh","31vh","20vh","30.5vh","21vh"];
+  let position_x_keyButton = ["6vw","13.5vw","20.5vw","24vw","30vw","37vw","43.5vw","51.5vw","58vw","65vw","70.5vw","76vw"];
+  let position_y_keyButton = ["17vh","22vh","15vh","29vh","33vh","23.5vh","34.5vh","25.5vh","31vh","20vh","30.5vh","20.5vh"];
   while(i<12){
   el=document.createElement("div");
   el.classList.add("keys_button");
@@ -567,23 +572,19 @@ function showKeys() {
 //graphics
 let angle=0;
 let scale = 1;
-function setup() {
 
- /* button = createButton("play");
-  button.position(130,windowHeight/3);
-  button.mousePressed(listKeys);
- */
-  
-  background(220,254,55,255);
-  
+function setup() {  
+  //background(220,254,55,255);
 }
+
 function draw() {  
   createCanvas(windowWidth, windowHeight);
   clear();
-
+  /*disegna il tronco*/
+  if(game_state==0){
   t = new Trunk(0.3, 0, windowHeight, 180);
   let i = ceil(windowHeight/((920-196)*0.3));
-  while((920-196)*0.3*i>=0){             /*disegna il tronco*/
+  while((920-196)*0.3*i>=0){             
     t.transform(0.3, 0+13, (920-196)*0.3*i, 180 );
     t.plot();
     i--;
@@ -602,7 +603,7 @@ function draw() {
     //disegna ramo, stesso colore scrittura
     let position_x = [0,0.05,0.13,0.19,0.24,0.3,0.36,0.43,0.50,0.57,0.64,0.7,0.76,0.81];
     let position_y = [0.3,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
-    let pos_angle = [70,120,60,150,130,50,120,80,130,70,140,50];
+    let pos_angle = [70,120,60,150,130,50,120,60,130,70,140,40];
     let a=0;
     beginShape();
     noFill();
@@ -616,7 +617,7 @@ function draw() {
     //foglie con le keys
     a=1;
     while(a<13){  
-      l.transform(scale*0.7, windowWidth*position_x[a], windowHeight*position_y[a], pos_angle[a-1]);
+      l.transform(scale*0.75, windowWidth*position_x[a], windowHeight*position_y[a], pos_angle[a-1]);
       l.plot();
       a++;
     }
@@ -630,9 +631,8 @@ function draw() {
   j+=0.25;
   l.transform(scale, 12, windowHeight*j, angle+70);
   l.plot();
+  }
 }
-
-
 
 
 document.querySelectorAll(".initial-button")[0].onclick=showKeys;
