@@ -23,7 +23,8 @@ var keysshown=false;
  * Get the key selected from the user before starting playing.
  */
 function getKey(){
-  generalKey=document.key.key.value;
+  generalKey=this.value;
+  console.log(generalKey);
 }
 
 /**
@@ -542,7 +543,24 @@ document.body.onkeyup = function(e) {
 /*button opens on click*/
 function showKeys() {
   keysshown = true;
+  let i = 0;
+  let name_key = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
+  let freq_key = ["440", "466", "494", "523", "554", "587", "622", "659", "698", "740", "784", "831"];
+  let position_x_keyButton = ["6vw","13vw","20vw","24vw","30vw","37vw","43vw","51.5vw","58vw","65vw","70.5vw","76vw"];
+  let position_y_keyButton = ["17vh","22vh","15vh","29vh","33vh","23.5vh","34vh","27vh","31vh","20vh","30.5vh","21vh"];
+  while(i<12){
+  el=document.createElement("div");
+  el.classList.add("keys_button");
+  el.innerHTML+= name_key[i];
+  el.value = freq_key[i];
+  el.onclick = getKey; 
+  el.style.top = position_y_keyButton[i];
+  el.style.left = position_x_keyButton[i];
+  keys_list.appendChild(el);
+  i++;
+  }
 }
+
 
 
 
@@ -559,7 +577,7 @@ function setup() {
   background(220,254,55,255);
   
 }
-function draw() {  /*vedere sminchiamento zoom*/
+function draw() {  
   createCanvas(windowWidth, windowHeight);
   clear();
 
@@ -576,35 +594,41 @@ function draw() {  /*vedere sminchiamento zoom*/
   let j = 0.3;
 
   if (keysshown==false){
-    l.transform(scale, 13, windowHeight*j, angle+60);
+    l.transform(scale, 12, windowHeight*j, angle+70);
     l.plot();
   }
   else{
     document.querySelectorAll(".initial-button")[0].style.display="none";
-    //disegna rametto, stesso colore scrittura
+    //disegna ramo, stesso colore scrittura
+    let position_x = [0,0.05,0.13,0.19,0.24,0.3,0.36,0.43,0.50,0.57,0.64,0.7,0.76,0.81];
+    let position_y = [0.3,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
+    let pos_angle = [70,120,60,150,130,50,120,80,130,70,140,50];
+    let a=0;
+    beginShape();
     noFill();
     strokeWeight(4);
     stroke(56,87,35);
-    beginShape();
-    vertex(0, windowHeight*j);
-    vertex(150/*windowWidth*/, windowHeight*j-70);
-    vertex(260, windowHeight*j-55);
-    vertex(340, windowHeight*j-75);
-    vertex(440, windowHeight*j-30);
-    vertex(540, windowHeight*j);
-    vertex(600, windowHeight*j-20);
-    vertex(700, windowHeight*j+10);
-    vertex(820, windowHeight*j-5);
-    vertex(930, windowHeight*j-5);
-    vertex(990, windowHeight*j-40);
+    while(a<14){
+      vertex(windowWidth*position_x[a], windowHeight*position_y[a]);
+      a++;
+    }
     endShape();
-
+    //foglie con le keys
+    a=1;
+    while(a<13){  
+      l.transform(scale*0.7, windowWidth*position_x[a], windowHeight*position_y[a], pos_angle[a-1]);
+      l.plot();
+      a++;
+    }
+    l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeight*position_y[position_y.length-1], angle+70);
+    l.plot();
   }
+
   j+=0.25;
-  l.transform(scale, 13, windowHeight*j, angle+60);
+  l.transform(scale, 12, windowHeight*j, angle+70);
   l.plot();
   j+=0.25;
-  l.transform(scale, 13, windowHeight*j, angle+60);
+  l.transform(scale, 12, windowHeight*j, angle+70);
   l.plot();
 }
 
@@ -614,7 +638,4 @@ function draw() {  /*vedere sminchiamento zoom*/
 document.querySelectorAll(".initial-button")[0].onclick=showKeys;
 
 
-/*function listKeys(){
-    button.position(200, 200);
-    //button.style("background-color", "black");
-    button.classList.add("button");}*/
+

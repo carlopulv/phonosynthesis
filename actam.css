@@ -14,11 +14,11 @@ body{
     position: absolute;
     border: none;
     color: rgb(56,87,35);
-    left: 20vh;
+    left: 20vh;  
     text-align: center;
     font-size:30px;
     font-size: 6vh; /*scala a finestra*/
-    height: 100px;
+    height: 120px;
 }
 .initial-button:hover{
     cursor: pointer;
@@ -31,6 +31,14 @@ body{
   }
 
 
-  
-  
+.container{
+    display: block;
+    position: absolute;
+}
 
+.keys_button{
+    position: absolute;
+    color: white;    
+    /*background-color: brown;*/
+    font-size: 5vh;
+    }
