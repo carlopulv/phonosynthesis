@@ -29,6 +29,7 @@ function getKey(){
   keys_list.style.display = "none";
   document.querySelectorAll(".initial-button")[1].style.display = "none";
   document.querySelectorAll(".initial-button")[2].style.display = "none";
+  document.querySelectorAll(".initial-button")[3].style.display = "none";
 
 }
 
@@ -544,15 +545,14 @@ document.body.onkeyup = function(e) {
     notes.pop();
 }
 
-
 /*button opens on click*/
 function showKeys() {
   keysshown = true;
   let i = 0;
   let name_key = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
   let freq_key = ["440", "466", "494", "523", "554", "587", "622", "659", "698", "740", "784", "831"];
-  let position_x_keyButton = ["6vw","13.5vw","20.5vw","24vw","30vw","37vw","43.5vw","51.5vw","58vw","65vw","70.5vw","76vw"];
-  let position_y_keyButton = ["17vh","22vh","15vh","29vh","33vh","23.5vh","34.5vh","25.5vh","31vh","20vh","30.5vh","20.5vh"];
+  let position_x_keyButton = ["3vw","7.5vw","14vw","18vw","25vw","32vw","37.5vw","44vw","50vw","56vw","61.5vw","67vw"];
+  let position_y_keyButton = ["16.5vh","22vh","16vh","29vh","33vh","24vh","34.5vh","26vh","31vh","20vh","30.5vh","20.5vh"];
   while(i<12){
   el=document.createElement("div");
   el.classList.add("keys_button");
@@ -580,62 +580,63 @@ function setup() {
 function draw() {  
   createCanvas(windowWidth, windowHeight);
   clear();
-  /*disegna il tronco*/
   if(game_state==0){
-  t = new Trunk(0.3, 0, windowHeight, 180);
-  let i = ceil(windowHeight/((920-196)*0.3));
-  while((920-196)*0.3*i>=0){             
-    t.transform(0.3, 0+13, (920-196)*0.3*i, 180 );
-    t.plot();
-    i--;
-  } 
-  
-  l = new Leaf(1, 400, 400, angle);
-  scale = windowHeight/900; 
-  let j = 0.3;
+    /*disegna il tronco e foglie*/
+    t = new Trunk(0.3, 0, windowHeight, 180);
+    let i = ceil(windowHeight/((920-196)*0.3));
+    while((920-196)*0.3*i>=0){             
+      t.transform(0.3, 13, (920-196)*0.3*i, 180 );
+      t.plot();
+      i--;
+    } 
+    
+    l = new Leaf(1, 400, 400, angle);
+    scale = windowHeight/900; 
+    let j = 0.3;
 
-  if (keysshown==false){
+    if (keysshown==false){
+      l.transform(scale, 12, windowHeight*j, angle+70);
+      l.plot();
+      document.querySelectorAll(".initial-button")[3].style.display="none";
+    }
+    else{
+      document.querySelectorAll(".initial-button")[0].style.display="none";
+      document.querySelectorAll(".initial-button")[3].style.display="initial";
+      //disegna ramo
+      let position_x = [0,0.02,0.07,0.13,0.18,0.25,0.31,0.37,0.43,0.49,0.55,0.61,0.67,0.72];
+      let position_y = [0.3,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
+      let pos_angle = [55,120,60,150,130,50,120,60,130,70,140,40];
+      let a=0;
+      beginShape();
+      noFill();
+      strokeWeight(4);
+      stroke(56,87,35);
+      while(a<14){
+        vertex(windowWidth*position_x[a], windowHeight*position_y[a]);
+        a++;
+      }
+      endShape();
+      //foglie con le keys
+      a=1;
+      while(a<13){  
+        l.transform(scale*0.7, windowWidth*position_x[a], windowHeight*position_y[a], pos_angle[a-1]);
+        l.plot();
+        a++;
+      }
+      l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeight*position_y[position_y.length-1], angle+70);
+      l.plot();
+    }
+
+    j+=0.25;
+    l.transform(scale, 12, windowHeight*j, angle+70);
+    l.plot();
+    j+=0.25;
     l.transform(scale, 12, windowHeight*j, angle+70);
     l.plot();
   }
-  else{
-    document.querySelectorAll(".initial-button")[0].style.display="none";
-    //disegna ramo, stesso colore scrittura
-    let position_x = [0,0.05,0.13,0.19,0.24,0.3,0.36,0.43,0.50,0.57,0.64,0.7,0.76,0.81];
-    let position_y = [0.3,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
-    let pos_angle = [70,120,60,150,130,50,120,60,130,70,140,40];
-    let a=0;
-    beginShape();
-    noFill();
-    strokeWeight(4);
-    stroke(56,87,35);
-    while(a<14){
-      vertex(windowWidth*position_x[a], windowHeight*position_y[a]);
-      a++;
-    }
-    endShape();
-    //foglie con le keys
-    a=1;
-    while(a<13){  
-      l.transform(scale*0.75, windowWidth*position_x[a], windowHeight*position_y[a], pos_angle[a-1]);
-      l.plot();
-      a++;
-    }
-    l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeight*position_y[position_y.length-1], angle+70);
-    l.plot();
-  }
 
-  j+=0.25;
-  l.transform(scale, 12, windowHeight*j, angle+70);
-  l.plot();
-  j+=0.25;
-  l.transform(scale, 12, windowHeight*j, angle+70);
-  l.plot();
-  }
 }
 
 
+
 document.querySelectorAll(".initial-button")[0].onclick=showKeys;
-
-
-

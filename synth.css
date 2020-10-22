@@ -16,9 +16,6 @@ body{
     font-family: 'Lucida console', Courier, monospace;
     font-size: 10px;
     color: white;
-
-    
- 
 }
 
 .osc{
@@ -42,7 +39,7 @@ body{
 .filter_type{
     width: 22px;
     height: 22px;
-    background-color: red;
+    background-color: blue;
     border-radius: 50%;
     display: block;
     position: relative;
