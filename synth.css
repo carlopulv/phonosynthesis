@@ -44,15 +44,17 @@ body{
     height: 22px;
     background-color: red;
     border-radius: 50%;
-    display: block;
+    display: inline-block;
     position: relative;
-    margin-left: 50px;
+    margin: 0 20px;
     top: 50%;
     padding: 50px;
-    
-    
-
 }
+
+.filter_modifier{
+    margin: 20px 0;
+}
+
 
 .effects{
     height: 100%;
@@ -62,12 +64,47 @@ body{
     background-color: lightblue;
 }
 
+.effect_type + .activeLed{
+    display:block;
+}
+
+
 .output{
     height: 100%;
     width: 20%;
     float: left;
-    background-color: rgba(85, 70, 5, 0.808);
+    background-color: rgba(139, 118, 21, 0.808);
     background-image: url(w2noise.png);
 }
 
+
+.activeLed{
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    position: relative;
+    left: 75%;
+    top: -9%;
+    background: linear-gradient(grey,white);
+    box-shadow: 0px 0px 10px 1px black inset,
+                0px 0px 10px 5px white inset;   
+    transition: all 0.15s linear;
+}
+
+ .activeLed:checked{
+    background: rgb(255, 226, 226);
+    box-shadow: 0px -0.5px 7px 2px red,
+                0px 0px 4px 1px rgb(75, 56, 56) inset,
+                0px 1px 4.5px 5px red inset;
+}
+
+#envelopeCanvas {
+    width : 200px;
+    height : 100px;
+    background : rgb(0, 0, 0);
+    border : 3px solid grey;
+    border-radius: 10px;
+    margin: 4px;
+  }
   

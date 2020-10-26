@@ -8,36 +8,64 @@
 </head>
 
 <body>
-    <button onclick="on()">Click me</button>
     <div class = "synth_container">
         <div class="osc">
             <h1> Oscillators </h1>
+            <form name = "oscillators" method="POST">                    
+                <input type="radio" name="oscillators" class="oscillators" value="val" id="sine"  onchange='modifyOscillatorType();'/>
+                <label for="lowpass">L</label>
+                <input type="radio" name="oscillators" class="oscillators" value = "val" id="square" checked onchange='modifyOscillatorType();'/>
+                <label for="bandpass">B</label>
+                <input type="radio" name="oscillators" class="oscillators" value= "val" id="triangle" onchange='modifyOscillatorType();'/>
+                <label for="highpass">H</label>
+            </form>           
+
+            <input id = "envelopeAttack" type="range" min="0" max="1" step=0.005 value = 0.005 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+            <input id = "envelopeDecay" type="range" min="0" max="1" step=0.005 value = 0.3 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+            <input id = "envelopeSustain" type="range" min="0" max="1" step=0.005 value = 0.5 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+            <input id = "envelopeRelease" type="range" min="0" max="1" step=0.005 value = 0.5 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+
+            <canvas id = "envelopeCanvas"></canvas>
         </div>
         
         <div class="filter">
             <h1> Filters </h1>
             <div class="filter_container">
-                <form method="POST">
-                    <input type="radio" name="filter" class="filter_type" value="0" id="lowpass"/>
+                <form name = "filters" method="POST">                    
+                    <input type="radio" name="filter" class="filter_type" value="lp" id="lowpass" checked onchange='updateFilterType();'/>
                     <label for="lowpass">L</label>
-                    <input type="radio" name="filter" class="filter_type" value = "1" id="bandpass"/>
+                    <input type="radio" name="filter" class="filter_type" value = "bp" id="bandpass" onchange='updateFilterType();'/>
                     <label for="bandpass">B</label>
-                    <input type="radio" name="filter" class="filter_type" value= "2" id="highpass"/>
+                    <input type="radio" name="filter" class="filter_type" value= "hp" id="highpass" onchange='updateFilterType();'/>
                     <label for="highpass">H</label>
                 </form>
-                <input type="range" class="input-knob" id="cutoffknob" oninput="modifyCutoffFreq()"/>
-                <input type="range" class="input-knob" id="resonance" oninput="modifyResonance()"/>
+                <p>Cutoff</p>
+                <input type="range" class="input-knob filter_modifier" id="cutofffreq" min="0" max="100" oninput="modifyCutoffFreq()"/>
+                <p>Resonance</p>
+                <input type="range" class="input-knob filter_modifier" id="resonance" min="0" max="100" oninput="modifyResonance()"/>
             </div>
         </div>
 
         <div class="effects">
             <h1> Effects </h1>
-            <input type="range" class="input-knob" id="delay" oninput="modifyDelayTime()"/>
-            <input type="range" class="input-knob" id="reverb" oninput="modifyReverbDecay()"/>
-            <input type="range" class="input-knob"/>
+            <div class="effects_containter"></div>
+                <!-- <label for="delay"> Delay </label> -->
+                <p>Delay</p>
+                <input type="range" class="input-knob effect_type" id="delay" min="0" max="100" oninput="modifyDelayTime()"/>
+                <input type="checkbox" class="activeLed" value="delay_act" id="delayLed" onchange="toggleDelay();"/>
+                <!-- <label for="reverb"> Reverb </label> -->
+                <p>Reverb</p>
+                <input type="range" class="input-knob effect_type" id="reverb" min="0" max="100" oninput="modifyReverbDecay()"/>
+                <input type="checkbox" class="activeLed" value="reverb_act" id="reverbLed" onchange="toggleReverb();"/>
+                <p>BOH</p>
+                <input type="range" class="input-knob effect_type"/>
+                <input type="checkbox" class="activeLed" value="BOH_act" id="BOHLed"/>
+            <div class="effects_containter"></div>
         </div>
         <div class="output">
             <h1> Out </h1>
+            <button onclick="on()">Click me</button>
+            <input type="range" class="input-knob" id="gain" min="0" max="100" oninput="modifyGain()" data-fgcolor = "black" data-bgcolor = " rgba(139, 118, 21, 1)"/>
         </div>
     </div>
        
