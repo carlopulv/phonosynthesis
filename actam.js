@@ -1,24 +1,19 @@
-/**
- * @class Represent the object "Chord"
- * @param {Integer} tonal Tonal note of the chord, the number represent the distance from the key selected by the user. 
- * @param {Integer} mode Represent the mode of the chord. It is a number between 1 and 7.
- * @param {Integer} other Gives information for augmented, diminished, suspended chords and also added note. This field is equal to: "2" add2, "4" sus4, "5" aum5, "7" diminished in case the chord is locrian or 7maj in case of minor chords, "9" add9.
- */
-function Chord(tonal, mode, other) {
-	this.tonal=tonal;
-  this.mode = mode;
-  this.other = other;
-}
-
 var generalKey=0;
 var chordsPlayed=[];
 var chordDistances=[];
 var listnotes=[];
-var circleOfFifthForMode=[0,4,1,5,2,6,3];
+var circleOfFifthForMode=[1,5,2,6,3,7,4];
 var circleOfFifthForKey=[0,7,2,9,4,11,6,1,8,3,10,5];
 var keysshown=false;
+var maxtonal=0;
+var maxmode=[0,0,0,0,0,0,0,0,0,0,0,0];
 var game_state = 0;
+var heightsForLeaves=[];
+var widthsForLeaves=[];
+var widthsForLeavesMirrored=[];
+let chordsPlayedNoDup=[];
 
+//chordsPlayed.push(new Chord(0,1,0));questa cosa non funziona devo fare in modo di far sentire il primo accordo.
 
 /**
  * Get the key selected from the user before starting playing.
@@ -32,10 +27,12 @@ function getKey(){
 
 }
 
+
+
 /**
  * Compares integer numbers.
- * @param {*} a first factor
- * @param {*} b second factor
+ * @param {Integer} a first factor
+ * @param {Integer} b second factor
  */
 function compareNumbers(a, b) {
   return a - b;
@@ -405,10 +402,13 @@ function typeChord(notes){
       listnotes.pop();
     }
     console.log(chordsPlayed);
-    if(chordsPlayed.length>1&&oldChordsPlayedLength<chordsPlayed.length){
+    if(oldChordsPlayedLength<chordsPlayed.length){
       harmonicDistance();
+      chordsPlayedNoDup=unique(chordsPlayed);
+      mapChordsToLeaves();
     }
     console.log(chordDistances);
+    
 }
 
 /**
@@ -455,11 +455,26 @@ function harmonicDistance(){
     distance=keydistance+modeDistance+hammingDistance;
 
     if(ii==len){
-       chordDistances.push(distance);
+      chordDistances.push(distance);
+
+      
     }
     minDistance=Math.min(minDistance, distance);
+
+    
   }
   chordDistances.push(minDistance);
+
+  adjForCircleOfFifthsForTrackLength=circleOfFifthForKey.indexOf(chordsPlayed[chordsPlayed.length-1].tonal);
+  adjForCircleOfFifthsForTrackLength*=2;
+  if(adjForCircleOfFifthsForTrackLength>11) adjForCircleOfFifthsForTrackLength=24-adjForCircleOfFifthsForTrackLength-1;
+  maxtonal=Math.max(maxtonal,adjForCircleOfFifthsForTrackLength);
+
+  adjForMaxMode=circleOfFifthForMode.indexOf(chordsPlayed[chordsPlayed.length-1].mode);
+  adjForMaxMode+=2;
+  if(adjForMaxMode==8) adjForMaxMode=1;
+  maxmode[adjForCircleOfFifthsForTrackLength]=max(maxmode[adjForCircleOfFifthsForTrackLength],adjForMaxMode);
+  truckLength=maxtonal;
 }
 
 
@@ -545,7 +560,9 @@ document.body.onkeyup = function(e) {
 }
 
 
-/*button opens on click*/
+/**
+ * This function is called when "play" button is clicked. It creates the buttons to be used to select the key.
+ */
 function showKeys() {
   keysshown = true;
   let i = 0;
@@ -572,70 +589,244 @@ function showKeys() {
 //graphics
 let angle=0;
 let scale = 1;
+let truckLength=1;
+let truckScale=0.3;
+let truckSuperposition=(920-196)*truckScale;
+let scalePlantTrunk=1;
+let truckPlantSuperposition=1;
+let colorBranch;
+let branchY=[];
+let branchX=[];
+let angles=[50,140,50,140,50,140,50];
+let anglesMirrored=[310,220,310,220,310,220,310];
+let anglesForLeaves=[];
+let anglesForLeavesMirrored=[];
+
+let onOff=0;
+var l3;
 
 function setup() {  
-  //background(220,254,55,255);
+  l3=new Leaf(1,windowWidth/2,500,50);
+  frameRate(15);
+  colorBranch=color(56,87,35);
 }
 
 function draw() {  
   createCanvas(windowWidth, windowHeight);
   clear();
-  /*disegna il tronco*/
-  if(game_state==0){
-  t = new Trunk(0.3, 0, windowHeight, 180);
-  let i = ceil(windowHeight/((920-196)*0.3));
-  while((920-196)*0.3*i>=0){             
-    t.transform(0.3, 0+13, (920-196)*0.3*i, 180 );
-    t.plot();
-    i--;
-  } 
-  
-  l = new Leaf(1, 400, 400, angle);
-  scale = windowHeight/900; 
-  let j = 0.3;
+  scalePlantTrunk=truckScale/2*windowHeight/900;
+  truckPlantSuperposition=truckSuperposition/2*windowHeight/900;
 
-  if (keysshown==false){
+  
+
+  //Home page
+  if(game_state==0){
+    t = new Trunk(0.3, 0, windowHeight, 180);
+    let i = ceil(windowHeight/((920-196)*0.3));
+    while(truckSuperposition*i>=0){             
+      t.transform(truckScale, 0+13, truckSuperposition*i, 180 );
+      t.plot();
+      i--;
+    } 
+  
+    l = new Leaf(1, 400, 400, angle);
+    scale = windowHeight/900; 
+    let j = 0.3;
+
+    if (keysshown==false){
+      l.transform(scale, 12, windowHeight*j, angle+70);
+      l.plot();
+    }
+    else{
+      document.querySelectorAll(".initial-button")[0].style.display="none";
+      //disegna ramo, stesso colore scrittura
+      let position_x = [0,0.05,0.13,0.19,0.24,0.3,0.36,0.43,0.50,0.57,0.64,0.7,0.76,0.81];
+      let position_y = [0.3,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
+      let pos_angle = [70,120,60,150,130,50,120,60,130,70,140,40];
+      let a=0;
+      beginShape();
+      noFill();
+      strokeWeight(4);
+      stroke(56,87,35);
+      while(a<14){
+        vertex(windowWidth*position_x[a], windowHeight*position_y[a]);
+        a++;
+      }
+      endShape();
+      //foglie con le keys
+      a=1;
+      while(a<13){  
+        l.transform(scale*0.75, windowWidth*position_x[a], windowHeight*position_y[a], pos_angle[a-1]);
+        l.plot();
+        a++;
+      }
+      l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeight*position_y[position_y.length-1], angle+70);
+      l.plot();
+    }
+
+    j+=0.25;
+    l.transform(scale, 12, windowHeight*j, angle+70);
+    l.plot();
+    j+=0.25;
     l.transform(scale, 12, windowHeight*j, angle+70);
     l.plot();
   }
-  else{
-    document.querySelectorAll(".initial-button")[0].style.display="none";
-    //disegna ramo, stesso colore scrittura
-    let position_x = [0,0.05,0.13,0.19,0.24,0.3,0.36,0.43,0.50,0.57,0.64,0.7,0.76,0.81];
-    let position_y = [0.3,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
-    let pos_angle = [70,120,60,150,130,50,120,60,130,70,140,40];
-    let a=0;
-    beginShape();
-    noFill();
-    strokeWeight(4);
-    stroke(56,87,35);
-    while(a<14){
-      vertex(windowWidth*position_x[a], windowHeight*position_y[a]);
-      a++;
+  //The game started
+  else if(game_state==1){
+    document.querySelectorAll(".button-synth")[0].style.display="block";
+    t = new Trunk(truckScale, 0, windowHeight, 90);
+    let i = ceil(windowWidth/truckSuperposition);
+    while(truckSuperposition*i>=0){             
+      t.transform(truckScale, truckSuperposition*i,windowHeight-13, 90);
+      t.plot();
+      i--;
     }
-    endShape();
-    //foglie con le keys
-    a=1;
-    while(a<13){  
-      l.transform(scale*0.75, windowWidth*position_x[a], windowHeight*position_y[a], pos_angle[a-1]);
-      l.plot();
-      a++;
-    }
-    l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeight*position_y[position_y.length-1], angle+70);
-    l.plot();
-  }
 
-  j+=0.25;
-  l.transform(scale, 12, windowHeight*j, angle+70);
-  l.plot();
-  j+=0.25;
-  l.transform(scale, 12, windowHeight*j, angle+70);
-  l.plot();
+    branchY=[];
+    branchYy=[];
+    branchYyAdj=[50,60,58,65,63,70,68];
+    branchX=[];
+    branchXMirrored=[];
+    anglesForLeaves=[];
+    anglesForLeavesMirrored=[];
+
+    for(let i=1;i<=7;i++){
+      branchX.push(windowWidth/2+i*windowHeight/20); 
+      branchXMirrored.push(windowWidth/2-i*windowHeight/20+5); 
+    }
+    for(let i=0;i<12;i++){
+      branchYy=[];
+      for(let j=0;j<7;j++){
+        branchYy.push(windowHeight-i*windowHeight/15-branchYyAdj[j]);
+      }
+      branchY.push(branchYy);
+    }
+
+
+    //draw the leaves using the chords in ChordsPlayed
+    if(chordsPlayed.length>0){
+      mapChordsToLeaves();
+      stroke(colorBranch);
+      let initialAdj=5;
+      let maxForBranchKey=maxtonal;
+      let maxForBranchMode;
+      if(maxForBranchKey<12) maxForBranchKey+=1;
+      if(maxForBranchKey==0) maxForBranchKey=1;
+      for(let i=0;i<maxForBranchKey;i++){
+        if(i%2==0) initialAdj=5;
+        else initialAdj=-5;
+        let x=windowWidth/2+3;
+        let y=branchY[i][0]+initialAdj;
+        k=0;
+        maxForBranchMode=maxmode[i];
+        for(let j=0;j<maxForBranchMode;j++){
+          line(x,y,branchX[j],branchY[i][k]);
+          x=branchX[j];
+          y=branchY[i][k];
+          k++;
+        }
+        x=windowWidth/2+2;
+        y=branchY[i][0]+initialAdj;
+        k=0;
+        for(let j=0;j<maxForBranchMode;j++){
+          line(x,y,branchXMirrored[j],branchY[i][k]);
+          x=branchXMirrored[j];
+          y=branchY[i][k];
+          k++;
+        }
+      }
+
+      //Draws the leaves
+      for(let i=0;i<heightsForLeaves.length;i++){
+        l3.transform(windowHeight/2500,widthsForLeaves[i],heightsForLeaves[i],anglesForLeaves[i]);
+        l3.plot();
+        l3.transform(windowHeight/2500,widthsForLeavesMirrored[i],heightsForLeaves[i],anglesForLeavesMirrored[i]);
+        l3.plot();
+      }
+    }
+
+    // Draws the central trunk of the plant.
+    i=0;
+    t1= new Trunk(scalePlantTrunk,windowWidth/2,windowHeight,0);
+    if(maxtonal==0) truckLength=0;
+    if(maxtonal>=4) truckLength=maxtonal-1;
+    if(maxtonal>5) truckLength=6;
+    if(maxtonal==11) truckLength=7;
+    while(i<=truckLength){
+      
+      t1.transform(scalePlantTrunk,windowWidth/2,windowHeight-truckPlantSuperposition*i,0);
+      t1.plot();
+      i++;
+    }
+  }
+}
+
+/**
+ * This function updates the model in such a way to have the positions of all the leaves to draw.
+ */
+function mapChordsToLeaves(){
+  let len=chordsPlayedNoDup.length;
+  heightsForLeaves=[];
+  widthsForLeaves=[];
+  widthsForLeavesMirrored=[];
+  anglesForLeaves=[];
+  anglesForLeavesMirrored=[];
+  for(let i=0;i<len;i++){
+    let idxKeyChordsNoDup=circleOfFifthForKey.indexOf(chordsPlayedNoDup[i].tonal);
+    let idxModeChordsNoDup=circleOfFifthForMode.indexOf(chordsPlayedNoDup[i].mode);
+    idxKeyChordsNoDup*=2;
+    if(idxKeyChordsNoDup>11) idxKeyChordsNoDup=24-idxKeyChordsNoDup-1;
+    if(idxModeChordsNoDup==6) idxModeChordsNoDup=-1;
+    heightsForLeaves.push(windowHeight-idxKeyChordsNoDup*windowHeight/15-branchYyAdj[idxModeChordsNoDup+1]);
+    widthsForLeaves.push(windowWidth/2+(idxModeChordsNoDup+2)*windowHeight/20);
+    widthsForLeavesMirrored.push(windowWidth/2-(idxModeChordsNoDup+2)*windowHeight/20+5);
+    anglesForLeaves.push(angles[idxModeChordsNoDup+1]);
+    anglesForLeavesMirrored.push(anglesMirrored[idxModeChordsNoDup+1]);
+  }
+}
+
+/**
+ * This function takes the arraylist and builds a new one without duplicates.
+ * @param {ArrayList} list the list with duplicates.
+ * @return the version of the arraylist without duplicates.
+ */
+function unique(list){
+  let len1=list.length;
+  let newList=[];
+  let same=false;
+  newList.push(list[0]);
+  for(let i=0;i<len1;i++){
+    same=false;
+    for(let j=0;j<newList.length;j++){
+      if(list[i].equals(newList[j])){
+        same=true;
+      }
+    }
+    if(same==false){
+      newList.push(list[i]);
+    } 
+  }
+  return newList;
+}
+
+/**
+ * This function is used to show the synth and the regulation of other sound parameter.
+ */
+function showSynth(){
+  if(onOff==0){
+    document.querySelectorAll(".container-synth")[0].classList.remove("container-synth-closing");
+    document.querySelectorAll(".container-synth")[0].style.display="block";
+    var interv=setInterval(function(){window.scrollTo(0,document.body.scrollHeight)},15);
+    setTimeout(function(){clearInterval(interv);onOff=1;},500);
+    
+  }
+  if(onOff==1){
+    document.querySelectorAll(".container-synth")[0].classList.add("container-synth-closing");
+    onOff=0;
   }
 }
 
 
+
 document.querySelectorAll(".initial-button")[0].onclick=showKeys;
-
-
-
+document.querySelectorAll(".button-synth")[0].onclick=showSynth;
