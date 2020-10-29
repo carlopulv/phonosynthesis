@@ -14,7 +14,7 @@ body{
     position: absolute;
     border: none;
     color: rgb(56,87,35);
-    left: 20vh;  
+    left: 20vh; 
     text-align: center;
     font-size:30px;
     font-size: 6vh; /*scala a view height*/
