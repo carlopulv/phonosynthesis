@@ -5,7 +5,7 @@
  * @param {Integer} other Gives information for augmented, diminished, suspended chords and also added note. This field is equal to: "2" add2, "4" sus4, "5" aum5, "7" diminished in case the chord is locrian or 7maj in case of minor chords, "9" add9.
  */
 function Chord(tonal, mode, other) {
-	this.tonal=tonal;
+	this.tonal = tonal;
   this.mode = mode;
   this.other = other;
 }
@@ -17,7 +17,7 @@ var listnotes=[];
 var circleOfFifthForMode=[0,4,1,5,2,6,3];
 var circleOfFifthForKey=[0,7,2,9,4,11,6,1,8,3,10,5];
 var keysshown=false;
-var game_state = 0;
+var game_state=0;
 
 
 /**
@@ -25,7 +25,7 @@ var game_state = 0;
  */
 function getKey(){
   generalKey=this.value;
-  game_state = 1;
+  game_state=1;
   keys_list.style.display = "none";
   document.querySelectorAll(".initial-button")[1].style.display = "none";
   document.querySelectorAll(".initial-button")[2].style.display = "none";
@@ -571,7 +571,7 @@ function showKeys() {
 
 //graphics
 let angle=0;
-let scale = 1;
+let scale=1;
 
 function setup() {  
   //background(220,254,55,255);
@@ -592,7 +592,7 @@ function draw() {
     
     l = new Leaf(1, 400, 400, angle);
     scale = windowHeight/900; 
-    let j = 0.3;
+    let j=0.3;
 
     if (keysshown==false){
       l.transform(scale, 12, windowHeight*j, angle+70);
@@ -601,7 +601,7 @@ function draw() {
     }
     else{
       document.querySelectorAll(".initial-button")[0].style.display="none";
-      document.querySelectorAll(".initial-button")[3].style.display="initial";
+      document.querySelectorAll(".initial-button")[3].style.display="block";
       //disegna ramo
       let position_x = [0,0.02,0.07,0.13,0.18,0.25,0.31,0.37,0.43,0.49,0.55,0.61,0.67,0.72];
       let position_y = [0.3,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 

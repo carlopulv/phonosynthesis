@@ -1,9 +1,8 @@
 /**
  * This class draws a cloud starting from the parameters.
- * @param {Integer} size Defines the size of the leaf.
+ * @param {Integer} size Defines the size of the cloud.
  * @param {Integer} startPointX Represent the X coordinate of the point where to start drawing.
  * @param {Integer} startPointY Represent the Y coordinate of the point where to start drawing.
- * @param {Integer} angle Defines the rotation to apply with respect to the vertical(default) leaf. The value has to be written in degrees.
  */
 class Cloud{
     constructor(size, startPointX, startPointY){
