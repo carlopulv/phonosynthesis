@@ -20,7 +20,7 @@ let chordsPlayedNoDup=[];
  */
 function getKey(){
   generalKey=this.value;
-  game_state = 1;
+  game_state=1;
   keys_list.style.display = "none";
   document.querySelectorAll(".initial-button")[1].style.display = "none";
   document.querySelectorAll(".initial-button")[2].style.display = "none";
@@ -628,7 +628,7 @@ function draw() {
     } 
     l = new Leaf(1, 400, 400, angle);
     scale = windowHeight/900; 
-    let j = 0.3;
+    let j=0.3;
 
     if (keysshown==false){
       l.transform(scale, 12, windowHeight*j, angle+70);
@@ -638,7 +638,7 @@ function draw() {
     }
     else{
       document.querySelectorAll(".initial-button")[0].style.display="none";
-      document.querySelectorAll(".initial-button")[3].style.display="initial";
+      document.querySelectorAll(".initial-button")[3].style.display="block";
       //disegna ramo
       let position_x = [0,0.02,0.07,0.13,0.18,0.25,0.31,0.37,0.43,0.49,0.55,0.61,0.67,0.72];
       let position_y = [0.3,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
