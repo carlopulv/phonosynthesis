@@ -74,7 +74,7 @@ function typeChord(notes){
     distForModeRecog.push(temp1);
   }
   console.log("distance: "+ distance);
-  console.log(distForModeRecog);
+  console.log(distForModeRecog[0]);
 
 //TODO ottimizzare sta merda
   //major chords, 1 e 4 modes
@@ -135,10 +135,10 @@ function typeChord(notes){
       chordsPlayed.push(new Chord(0,6,0));
     }
     else{
-      if(distForModeRecog[0]-1<0){
+      if(distForModeRecog[0]-2<0){
         adj=12;
       }
-      chordsPlayed.push(new Chord((distForModeRecog[0]-1)+adj,2,0));
+      chordsPlayed.push(new Chord((distForModeRecog[0]-2)+adj,2,0));
     }
   }
   else if(distance==' 4 3 2 '){
