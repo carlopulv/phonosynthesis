@@ -25,7 +25,7 @@ function getKey(){
    * @param {Double} notes List of the pitches of the notes played in frequency.
    */
   function typeChord(notes){
-      var distance=' ';
+    var distance=' ';
     var type=' ';
     var distForModeRecog=[];
     var tempnotes=[];
@@ -314,25 +314,25 @@ function getKey(){
         if(distForModeRecog[0]-9<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord(distForModeRecog[0]-9+adj,6,7));    
+        chordsPlayed.push(new Chord(distForModeRecog[0]-9+adj,6,2));    
       }
       else if(distance==' 1 4 5 '){
         if(distForModeRecog[3]-9<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord(distForModeRecog[3]-9+adj,6,7));    
+        chordsPlayed.push(new Chord(distForModeRecog[3]-9+adj,6,2));    
       }
       else if(distance==' 4 5 2 '){
         if(distForModeRecog[2]-9<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord(distForModeRecog[2]-9+adj,6,7));    
+        chordsPlayed.push(new Chord(distForModeRecog[2]-9+adj,6,2));    
       }
       else if(distance==' 5 2 1 '){
         if(distForModeRecog[1]-9<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord(distForModeRecog[1]-9+adj,6,7));    
+        chordsPlayed.push(new Chord(distForModeRecog[1]-9+adj,6,2));    
       }
   
       //minor chord add9
@@ -353,30 +353,54 @@ function getKey(){
   
       //augmented chord
       else if(distance==' 4 4 2 '){
-        chordsPlayed.push(new Chord(distForModeRecog[0],1,5));  
+        if(distForModeRecog[0]-7<0){
+          adj=12;
+        }
+        chordsPlayed.push(new Chord(distForModeRecog[0]-7+adj,5,5));  
       }
       else if(distance==' 4 2 2 '){
-        chordsPlayed.push(new Chord(distForModeRecog[3],1,5));  
+        if(distForModeRecog[3]-7<0){
+          adj=12;
+        }
+        chordsPlayed.push(new Chord(distForModeRecog[3]-7+adj,5,5));  
       }
       else if(distance==' 2 2 4 '){
-        chordsPlayed.push(new Chord(distForModeRecog[2],1,5));  
+        if(distForModeRecog[2]-7<0){
+          adj=12;
+        }
+        chordsPlayed.push(new Chord(distForModeRecog[2]-7+adj,5,5));  
       }
       else if(distance==' 2 4 4 '){
-        chordsPlayed.push(new Chord(distForModeRecog[2],1,5));  
+        if(distForModeRecog[1]-7<0){
+          adj=12;
+        }
+        chordsPlayed.push(new Chord(distForModeRecog[2]-7+adj,5,5));  
       }
   
       //suspended fourth chord
       else if(distance==' 5 2 3 '){
-        chordsPlayed.push(new Chord(distForModeRecog[0],1,4));  
+        if(distForModeRecog[0]-7<0){
+          adj=12;
+        }
+        chordsPlayed.push(new Chord(distForModeRecog[0]-7+adj,5,4));  
       }
       else if(distance==' 2 3 2 '){
-        chordsPlayed.push(new Chord(distForModeRecog[3],1,4));  
+        if(distForModeRecog[3]-7<0){
+          adj=12;
+        }
+        chordsPlayed.push(new Chord(distForModeRecog[3]-7+adj,5,4));  
       }
       else if(distance==' 3 2 5 '){
-        chordsPlayed.push(new Chord(distForModeRecog[2],1,4));  
+        if(distForModeRecog[2]-7<0){
+          adj=12;
+        }
+        chordsPlayed.push(new Chord(distForModeRecog[2]-7+adj,5,4));  
       }
       else if(distance==' 2 5 2 '){
-        chordsPlayed.push(new Chord(distForModeRecog[2],1,4));  
+        if(distForModeRecog[1]-7<0){
+          adj=12;
+        }
+        chordsPlayed.push(new Chord(distForModeRecog[2]-7+adj,5,4));  
       }
       else{
         listnotes.pop();
@@ -438,7 +462,10 @@ function getKey(){
       }
       minDistance=Math.min(minDistance, distance);
     }
-    chordDistances.push(minDistance);
+    if(minDistance!=100){
+      chordDistances.push(minDistance);
+    }
+    
   
     adjForCircleOfFifthsForTrackLength=circleOfFifthForKey.indexOf(chordsPlayed[chordsPlayed.length-1].tonal);
     adjForCircleOfFifthsForTrackLength*=2;
@@ -488,14 +515,31 @@ function showKeys() {
     for(let i=0;i<len;i++){
       let idxKeyChordsNoDup=circleOfFifthForKey.indexOf(chordsPlayedNoDup[i].tonal);
       let idxModeChordsNoDup=circleOfFifthForMode.indexOf(chordsPlayedNoDup[i].mode);
+      let specialChord=chordsPlayedNoDup[i].other;
+      let idxSpecialChord=arrayForSpecialChords.indexOf(specialChord);
       idxKeyChordsNoDup*=2;
       if(idxKeyChordsNoDup>11) idxKeyChordsNoDup=24-idxKeyChordsNoDup-1;
       if(idxModeChordsNoDup==6) idxModeChordsNoDup=-1;
-      heightsForLeaves.push(windowHeight-idxKeyChordsNoDup*windowHeight/15-branchYyAdj[idxModeChordsNoDup+1]);
-      widthsForLeaves.push(windowWidth/2+(idxModeChordsNoDup+2)*windowHeight/20);
-      widthsForLeavesMirrored.push(windowWidth/2-(idxModeChordsNoDup+2)*windowHeight/20+5);
-      anglesForLeaves.push(angles[idxModeChordsNoDup+1]);
-      anglesForLeavesMirrored.push(anglesMirrored[idxModeChordsNoDup+1]);
+      heightsForLeaves.push(windowHeight-idxKeyChordsNoDup*windowHeight/25-branchYyAdj[idxModeChordsNoDup+1]);
+      widthsForLeaves.push(windowWidth/2+(idxModeChordsNoDup+2)*windowHeight/30);
+      widthsForLeavesMirrored.push(windowWidth/2-(idxModeChordsNoDup+2)*windowHeight/30+5);
+      
+      if(specialChord==0){
+        anglesForLeaves.push(angles[idxModeChordsNoDup+1]);
+        anglesForLeavesMirrored.push(anglesMirrored[idxModeChordsNoDup+1]);
+      }
+      else if(chordsPlayedNoDup[i].mode==7&&specialChord==7){
+        anglesForLeaves.push(angles[15]);
+        anglesForLeavesMirrored.push(anglesMirrored[15]);
+      }
+      else if(chordsPlayedNoDup[i].mode==6){
+        anglesForLeaves.push(angles[12+idxSpecialChord]);
+        anglesForLeavesMirrored.push(anglesMirrored[12+idxSpecialChord]);
+      }
+      else{
+        anglesForLeaves.push(angles[7+arrayForSpecialChords.indexOf(specialChord)]);
+        anglesForLeavesMirrored.push(anglesMirrored[7+idxSpecialChord]);
+      }
     }
   }
   
@@ -560,7 +604,26 @@ function showKeys() {
     branchXMirrored=[];
     anglesForLeaves=[];
     anglesForLeavesMirrored=[];
+
+    for(let i=1;i<=7;i++){
+      branchX.push(windowWidth/2+i*windowHeight/30); 
+      branchXMirrored.push(windowWidth/2-i*windowHeight/30+5); 
+    }
+    for(let i=0;i<12;i++){
+      branchYy=[];
+      for(let j=0;j<7;j++){
+        branchYy.push(windowHeight-i*windowHeight/25-branchYyAdj[j]);
+      }
+      branchY.push(branchYy);
+    }
+  }
+
+  function fillAnglesMirrored(){
+    for(let i=0;i<angles.length;i++){
+      anglesMirrored.push(360-angles[i]);
+    }
   }
   
+  fillAnglesMirrored();
   document.querySelectorAll(".initial-button")[0].onclick=showKeys;
   document.querySelectorAll(".button-synth")[0].onclick=showSynth;

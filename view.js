@@ -76,18 +76,6 @@ function draw() {
 
     initializeVarToDrawLeaves();
 
-    for(let i=1;i<=7;i++){
-      branchX.push(windowWidth/2+i*windowHeight/20); 
-      branchXMirrored.push(windowWidth/2-i*windowHeight/20+5); 
-    }
-    for(let i=0;i<12;i++){
-      branchYy=[];
-      for(let j=0;j<7;j++){
-        branchYy.push(windowHeight-i*windowHeight/15-branchYyAdj[j]);
-      }
-      branchY.push(branchYy);
-    }
-
     //draw the leaves using the chords in ChordsPlayed
     if(chordsPlayed.length>0){
       mapChordsToLeaves();
@@ -134,9 +122,8 @@ function draw() {
     i=0;
     t1= new Trunk(scalePlantTrunk,windowWidth/2,windowHeight,0);
     if(maxtonal==0) truckLength=0;
-    if(maxtonal>=4) truckLength=maxtonal-1;
-    if(maxtonal>5) truckLength=6;
-    if(maxtonal==11) truckLength=7;
+    if(maxtonal>=2) truckLength=ceil(maxtonal-maxtonal/2);
+    if(maxtonal>=9) truckLength=4;
     while(i<=truckLength){
       t1.transform(scalePlantTrunk,windowWidth/2,windowHeight-truckPlantSuperposition*i,0);
       t1.plot();
