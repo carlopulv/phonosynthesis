@@ -131,3 +131,80 @@ function draw() {
     }
   }
 }
+
+
+//synth fra
+var envCanvas = document.getElementById("envelopeCanvas");
+var ctx  = envCanvas.getContext("2d");
+
+function envChange(Q){
+    var envchange = Q*100;
+    return envchange;
+  }
+
+  function drawLines(){ 
+    ctx.lineWidth=  "0.5";
+    ctx.strokeStyle = "grey";
+    ctx.beginPath();
+    ctx.moveTo(100,0);
+    ctx.lineTo(100,150);
+    ctx.moveTo(200,0);
+    ctx.lineTo(200,150);
+    ctx.stroke();
+    
+    ctx.lineWidth=  "1";
+    ctx.strokeStyle = "black";
+    ctx.beginPath();
+    ctx.moveTo(100,0);
+    ctx.lineTo(100,7);
+    ctx.moveTo(200,0);
+    ctx.lineTo(200,7);
+    ctx.moveTo(100,140);
+    ctx.lineTo(100,150);
+    ctx.moveTo(200,140);
+    ctx.lineTo(200,150);
+    ctx.stroke();
+
+    ctx.lineWidth=  "2.5";
+    ctx.strokeStyle = "white"; 
+  
+    ctx.beginPath();
+    ctx.moveTo(0,150);
+    ctx.lineTo(envChange(A),0);
+    ctx.stroke();
+
+    ctx.moveTo(envChange(A),0);
+    ctx.lineTo((envChange(D) + envChange(A)) , (150 - 1.5 *envChange(S)));
+    ctx.stroke();
+
+    ctx.moveTo((envChange(D) + envChange(A)) , (150 - 1.5 *envChange(S)));
+    ctx.lineTo((envChange(D) + envChange(A) + envChange(R)) , 150);
+    ctx.stroke();
+ 
+}
+
+function drawCircles(){  
+    ctx.beginPath(); 
+    ctx.arc(envChange(A) , 0 , 2 , 0 , 2* Math.PI);
+    ctx.fillStyle = "red";
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.arc((envChange(D) + envChange(A)) , (150 - 1.5 *envChange(S)) , 2 , 0 , 2* Math.PI);
+    ctx.fillStyle = "red";
+    ctx.fill();
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.arc(envChange(D) + envChange(A) + envChange(R) , 150 , 2 , 0 , 2* Math.PI);
+    ctx.fillStyle = "red";
+    ctx.fill();
+    ctx.stroke();  
+  }
+
+drawLines();
+drawCircles();
+
+function clearCanvas(){
+    ctx.clearRect(0, 0, 300, 150);
+  }

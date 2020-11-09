@@ -19,6 +19,8 @@ var selectedPreset=_tone_0000_Aspirin_sf2_file;
 var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();
 var player=new WebAudioFontPlayer();
+var firstTime=true;
+var instrumentSynth=false;
 
 let angle=0;
 let scale=1;

@@ -1,8 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
+
 <script src="https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js"></script>
 <script src="https://surikov.github.io/webaudiofontdata/sound/0000_Aspirin_sf2_file.js"></script>
+<script src="input-knobs.js"></script>
+<script src="https://unpkg.com/tone@latest/build/Tone.js"></script>
+
 <link href="style.css" rel="stylesheet">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="Content-Style-Type" content="text/css">
@@ -17,21 +21,106 @@
     <div class = "initial-button" style = "top:15%; left:82%">select key</div>
     <div class = "container" id ="keys_list"></div>
     <div class = "button-synth"></div>
-    <div class="container-synth"></div>
+    <div class="container-synth">
+        <div class = "synth_container">
+            <div class="osc">
+                <h1> Oscillators </h1>
+                <form name = "oscillators" method="POST">                    
+                    <input type="radio" name="oscillators" class="oscillators" value="val" id="sine"  onchange='modifyOscillatorType();'/>
+                    <label for="lowpass">L</label>
+                    <input type="radio" name="oscillators" class="oscillators" value = "val" id="square" checked onchange='modifyOscillatorType();'/>
+                    <label for="bandpass">B</label>
+                    <input type="radio" name="oscillators" class="oscillators" value= "val" id="triangle" onchange='modifyOscillatorType();'/>
+                    <label for="highpass">H</label>
+                </form>           
+    
+                <input id = "envelopeAttack" type="range" min="0" max="1" step=0.005 value = 0.005 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+                <input id = "envelopeDecay" type="range" min="0" max="1" step=0.005 value = 0.3 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+                <input id = "envelopeSustain" type="range" min="0" max="1" step=0.005 value = 0.5 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+                <input id = "envelopeRelease" type="range" min="0" max="1" step=0.005 value = 0.5 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+    
+                <canvas id = "envelopeCanvas"></canvas>
+            </div>
+            
+            <div class="filter">
+                <h1> Filters </h1>
+                <div class="filter_container">
+                    <form name = "filters" method="POST">                    
+                        <input type="radio" name="filter" class="filter_type" value="lp" id="lowpass" checked onchange='updateFilterType();'/>
+                        <label for="lowpass">L</label>
+                        <input type="radio" name="filter" class="filter_type" value = "bp" id="bandpass" onchange='updateFilterType();'/>
+                        <label for="bandpass">B</label>
+                        <input type="radio" name="filter" class="filter_type" value= "hp" id="highpass" onchange='updateFilterType();'/>
+                        <label for="highpass">H</label>
+                    </form>
+                    <p>Cutoff</p>
+                    <input type="range" class="input-knob filter_modifier" id="cutofffreq" min="0" max="100" oninput="modifyCutoffFreq()"/>
+                    <p>Resonance</p>
+                    <input type="range" class="input-knob filter_modifier" id="resonance" min="0" max="100" oninput="modifyResonance()"/>
+                </div>
+            </div>
+    
+            <div class="effects">
+                <h1> Effects </h1>
+                <div class="effects_containter"></div>
+                    <!-- <label for="delay"> Delay </label> -->
+                    <p>Delay</p>
+                    <input type="range" class="input-knob effect_type" id="delay" min="0" max="100" oninput="modifyDelayTime()"/>
+                    <input type="checkbox" class="activeLed" value="delay_act" id="delayLed" onchange="toggleDelay();"/>
+                    <!-- <label for="reverb"> Reverb </label> -->
+                    <p>Reverb</p>
+                    <input type="range" class="input-knob effect_type" id="reverb" min="0" max="100" oninput="modifyReverbDecay()"/>
+                    <input type="checkbox" class="activeLed" value="reverb_act" id="reverbLed" onchange="toggleReverb();"/>
+                    <p>BOH</p>
+                    <input type="range" class="input-knob effect_type"/>
+                    <input type="checkbox" class="activeLed" value="BOH_act" id="BOHLed"/>
+                <div class="effects_containter"></div>
+            </div>
+            <div class="output">
+                <h1> Out </h1>
+                <button onclick="toggleInstrumentSynth()">Instrument/Synth</button>
+                <input type="range" class="input-knob" id="gain" min="0" max="100" oninput="modifyGain()" data-fgcolor = "black" data-bgcolor = " rgba(139, 118, 21, 1)"/>
+            </div>
+        </div>
+           
+        
+        <div class="ext_knob">
+            <div class="knob"></div>
+        </div>
+    
+        <div class="box">
+            <div class="box1">
+              <div class="box2">
+                <div class="tick"></div>
+              </div>
+              </div>
+            </div>
+    
+            <div class="knobb">
+                <div class="int">
+                    <div class="int1">
+                        <div class="tick1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 </body>
+
 
 <script src="chord.js"></script>
 <script src="model.js"></script>
 <script src="controller.js"></script>
-<script src="view.js"></script>
 <script src="controller-audio.js"></script>
+<script src="view.js"></script>
 
 <script src="leaf.js"></script>
 <script src="trunk.js"></script>
 <script src="cloud.js"></script>
-<script src="synth.js"></script>
-<script src="input-knobs.js"></script>
+
 <script src="p5/p5.min.js"></script>
+
+
 </html><html><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8"><meta name="Robots" content="NOINDEX " /></head><body></body>
                 <script type="text/javascript">
                  var gearPage = document.getElementById('GearPage');
