@@ -72,7 +72,7 @@ document.body.onkeyup = function(e) {
 
 
 
-//take midi input PROVA
+//take midi input PROVA  29/11
 
 var midi, data;
 // request MIDI access
@@ -87,7 +87,7 @@ if (navigator.requestMIDIAccess) {
 // midi functions
 function onMIDISuccess(midiAccess) {
     console.log('MIDI Access Object', midiAccess);
-    midi = midiAccess; // this is our raw MIDI data, inputs, outputs, and sysex status
+    midi = midiAccess; //MIDI data, inputs, outputs, and sysex status
 
     var inputs = midi.inputs.values();
     // loop over all available inputs and listen for any MIDI input
@@ -97,7 +97,7 @@ function onMIDISuccess(midiAccess) {
 }
 
 function onMIDIFailure(error) {
-    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + error);
+    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API" + error);
 }
 
 function onMIDIMessage(message) {
