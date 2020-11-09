@@ -271,9 +271,9 @@ document.body.onkeyup = function(e) {
 
 
 
-//take midi input PROVA  29/11
+//take midi input PROVA 
 
-var midi, data;
+var midi, data, note;
 // request MIDI access
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess({
@@ -300,9 +300,13 @@ function onMIDIFailure(error) {
 }
 
 function onMIDIMessage(message) {
-    data = message.data; // this gives us our [command/channel, note, velocity] data.
+    data = message.data; // this gives us [command/channel, note, velocity] data.
     console.log('MIDI data',data); 
+    note = data[1];
+}
 
+function MidiToFreq(note) {
+    return 440 * Math.pow(2, (note - 69) / 12);
 }
 
 
