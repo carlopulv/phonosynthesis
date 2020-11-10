@@ -271,9 +271,9 @@ document.body.onkeyup = function(e) {
 
 
 
-//take midi input PROVA
+//take midi input PROVA 
 
-var midi, data;
+var midi, data, note;
 // request MIDI access
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess({
@@ -286,7 +286,7 @@ if (navigator.requestMIDIAccess) {
 // midi functions
 function onMIDISuccess(midiAccess) {
     console.log('MIDI Access Object', midiAccess);
-    midi = midiAccess; // this is our raw MIDI data, inputs, outputs, and sysex status
+    midi = midiAccess; //MIDI data, inputs, outputs, and sysex status
 
     var inputs = midi.inputs.values();
     // loop over all available inputs and listen for any MIDI input
@@ -296,12 +296,17 @@ function onMIDISuccess(midiAccess) {
 }
 
 function onMIDIFailure(error) {
-    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + error);
+    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API" + error);
 }
 
 function onMIDIMessage(message) {
-    data = message.data; // this gives us our [command/channel, note, velocity] data.
+    data = message.data; // this gives us [command/channel, note, velocity] data.
     console.log('MIDI data',data); 
+    note = data[1];
+}
+
+function MidiToFreq(note) {
+    return 440 * Math.pow(2, (note - 69) / 12);
 }
 
 
