@@ -20,7 +20,12 @@ var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();
 var player=new WebAudioFontPlayer();
 var firstTime=true;
+var firstTimeMidi=true;
 var instrumentSynth=false;
+var midiKeyboard=false;
+
+var midi=0, data=0, note=0, dataMidi=0;
+
 
 let angle=0;
 let scale=1;
