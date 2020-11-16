@@ -230,41 +230,91 @@ function pitchFromKey(position){
   }
 }
 
-document.body.onkeydown = function(e) {
-  duration=3;
-  if(e.repeat)return;
-  var position = keys.indexOf(e.key);
-  if(position>=0){
-    var pitch = pitchFromKey(position);
-    midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
-    notes.push(pitch);
-    if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
-    else{
-      on();
-      psynth.triggerAttackRelease(pitch, A+D); 
-    }
-  }  
-}
-
-document.body.onkeyup = function(e) {
-  if(notes.length==4){
-        typeChord(notes);
-  }
-  else if(notes.length==1){
-    if(!instrumentSynth) player.cancelQueue(audioContext);
-  }
-  if(instrumentSynth){
-    var position=keys.indexOf(e.key);
+/**
+ * This function activate the keyboard input.
+ */
+function startPlayKeyboard(){
+if(midiKeyboard==false){
+  document.body.onkeydown = function(e) {
+    duration=3;
+    if(e.repeat)return;
+    var position = keys.indexOf(e.key);
     if(position>=0){
       var pitch = pitchFromKey(position);
-      psynth.triggerRelease(pitch, A+D);
+      midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
+      notes.push(pitch);
+      if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
+      else{
+        on();
+        psynth.triggerAttackRelease(pitch, A+D); 
+      }
+    }  
+  }
+
+  document.body.onkeyup = function(e) {
+    if(notes.length==4){
+          typeChord(notes);
+    }
+    else if(notes.length==1){
+      if(!instrumentSynth) player.cancelQueue(audioContext);
+    }
+    if(instrumentSynth){
+      var position=keys.indexOf(e.key);
+      if(position>=0){
+        var pitch = pitchFromKey(position);
+        psynth.triggerRelease(pitch, A+D);
+        notes.pop();
+        on();
+      }
+    }
+    else{
       notes.pop();
-      on();
     }
   }
-  else{
-    notes.pop();
+}
+}
+
+/**
+ * This function activate the mini input.
+ */
+function startPlayMidi(){
+  document.body.onkeydown="none";
+  document.body.onkeyup="none";
+  if(midiKeyboard){
+  //midion
+  if(dataMidi[2]>0) {
+    duration=3;
+    //if(data[2].repeat)return;
+      var pitch = midiToFreq(dataMidi[1]);
+      console.log(dataMidi[1]);
+      midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
+      notes.push(pitch);
+      if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
+      else{
+        on();
+        psynth.triggerAttackRelease(pitch, A+D); 
+      }
+    }  
+
+  //midioff
+  if(dataMidi[2]==0) {
+    if(notes.length==4){
+          typeChord(notes);
+    }
+    else if(notes.length==1){
+      if(!instrumentSynth) player.cancelQueue(audioContext);
+    }
+    if(instrumentSynth){
+        var pitch = midiToFreq(note);
+        psynth.triggerRelease(pitch, A+D);
+        notes.pop();
+        on();
+    }
+    else{
+      notes.pop();
+    }
   }
+}
 }
 
 
@@ -273,15 +323,31 @@ document.body.onkeyup = function(e) {
 
 //take midi input PROVA 
 
-var midi, data, note;
+/**
+ * This function is used to change from midi input to keyboard input and viceversa. The global variable midiKeyboard is false when the input is taken from the keyboard, true viceversa.
+ */
+function toggleMidiKeyboard(){
+  if(midiKeyboard){
+    midiKeyboard=false;
+    startPlayKeyboard();
+  } 
+  else{
+    midiKeyboard=true;
+    firstTimeMidi=false;
+    
+  } 
+  
+}
 // request MIDI access
-if (navigator.requestMIDIAccess) {
+
+  if (navigator.requestMIDIAccess) { //see if it works
     navigator.requestMIDIAccess({
         sysex: false
     }).then(onMIDISuccess, onMIDIFailure);
-} else {
-    alert("No MIDI support in your browser");
-}
+    } else {
+        alert("No MIDI support in your browser");
+    }
+
 
 // midi functions
 function onMIDISuccess(midiAccess) {
@@ -300,12 +366,15 @@ function onMIDIFailure(error) {
 }
 
 function onMIDIMessage(message) {
-    data = message.data; // this gives us [command/channel, note, velocity] data.
-    console.log('MIDI data',data); 
-    note = data[1];
+  data = message.data; // this gives us [command/channel, note, velocity] data.
+    if(data.length==3){
+      dataMidi=data;
+      note = dataMidi[1];
+      startPlayMidi();
+    }
 }
 
-function MidiToFreq(note) { //da mettere in onMIDIMessage??
+function midiToFreq(note) {
     return 440 * Math.pow(2, (note - 69) / 12);
 }
 

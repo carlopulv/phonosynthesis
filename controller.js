@@ -8,6 +8,7 @@ function getKey(){
     document.querySelectorAll(".initial-button")[1].style.display = "none";
     document.querySelectorAll(".initial-button")[2].style.display = "none";
     document.querySelectorAll(".initial-button")[3].style.display = "none";
+    startPlayKeyboard();
   }
   
   /**
