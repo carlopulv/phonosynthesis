@@ -305,7 +305,7 @@ function onMIDIMessage(message) {
     note = data[1];
 }
 
-function MidiToFreq(note) {
+function MidiToFreq(note) { //da mettere in onMIDIMessage??
     return 440 * Math.pow(2, (note - 69) / 12);
 }
 
