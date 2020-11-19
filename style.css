@@ -16,23 +16,11 @@ body{
     color: rgb(56,87,35);
     left: 20vh; 
     text-align: center;
-    font-size:30px;
-    font-size: 6vh; /*scala a view height*/
+    font-size: 5vh;
     height: 60px;
 }
 .initial-button:hover{
     cursor: pointer;
-}
-
-.button-synth{
-    display: none;
-    position: absolute;
-    border: none;
-    background-color: rgb(56,87,35);
-    right: 10vh;  
-    top:90vh;
-    width:3vh;
-    height: 3vh;
 }
 
 @font-face {
@@ -192,4 +180,94 @@ body{
     border-radius: 10px;
     margin: 4px;
   }
-  
+
+
+.container-options{
+    display: none;
+    position: absolute;
+    float:right;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    right: 5vh;  
+    top:90vh;
+    width:100px;
+    height: 20px;
+}
+
+.save-button{
+    position: relative;
+    border: none;
+    background-color: rgb(56,87,35);
+    width:50%;
+    height: 100%;
+}
+
+.save-button .tooltiptext{
+    visibility: hidden;
+    width: 7.5vh;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    position: relative;
+    font-size: 16px;
+    z-index: 1;
+}
+.save-button:hover .tooltiptext{
+    visibility: visible;
+}
+
+.name-song{
+    position: absolute;
+    display : none;
+    min-width: 100px;
+    max-width:200px;
+    min-height:5px;
+    max-height:50px;
+    bottom:10vh;
+    right:5vh;
+    font-size:15.4px;
+    background-color:rgb(56,87,35);
+    border:none;
+    color:white;
+    outline:none;
+    resize: none;
+    text-align:center;
+    overflow: scroll;
+}
+
+.button-synth{
+    position: relative;
+    border: none;
+    background-color: rgb(80, 124, 50);
+    width:50%;
+    height:100%;
+}
+.button-synth .tooltiptext{
+    visibility: hidden;
+    width: 7.5vh;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    position: relative;
+    font-size: 16px;
+    z-index: 1;
+}
+.button-synth:hover .tooltiptext{
+    visibility: visible;
+}
+
+.textarea-songs{
+    display:none;
+    position:absolute;
+    top:49%;
+    left:1vh;
+    width:31%;
+    height:4vh;
+    background-color: rgba(0, 0, 0, 0);
+    color:rgb(56,87,35);
+    overflow: scroll;
+    outline:none;
+    border-bottom: 2px solid rgb(56,87,35);
+    font-size: 3vh;
+    padding: 1vh;
+}

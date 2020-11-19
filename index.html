@@ -2,6 +2,10 @@
 <html>
 <head>
 
+<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
+
 <script src="https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js"></script>
 <script src="https://surikov.github.io/webaudiofontdata/sound/0000_Aspirin_sf2_file.js"></script>
 <script src="input-knobs.js"></script>
@@ -16,11 +20,25 @@
 </head>
 <body>
     <div class = "initial-button" style = "top:20%">play</div>
-    <div class = "initial-button" style = "top:46%">open file</div>
-    <div class = "initial-button" style = "top:72%">enter a garden</div>
-    <div class = "initial-button" style = "top:15%; left:82%">select key</div>
+    <div class = "initial-button" style = "top:46%">open a song</div>
+    <div class = "initial-button" style = "top:72%">compare two songs</div>
+    <div class = "initial-button" style = "top:15%; left:82%">select the key</div>
+    <div class = "initial-button" style = "top:46%; right:15%; display:none">search</div>
+
     <div class = "container" id ="keys_list"></div>
-    <div class = "button-synth"></div>
+    <div class = "container-options">
+        <div class = "button-synth">
+            <div class="tooltiptext">synth</div>
+        </div>
+        <div class="save-button">
+            <div class="tooltiptext">save</div>
+        </div>
+    </div>
+    <div contenteditable="true" class="name-song" onblur="namesongOnBlur('.name-song')" onfocus="namesongOnFocus('.name-song')">Artist - Title</div>
+
+    <div contenteditable="true" class="textarea-songs"onblur="namesongOnBlur('.textarea-songs')" onfocus="namesongOnFocus('.textarea-songs')">Artist - Title</div>
+
+    
     <div class="container-synth">
         <div class = "synth_container">
             <div class="osc">

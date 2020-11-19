@@ -230,6 +230,11 @@ function pitchFromKey(position){
   }
 }
 
+function disableKeyboard(){
+  document.body.onkeydown="none";
+  document.body.onkeyup="none";
+}
+
 /**
  * This function activate the keyboard input.
  */
@@ -278,8 +283,8 @@ if(midiKeyboard==false){
  * This function activate the mini input.
  */
 function startPlayMidi(){
-  document.body.onkeydown="none";
-  document.body.onkeyup="none";
+  /*document.body.onkeydown="none";
+  document.body.onkeyup="none";*/
   if(midiKeyboard){
   //midion
   if(dataMidi[2]>0) {
@@ -318,10 +323,7 @@ function startPlayMidi(){
 }
 
 
-
-
-
-//take midi input PROVA 
+//MIDI
 
 /**
  * This function is used to change from midi input to keyboard input and viceversa. The global variable midiKeyboard is false when the input is taken from the keyboard, true viceversa.
@@ -334,12 +336,11 @@ function toggleMidiKeyboard(){
   else{
     midiKeyboard=true;
     firstTimeMidi=false;
-    
+    disableKeyboard();
   } 
   
 }
 // request MIDI access
-
   if (navigator.requestMIDIAccess) { //see if it works
     navigator.requestMIDIAccess({
         sysex: false

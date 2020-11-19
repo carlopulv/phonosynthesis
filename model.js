@@ -23,8 +23,9 @@ var firstTime=true;
 var firstTimeMidi=true;
 var instrumentSynth=false;
 var midiKeyboard=false;
-
+var namesong="Artist - Title";
 var midi=0, data=0, note=0, dataMidi=0;
+var openingFile=false;
 
 
 let angle=0;
