@@ -128,15 +128,15 @@ body{
 }
 
 .osc{
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     -webkit-appearance: none;
     height: 15px;
     width: 15px;
-    border-radius: 50%;
     position: relative;
-    border: 2px solid rgb(182, 156, 146);
-    /* background: linear-gradient(grey,white);
+    /*border: 2px solid rgb(182, 156, 146);
+     background: linear-gradient(grey,white);
     box-shadow: 0px 0px 10px 1px black inset,
-                0px 0px 10px 5px white inset;    */
+                0px 0px 10px 5px white inset;*/
     background: rgb(182, 156, 146);
     transition: all 0.15s linear;
 }
@@ -235,18 +235,32 @@ body{
     margin-left: 14%;
 }
 
-.filter_type{
+/*.filter_type{
     -webkit-appearance: none;
     height: 15px;
     width: 15px;
     border-radius: 50%;
     position: relative;
-    border: 2px solid rgb(182, 156, 146);
+    border: 2px solid rgb(182, 156, 146);*/
     /* background: linear-gradient(grey,white);
     box-shadow: 0px 0px 10px 1px black inset,
                 0px 0px 10px 5px white inset;    */
-    background:  rgb(148, 119, 108);
+    /*background:  rgb(148, 119, 108);
     transition: all 0.15s linear;
+}*/
+
+.filter_type {
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    -webkit-appearance: none;
+    margin-top: 30px;
+    width: 15px;
+    height: 15px;
+    background-color:rgb(148, 119, 108);
+    position: relative;
+    transition: all 0.15s linear;
+    /* background: linear-gradient(grey,white);
+    box-shadow: 0px 0px 10px 1px black inset,
+                0px 0px 10px 5px white inset;    */
 }
 
 .filter_type:checked{
@@ -311,15 +325,15 @@ body{
 
 
 .activeLed{
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     -webkit-appearance: none;
     height: 15px;
     width: 15px;
-    border-radius: 50%;
-    border: 2px solid rgb(182, 156, 146);
+   /* border: 2px solid rgb(182, 156, 146);*/
     position: relative;
     /* background: linear-gradient(grey,white);
     box-shadow: 0px 0px 10px 1px black inset,
-                0px 0px 10px 5px white inset;    */
+                0px 0px 10px 5px white inset;  */
     background:  rgb(182, 156, 146);
     transition: all 0.15s linear;
 }
