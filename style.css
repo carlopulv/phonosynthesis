@@ -58,10 +58,10 @@ body{
 
 @keyframes sliding{
     from{height:0vh;}
-    to{height:50vh;}
+    to{height:75vh;}
 }
 @keyframes sliding-out{
-    from{height:50vh;}
+    from{height:75vh;}
     to{height:0vh;}
 }
 
@@ -70,7 +70,7 @@ body{
     top:100vh;
     display:none;
     width:100%;
-    height:50vh;
+    height:75vh;
     background:linear-gradient(rgb(198,153,99) , rgb(115,95,68));
     animation-name:sliding;
     animation-duration:0.2s;
@@ -90,74 +90,233 @@ body{
 
 
 
-.synth_container{
-    height: 65%;
-    width: 65%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.synth_window{
     position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50% , -50%);
-    box-shadow: 0px 5px 15px 2px black;
-    border-radius: 5px;
+    height: 100%;
+    width: 100%;
     overflow: hidden;
-    text-align: center;
-    font-family: 'Lucida console', Courier, monospace;
-    font-size: 10px;
-    color: white;
+}
+
+
+.oscillators{
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    height: 10%;
+    width: 20%;
+    /* background-image: url(wnoise.png);
+    background-color:rgb(185, 185, 51) ; */
 }
 
 .osc{
-    height: 100%;
-    width: 27%;
-    background-image: url(wnoise.png);
-    background-color:rgb(185, 185, 51) ;
-    float: left;
-    
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    position: relative;
+    border: 2px solid rgb(182, 156, 146);
+    /* background: linear-gradient(grey,white);
+    box-shadow: 0px 0px 10px 1px black inset,
+                0px 0px 10px 5px white inset;    */
+    background: rgb(182, 156, 146);
+    transition: all 0.15s linear;
 }
+
+.osc_container{
+    text-align: center;
+    display: inline-block;
+    margin: 5%;
+    margin-top: 0%;
+    margin-left: 8%;
+}
+
+.osc:checked{
+    /* background: rgb(255, 226, 226);
+    box-shadow: 0px -0.5px 7px 2px red,
+                0px 0px 4px 1px rgb(75, 56, 56) inset,
+                0px 1px 4.5px 5px red inset; */
+    background:  rgb(80, 54, 44);
+}
+.env{
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    height: 45%;
+    width: 15%;
+    /* background-image: url(wnoise.png);
+    background-color:rgb(206, 91, 24) ; */
+}
+
+.env_container{
+    text-align: start;
+    display: inline-block;
+    margin-left: 5%;
+}
+
+ .envelopeSlider {
+    -webkit-appearance : none;
+    background : rgb(80, 54, 44);
+    width : 80%;
+    height: 7px;
+    /* border : 2px solid rgba(86, 25, 0, 1); */
+    border-radius: 50px;
+    opacity: 0.8;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+
+  .envelopeSlider:hover {
+    opacity: 100;
+  }
+  
+  .envelopeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 13px;
+    border-radius: 50%; 
+    background:   rgb(112, 79, 66);
+    border: 2px solid rgb(80, 54, 44);
+    cursor: pointer;
+    -webkit-transition: .3s;
+    transition: border .3s;
+  }
+  
+  .envelopeSlider::-webkit-slider-thumb:hover{
+    border: 2.5px solid rgb(189, 159, 148);
+  }
+  
+
+
+#envelopeCanvas {
+    width : 200px;
+    height : 100px;
+    background : rgb(80, 54, 44);
+    /* border : 3px solid grey; */
+    border-radius: 10px;
+    margin-left: 5%;
+    margin-top: 5%;
+  }
 
 .filter{
-    height: 100%;
-    width: 27%;
-    float: left;
-    background-image: url(wnoise.png);
-    background-color: rgb(94, 214, 94);
+    position: absolute;
+    top: 50%;
+    left: 27.5%;
+    height: 35%;
+    width: 20%;
+    /* background-image: url(wnoise.png);
+    background-color: rgb(94, 214, 94); */
 }
 
 
+.group_container{
+    text-align: center;
+    display: inline-block;
+    margin: 8%;
+    margin-top: 2%;
+    margin-left: 14%;
+}
+
 .filter_type{
-    width: 22px;
-    height: 22px;
-    background-color: blue;
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
     border-radius: 50%;
+    position: relative;
+    border: 2px solid rgb(182, 156, 146);
+    /* background: linear-gradient(grey,white);
+    box-shadow: 0px 0px 10px 1px black inset,
+                0px 0px 10px 5px white inset;    */
+    background:  rgb(148, 119, 108);
+    transition: all 0.15s linear;
+}
+
+.filter_type:checked{
+    /* background: rgb(255, 226, 226);
+    box-shadow: 0px -0.5px 7px 2px red,
+                0px 0px 4px 1px rgb(75, 56, 56) inset,
+                0px 1px 4.5px 5px red inset; */
+    background:  rgb(80, 54, 44);
+}
+
+
+.modifiers_container{
+    text-align: center;
     display: inline-block;
     position: relative;
-    margin: 0 20px;
-    top: 50%;
-    padding: 50px;
+    margin-top: -2%;
+    margin-left: 15%;
+}
+
+.ext_circle{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: 15px solid black;
+    position: absolute;
 }
 
 .filter_modifier{
-    margin: 20px 0;
+    position: relative;
 }
-
+  
 
 .effects{
-    height: 100%;
-    width: 26%;
-    float: left;
+    position: absolute;
+    top: 50%;
+    left: 52.5%;
+    height: 35%;
+    width: 30%;
     background-image: url("w2noise.png");
     background-color: lightblue;
 }
 
-.effect_type + .activeLed{
-    display:block;
+.effect_container{
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    margin-top: 5%;
+    margin-left: 13%;
 }
 
 
+
 .output{
-    height: 100%;
+    position: absolute;
+    top: 10%;
+    left: 75%;
+    height: 30%;
     width: 20%;
-    float: left;
     background-color: rgba(139, 118, 21, 0.808);
     background-image: url(w2noise.png);
 }
@@ -168,28 +327,20 @@ body{
     height: 15px;
     width: 15px;
     border-radius: 50%;
+    border: 2px solid rgb(182, 156, 146);
     position: relative;
-    left: 75%;
-    top: -9%;
-    background: linear-gradient(grey,white);
+    /* background: linear-gradient(grey,white);
     box-shadow: 0px 0px 10px 1px black inset,
-                0px 0px 10px 5px white inset;   
+                0px 0px 10px 5px white inset;    */
+    background:  rgb(182, 156, 146);
     transition: all 0.15s linear;
 }
 
  .activeLed:checked{
-    background: rgb(255, 226, 226);
+    /* background: rgb(255, 226, 226);
     box-shadow: 0px -0.5px 7px 2px red,
                 0px 0px 4px 1px rgb(75, 56, 56) inset,
-                0px 1px 4.5px 5px red inset;
+                0px 1px 4.5px 5px red inset; */
+    background:  rgb(80, 54, 44);
 }
 
-#envelopeCanvas {
-    width : 200px;
-    height : 100px;
-    background : rgb(0, 0, 0);
-    border : 3px solid grey;
-    border-radius: 10px;
-    margin: 4px;
-  }
-  

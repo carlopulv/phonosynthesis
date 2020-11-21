@@ -246,6 +246,7 @@ document.body.onkeydown = function(e) {
   }  
 }
 
+// da sistemare facendo partire dal release quando si rilascia il tasto
 document.body.onkeyup = function(e) {
   if(notes.length==4){
         typeChord(notes);

@@ -165,8 +165,8 @@ function envChange(Q){
     ctx.lineTo(200,150);
     ctx.stroke();
 
-    ctx.lineWidth=  "2.5";
-    ctx.strokeStyle = "white"; 
+    ctx.lineWidth=  "3";
+    ctx.strokeStyle = "rgb(112, 79, 66)"; 
   
     ctx.beginPath();
     ctx.moveTo(0,150);
