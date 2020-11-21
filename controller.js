@@ -4,10 +4,7 @@
 function getKey(){
     generalKey=this.value;
     game_state=1;
-    keys_list.style.display = "none";
-    document.querySelectorAll(".initial-button")[1].style.display = "none";
-    document.querySelectorAll(".initial-button")[2].style.display = "none";
-    document.querySelectorAll(".initial-button")[3].style.display = "none";
+    startPlayKeyboard();
   }
   
   /**
@@ -484,6 +481,7 @@ function getKey(){
  */
 function showKeys() {
     keysshown = true;
+    openingFile=false;
     let i = 0;
     let name_key = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
     let freq_key = ["440", "466", "494", "523", "554", "587", "622", "659", "698", "740", "784", "831"];
@@ -623,7 +621,296 @@ function showKeys() {
       anglesMirrored.push(360-angles[i]);
     }
   }
+
+  /**
+   * This function convert the array of the chords played without duplicates into a string. The "c" is a separator that say that there is a new chord, the "," is a separator of the chord attributes.
+   * @returns the string obtained from the list of chords.
+   */
+  function chordsToString(){
+    var finalString="";
+    for(let i=0;i<chordsPlayedNoDup.length;i++){
+      finalString+="c"+chordsPlayedNoDup[i].tonal+","+chordsPlayedNoDup[i].mode+","+chordsPlayedNoDup[i].other;
+    }
+    return finalString;
+  }
+
+  /**
+   * This function convert a string in chords. The string has to be created with the function "chordsToString" or following the format with the "c" separator for chords and the "," to separate "tonal", "mode" and "other". 
+   * @param {String} dataChord string to convert in chords.
+   */
+  function stringToChords(dataChord){
+    let i=0;
+    let ton=0;
+    let mod=0;
+    let oth=0;
+    chordsPlayedNoDup=[];
+    while(i<dataChord.length){
+      if(dataChord[i]=="c"){
+        i++;
+        ton=int(dataChord[i]);
+        if(dataChord[i+1]!=","){
+          ton=ton*10+int(dataChord[i+1]);
+          i+=3;
+        }else{
+          i+=2;
+        }
+        mod=int(dataChord[i]);
+        i+=2;
+        oth=int(dataChord[i]);
+        i++;
+        chordsPlayedNoDup.push(new Chord(ton,mod,oth));
+      }
+    }
+    return chordsPlayedNoDup;
+  }
+
+  /**
+   * This function convert the array of the chord distances in a string. The "d" is a separator for the chord measurement, the "," is a separator for the two measurements obtained for each chord.
+   * @returns the string converted.
+   */
+  function distancesToString(){
+    var finalString="";
+    for(let i=0;i<chordDistances.length-1;i=i+2){
+      finalString+="d"+chordDistances[i]+","+chordDistances[i+1];
+    }
+    return finalString;
+  }
+
+  /**
+   * This function convert a string in the array of chord distances. The string has to be in th format created by the function "distancesToString".
+   * @param {String} dataDistances string to convert in the array of chord distances.
+   */
+  function stringToDistances(dataDistances){
+    chordDistances=[];
+    let i=0;
+    let num=0;
+    while(i<dataDistances.length){
+      if(dataDistances[i]=="d"){
+        i++;
+        while(dataDistances[i]!=","){
+          num=num*10+int(dataDistances[i]);
+          i++;
+        }
+        chordDistances.push(num);
+        num=0;
+        i++;
+        while(dataDistances[i]!="d"&&i<dataDistances.length){
+          num=num*10+int(dataDistances[i]);
+          i++;
+        }
+        chordDistances.push(num);
+        num=0;
+      }
+    }
+    return chordDistances;
+  }
+
+  /**
+   * This function convert the array of the list notes list played(frequencies) in a string. The separator "l" is used to separate the chords, the separator "," to separate the singole notes.
+   * @returns the string converted.
+   */
+  function listnotesToString(){
+    let finalString="";
+    for(let i=0;i<listnotes.length;i++){
+      finalString+=listnotes[i][0]+","+listnotes[i][1]+","+listnotes[i][2]+","+listnotes[i][3]+"l";
+    }
+    return finalString;
+  }
+
+  /**
+   * This function convert a string into an array of chords, every chords contains four notes in frequency.
+   * @param {String} dataListnotes string to convert. 
+   * @returns the array of chords in frequency.
+   */
+  function stringToListnotes(dataListnotes){
+    listnotes=[];
+    let i=0;
+    while(i<dataListnotes.length){
+      let note1=0,note2=0,note3=0,note4=0;
+      while(dataListnotes[i]!="l"){
+        let note=0;
+        while(dataListnotes[i]!=","&&dataListnotes[i]!="l"){
+          note=note*10+int(dataListnotes[i]);
+          i++;
+        }
+        if(note1==0) note1=note;
+        else if(note2==0) note2=note;
+        else if(note3==0) note3=note;
+        else if(note4==0){
+          note4=note;
+          i--;
+        } 
+        i++;
+      }
+      listnotes.push([note1,note2,note3,note4]);
+      i++;
+    }
+    return listnotes;
+  }
+
+
+
+//database stuff
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyC6zVjgfiX-hNXh_7G0z2U4TQVJyCJGNNQ",
+    authDomain: "actamproj.firebaseapp.com",
+    databaseURL: "https://actamproj.firebaseio.com",
+    projectId: "actamproj",
+    storageBucket: "actamproj.appspot.com",
+    messagingSenderId: "274232532971",
+    appId: "1:274232532971:web:ac0ac2edb8f5209a8bc3ae",
+    measurementId: "G-PVFXPZ85BZ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  var db = firebase.firestore();
+
+  /**
+   * This function save the song in the database. The document is the title of the song.
+   */
+  function saveToDB(exi,name){
+    console.log(exi);
+    if(exi==1){
+      let chordsString=chordsToString();
+      let distancesString=distancesToString();
+      let generalkeyString=generalKey;
+      let maxtonalString=maxtonal;
+      let maxmodeString=maxmode;
+      let listnotesString=listnotesToString();
+      db.collection("songs").doc(name).set({
+        chords: chordsString,
+        distances: distancesString,
+        generalkey: generalkeyString,
+        maxmode: maxmodeString,
+        maxtonal: maxtonalString,
+        listnotes: listnotesString,
+      });
+      alert("Song saved");
+    }
+    else{
+      alert("Sorry, there was an error. Try again");
+    }
+    
+  }
+  
+  /**
+   * This function checks if there exists already a song with the name specified.
+   */
+  function checkExistingDocuments(){
+    var name=document.querySelectorAll(".name-song")[0].innerText;
+    name=name.toLowerCase();
+    document.querySelectorAll(".save-button")[0].onclick=openTextfield;
+    document.querySelectorAll(".name-song")[0].style.display="none";
+    if(midiKeyboard==false) startPlayKeyboard();
+
+    if(name!=""&&name!="artist - title"){
+    db.collection("songs").doc(name).get().then(function(doc) {
+    if (doc.exists) {
+      var r = confirm("A song with the same name already exists. The song will be overwritten.");
+      if (r == true) {
+        saveToDB(1, name);
+      } else {
+        console.log("action cancelled");
+      }
+    } else {
+      saveToDB(1,name);
+    }
+  }).catch(function(error) {
+    console.log("Error"+error);
+    alert("Sorry, there was an error, try again")
+  });
+}
+  }
+
+  /**
+   * This function makes appear a textfield where the user have to insert the name of the song to save.
+   */
+  function openTextfield(){
+    if(midiKeyboard==false) disableKeyboard();
+
+    document.querySelectorAll(".name-song")[0].style.display="block";
+    document.querySelectorAll(".name-song")[0].innerText="Artist - Title"
+
+    document.querySelectorAll(".save-button")[0].onclick=checkExistingDocuments;
+  }
+
+  function namesongOnBlur(string){
+    if(document.querySelectorAll(string)[0].innerText==""){
+      document.querySelectorAll(string)[0].innerText="Artist - Title";
+    }
+    if(midiKeyboard==false) startPlayKeyboard();
+  }
+ 
+  function namesongOnFocus(string){
+    if(document.querySelectorAll(string)[0].innerText=="Artist - Title"){
+      document.querySelectorAll(string)[0].innerText="";
+    }
+    disableKeyboard();
+  }
+
+  function openFile(){
+    openingFile=true;
+    keysshown=false;
+    let iterations=document.querySelectorAll(".keys_button").length;
+    for(let i=0;i<iterations;i++){
+      document.querySelectorAll(".keys_button")[0].remove();
+    }
+  }
+
+  function searchSongs(){
+    var songname=document.querySelectorAll(".textarea-songs")[0].innerText;
+    songname=songname.toLowerCase();
+    if(songname!="artist - title"){
+    db.collection("songs").doc(songname).get().then(function(doc) {
+      if (doc.exists) {
+        alert("Song found");
+        let dataChord=doc.data().chords;
+        let dataDistances=doc.data().distances;
+        let dataMaxmode=doc.data().maxmode;
+        let dataMaxtonal=doc.data().maxtonal;
+        let dataGeneralKey=doc.data().generalkey;
+        let dataListnotes=doc.data().listnotes;
+        extractSongData(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes);
+      } else {
+        alert("This song does not exists");
+        console.log(error);
+      }
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }else{
+    alert("Write the name of the song");
+  }
+  }
+
+  /**
+   * This function update the model after choosing a song from the ones stored in the database and start the game starting from it.
+   * @param {String} dataChord string of chords
+   * @param {String} dataDistances string of distances
+   * @param {String} dataMaxmode the maximum mode in string
+   * @param {String} dataMaxtonal the maximum tonal in string
+   * @param {String} dataGeneralKey the general key of the song
+   * @param {String} dataListnotes the chords in frequency in string
+   */
+  function extractSongData(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes){
+    chordsPlayed=stringToChords(dataChord);
+    chordDistances=stringToDistances(dataDistances);
+    listnotes=stringToListnotes(dataListnotes);
+    maxmode=int(dataMaxmode);
+    maxtonal=int(dataMaxtonal);
+    generalKey=dataGeneralKey;
+
+    game_state=1;
+    startPlayKeyboard();
+  } 
+
   
   fillAnglesMirrored();
   document.querySelectorAll(".initial-button")[0].onclick=showKeys;
+  document.querySelectorAll(".initial-button")[1].onclick=openFile;
+
   document.querySelectorAll(".button-synth")[0].onclick=showSynth;
+  document.querySelectorAll(".save-button")[0].onclick=openTextfield;
+  document.querySelectorAll(".initial-button")[4].onclick=searchSongs;

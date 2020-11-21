@@ -1,6 +1,6 @@
 function setup() {  
   l3=new Leaf(1,windowWidth/2,500,50);
-  frameRate(15);
+  frameRate(20);
   colorBranch=color(56,87,35);
 }
 
@@ -28,6 +28,8 @@ function draw() {
       l.plot();
 
       document.querySelectorAll(".initial-button")[3].style.display="none";
+      document.querySelectorAll(".initial-button")[0].style.display="block";
+
     }
     else{
       document.querySelectorAll(".initial-button")[0].style.display="none";
@@ -56,8 +58,21 @@ function draw() {
       l.plot();
     }
 
+    let xSecondLeave=12;
+    if(openingFile==true){
+      document.querySelectorAll(".textarea-songs")[0].style.display="block";
+      document.querySelectorAll(".initial-button")[1].style.display="none"
+      document.querySelectorAll(".initial-button")[4].style.display="block";
+      xSecondLeave=12+windowWidth*0.3;
+    }else{
+      document.querySelectorAll(".initial-button")[4].style.display = "none";
+      document.querySelectorAll(".textarea-songs")[0].style.display = "none";
+      document.querySelectorAll(".initial-button")[1].style.display = "block";
+      document.querySelectorAll(".textarea-songs")[0].innerText = "Artist - Title";
+    }
+
     j+=0.25;
-    l.transform(scale, 12, windowHeight*j, angle+70);
+    l.transform(scale, xSecondLeave, windowHeight*j, angle+70);
     l.plot();
     j+=0.25;
     l.transform(scale, 12, windowHeight*j, angle+70);
@@ -65,7 +80,14 @@ function draw() {
   }
   //The game started
   else if(game_state==1){
-    document.querySelectorAll(".button-synth")[0].style.display="block";
+    keys_list.style.display = "none";
+    document.querySelectorAll(".initial-button")[0].style.display = "none";
+    document.querySelectorAll(".initial-button")[1].style.display = "none";
+    document.querySelectorAll(".initial-button")[2].style.display = "none";
+    document.querySelectorAll(".initial-button")[3].style.display = "none";
+    document.querySelectorAll(".initial-button")[4].style.display = "none";
+    document.querySelectorAll(".textarea-songs")[0].style.display = "none";
+    document.querySelectorAll(".container-options")[0].style.display="flex";
     t = new Trunk(truckScale, 0, windowHeight, 90);
     let i = ceil(windowWidth/truckSuperposition);
     while(truckSuperposition*i>=0){             
