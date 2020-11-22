@@ -130,7 +130,6 @@ body{
 }
 
 .osc{
-    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     -webkit-appearance: none;
     height: 15px;
     width: 15px;
@@ -274,7 +273,6 @@ body{
 }*/
 
 .filter_type {
-    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     -webkit-appearance: none;
     margin-top: 30px;
     width: 15px;
@@ -376,7 +374,7 @@ body{
                 0px 0px 4px 1px rgb(75, 56, 56) inset,
                 0px 1px 4.5px 5px red inset; */
     background:  rgb(115, 95, 68);
-    border: 1px solid rgb(198, 153, 99);
+    /*border: 1px solid rgb(198, 153, 99);*/
 }
 
 
