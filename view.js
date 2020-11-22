@@ -2,29 +2,47 @@ function setup() {
   l3=new Leaf(1,windowWidth/2,500,50);
   frameRate(20);
   colorBranch=color(56,87,35);
+  windowHeightMod=windowHeight;
 }
 
 function draw() {  
-  createCanvas(windowWidth, windowHeight);
+  if(onOff==1){
+    if(windowHeightMod>windowHeight*0.65){
+      windowHeightMod-=windowHeight*0.06;
+    }
+    if(windowHeightMod<windowHeight*0.65) windowHeightMod=windowHeight*0.65;
+
+    document.querySelectorAll(".container-synth")[0].style.display="block";
+    
+  }else{
+    if(windowHeightMod<windowHeight){
+      windowHeightMod+=windowHeight*0.15;
+    }
+    if(windowHeightMod>=windowHeight){
+      windowHeightMod=windowHeight;
+      document.querySelectorAll(".container-synth")[0].style.display="none";
+    } 
+  }
+  createCanvas(windowWidth, windowHeightMod);
   clear();
-  scalePlantTrunk=truckScale/2*windowHeight/900;
-  truckPlantSuperposition=truckSuperposition/2*windowHeight/900;
+  scalePlantTrunk=truckScale/2*windowHeightMod/900;
+  truckPlantSuperposition=truckSuperposition/2*windowHeightMod/900;
 
   //Home page
   if(game_state==0){
-    t = new Trunk(0.3, 0, windowHeight, 180);
-    let i = ceil(windowHeight/((920-196)*0.3));
+    t = new Trunk(0.3, 0, windowHeightMod, 180);
+    let i = ceil(windowHeightMod/((920-196)*0.3));
     while(truckSuperposition*i>=0){             
       t.transform(truckScale, 0+13, truckSuperposition*i, 180 );
       t.plot();
       i--;
     } 
     l = new Leaf(1, 400, 400, angle);
-    scale = windowHeight/900; 
+    scale = windowHeightMod/900; 
     let j=0.3;
 
     if (keysshown==false){
-      l.transform(scale, 12, windowHeight*j, angle+70);
+      l.transform(scale, 12, windowHeightMod*j, angle+70);
       l.plot();
 
       document.querySelectorAll(".initial-button")[3].style.display="none";
@@ -43,18 +61,18 @@ function draw() {
       strokeWeight(2);
       stroke(56,87,35);
       while(a<14){
-        vertex(windowWidth*position_x[a], windowHeight*position_y[a]);
+        vertex(windowWidth*position_x[a], windowHeightMod*position_y[a]);
         a++;
       }
       endShape();
       //foglie con le keys
       a=1;
       while(a<13){  
-        l.transform(scale*0.7, windowWidth*position_x[a], windowHeight*position_y[a], pos_angle[a-1]);
+        l.transform(scale*0.7, windowWidth*position_x[a], windowHeightMod*position_y[a], pos_angle[a-1]);
         l.plot();
         a++;
       }
-      l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeight*position_y[position_y.length-1], angle+70);
+      l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeightMod*position_y[position_y.length-1], angle+70);
       l.plot();
     }
 
@@ -72,10 +90,10 @@ function draw() {
     }
 
     j+=0.25;
-    l.transform(scale, xSecondLeave, windowHeight*j, angle+70);
+    l.transform(scale, xSecondLeave, windowHeightMod*j, angle+70);
     l.plot();
     j+=0.25;
-    l.transform(scale, 12, windowHeight*j, angle+70);
+    l.transform(scale, 12, windowHeightMod*j, angle+70);
     l.plot();
   }
   //The game started
@@ -88,10 +106,10 @@ function draw() {
     document.querySelectorAll(".initial-button")[4].style.display = "none";
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
     document.querySelectorAll(".container-options")[0].style.display="flex";
-    t = new Trunk(truckScale, 0, windowHeight, 90);
+    t = new Trunk(truckScale, 0, windowHeightMod, 90);
     let i = ceil(windowWidth/truckSuperposition);
     while(truckSuperposition*i>=0){             
-      t.transform(truckScale, truckSuperposition*i,windowHeight-13, 90);
+      t.transform(truckScale, truckSuperposition*i,windowHeightMod-13, 90);
       t.plot();
       i--;
     }
@@ -108,9 +126,9 @@ function draw() {
       if(maxForBranchKey<12) maxForBranchKey+=1;
       if(maxForBranchKey==0) maxForBranchKey=1;
       for(let i=0;i<maxForBranchKey;i++){
-        if(i%2==0) initialAdj=5;
-        else initialAdj=-5;
-        let x=windowWidth/2+3;
+        if(i%2==0) initialAdj=windowHeightMod*0.006;
+        else initialAdj=-windowHeightMod*0.006;
+        let x=windowWidth/2+windowHeightMod*0.00375;
         let y=branchY[i][0]+initialAdj;
         k=0;
         maxForBranchMode=maxmode[i];
@@ -120,7 +138,7 @@ function draw() {
           y=branchY[i][k];
           k++;
         }
-        x=windowWidth/2+2;
+        x=windowWidth/2+windowHeightMod*0.0025;
         y=branchY[i][0]+initialAdj;
         k=0;
         for(let j=0;j<maxForBranchMode;j++){
@@ -133,21 +151,21 @@ function draw() {
 
       //Draws the leaves
       for(let i=0;i<heightsForLeaves.length;i++){
-        l3.transform(windowHeight/2500,widthsForLeaves[i],heightsForLeaves[i],anglesForLeaves[i]);
+        l3.transform(windowHeightMod/2500,widthsForLeaves[i],heightsForLeaves[i],anglesForLeaves[i]);
         l3.plot();
-        l3.transform(windowHeight/2500,widthsForLeavesMirrored[i],heightsForLeaves[i],anglesForLeavesMirrored[i]);
+        l3.transform(windowHeightMod/2500,widthsForLeavesMirrored[i],heightsForLeaves[i],anglesForLeavesMirrored[i]);
         l3.plot();
       }
     }
 
     // Draws the central trunk of the plant.
     i=0;
-    t1= new Trunk(scalePlantTrunk,windowWidth/2,windowHeight,0);
+    t1= new Trunk(scalePlantTrunk,windowWidth/2,windowHeightMod,0);
     if(maxtonal==0) truckLength=0;
     if(maxtonal>=2) truckLength=ceil(maxtonal-maxtonal/2);
     if(maxtonal>=9) truckLength=4;
     while(i<=truckLength){
-      t1.transform(scalePlantTrunk,windowWidth/2,windowHeight-truckPlantSuperposition*i,0);
+      t1.transform(scalePlantTrunk,windowWidth/2,windowHeightMod-truckPlantSuperposition*i,0);
       t1.plot();
       i++;
     }

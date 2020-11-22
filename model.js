@@ -45,6 +45,7 @@ let anglesForLeaves=[];
 let anglesForLeavesMirrored=[];
 let onOff=0;
 let l3;
+let windowHeightMod=0;
 
 let position_x;
 let position_y;
