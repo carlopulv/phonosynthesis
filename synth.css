@@ -39,7 +39,7 @@ body{
 .filter_type{
     width: 22px;
     height: 22px;
-    background-color: blue;
+    background-color: rgb(68, 0, 255);
     border-radius: 50%;
     display: inline-block;
     position: relative;
@@ -77,8 +77,8 @@ body{
 
 .activeLed{
     -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
+    height: 55px;
+    width: 5px;
     border-radius: 50%;
     position: relative;
     left: 75%;
@@ -104,4 +104,6 @@ body{
     border-radius: 10px;
     margin: 4px;
   }
+  
+
   

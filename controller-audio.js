@@ -173,7 +173,7 @@ function envelopeModifier(){
 
   clearCanvas();
   drawLines();
-  drawCircles();
+  //drawCircles();
 }
 
 

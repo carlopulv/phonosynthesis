@@ -42,39 +42,40 @@
     <div class="container-synth">
         <div class="synth_window">   
             <div class="oscillators">
+                <div class="osc_label"></div>
                 <form name = "oscillators" method="POST">
                     <div class="osc_container">                    
-                        <label for="lowpass">sine</label><br/>
-                        <input type="radio" name="osc" class="osc" value="val" id="sine"  onchange='modifyOscillatorType();'/>
+                        <!-- <label for="lowpass">sine</label><br/> -->
+                        <input type="radio" name="osc" class="osc activeLed" value="val" id="sine"  onchange='modifyOscillatorType();'/>
                     </div>
                     <div class="osc_container">
-                        <label for="bandpass">square</label><br/>
-                        <input type="radio" name="osc" class="osc" value = "val" id="square" checked onchange='modifyOscillatorType();'/>
+                        <!-- <label for="bandpass">square</label><br/> -->
+                        <input type="radio" name="osc" class="osc activeLed" value = "val" id="square" checked onchange='modifyOscillatorType();'/>
                     </div>
                     <div class="osc_container">
-                        <label for="highpass">tri</label><br/>
-                        <input type="radio" name="osc" class="osc" value= "val" id="triangle" onchange='modifyOscillatorType();'/>
+                        <!-- <label for="highpass">tri</label><br/> -->
+                        <input type="radio" name="osc" class="osc activeLed" value= "val" id="triangle" onchange='modifyOscillatorType();'/>
                     </div>
                 </form>                
             </div>
+            
             <div class="env">
                 <canvas id = "envelopeCanvas"></canvas>
                 <div class="env_container">
-                    <label for="envelopeAttack">A</label>
-                    <input id = "envelopeAttack" type="range" min="0" max="1" step=0.005 value = 0.005 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
-                </div>
-                <div class="env_container">
-                    <label for="envelopeDecay">D</label>
-                    <input id = "envelopeDecay" type="range" min="0" max="1" step=0.005 value = 0.3 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
-                </div>
-                <div class="env_container">
-                    <label for="envelopeSustain">S</label>
-                    <input id = "envelopeSustain" type="range" min="0" max="1" step=0.005 value = 0.5 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
-                </div>
-                <div class="env_container">
-                    <label for="envelopeRelease">R</label>
-                    <input id = "envelopeRelease" type="range" min="0" max="1" step=0.005 value = 0.5 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
-                </div>
+                    <div class="env_label_container">
+                        <label for="envelopeAttack">A</label>
+                        <label for="envelopeDecay">D</label>
+                        <label for="envelopeSustain">S</label>
+                        <label for="envelopeRelease">R</label>                    
+                    </div>
+
+                    <div class="env_slider_container">
+                        <input id = "envelopeAttack" type="range" min="0" max="1" step=0.005 value = 1 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+                        <input id = "envelopeDecay" type="range" min="0" max="1" step=0.005 value = 1 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+                        <input id = "envelopeSustain" type="range" min="0" max="1" step=0.005 value = 1 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+                        <input id = "envelopeRelease" type="range" min="0" max="1" step=0.005 value = 1 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
+                    </div> 
+                </div>                      
             </div>
                 
             <div class="filter">
@@ -82,31 +83,32 @@
                     <form name = "filters" method="POST">
                         <div class="group_container">                    
                             <label for="lowpass">L</label><br/>
-                            <input type="radio" name="filter" class="filter_type" value="lp" id="lowpass" checked onchange='updateFilterType();'/>
+                            <input type="radio" name="filter" class="activeLed filter_type" value="lp" id="lowpass" checked onchange='updateFilterType();'/>
                         </div>
                         <div class="group_container">
                             <label for="bandpass">B</label><br/>
-                            <input type="radio" name="filter" class="filter_type" value = "bp" id="bandpass" onchange='updateFilterType();'/>
+                            <input type="radio" name="filter" class="activeLed filter_type" value = "bp" id="bandpass" onchange='updateFilterType();'/>
                         </div>
                         <div class="group_container">
                             <label for="highpass">H</label><br/>
-                            <input type="radio" name="filter" class="filter_type" value= "hp" id="highpass" onchange='updateFilterType();'/>
+                            <input type="radio" name="filter" class="activeLed filter_type" value= "hp" id="highpass" onchange='updateFilterType();'/>
                         </div>
                     </form>
                 </div>
                 
                 
-                
-                <div class = "modifiers_container">
-                    <!-- <label for="cutoff">Cutoff</label><br/> -->
-                    <div class="ext_circle">
-                        <input name = "cutoff "type="range" class="input-knob filter_modifier" id="cutofffreq" min="0" max="100" oninput="modifyCutoffFreq()" data-bgcolor="rgba(255, 255, 255, 0.5)" data-fgcolor="rgba(86, 25, 0, 1)"/>
+                <div class="modifiers_container">
+                    <div class = "modifier_container">
+                        <!--<label for="cutoff">Cutoff</label><br/>-->
+                        <div class="exagon">
+                            <input name = "cutoff "type="range" class="input-knob filter_modifier" id="cutofffreq" min="0" max="100" oninput="modifyCutoffFreq()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/>
+                        </div>
                     </div>
-                </div>
-                <div class = "modifiers_container">
-                     <!-- <label for="resonance">Resonance</label><br/>  -->
-                    <div class="ext_circle">
-                        <input name = "resonance" type="range" class="input-knob filter_modifier" id="resonance" min="0" max="100" oninput="modifyResonance()" data-diameter="60" data-bgcolor="rgba(86, 25, 0, 1)"/>
+                    <div class = "modifier_container">
+                         <!--<label for="resonance">Resonance</label><br/>-->
+                        <div class="exagon">
+                            <input name = "resonance" type="range" class="input-knob filter_modifier" id="resonance" min="0" max="100" oninput="modifyResonance()" data-diameter="60" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/>
+                        </div>
                     </div>
                 </div>
             </div> 
@@ -114,17 +116,23 @@
             <div class="effects">
                 <div class="effect_container">
                     <label for="delay">Delay</label><br/>
-                    <input type="range" class="input-knob effect_type" id="delay" min="0" max="100" oninput="modifyDelayTime()"/><br/>
+                    <div class="exagon">
+                        <input type="range" class="input-knob effect_type" id="delay" min="0" max="100" oninput="modifyDelayTime()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/><br/>
+                    </div>
                     <input type="checkbox" class="activeLed" value="delay_act" id="delayLed" onchange="toggleDelay();"/>
                 </div>
                 <div class="effect_container">
                     <label for="reverb">Reverb</label><br/>
-                    <input type="range" class="input-knob effect_type" id="reverb" min="0" max="100" oninput="modifyReverbDecay()"/><br/>
+                    <div class="exagon">
+                        <input type="range" class="input-knob effect_type" id="reverb" min="0" max="100" oninput="modifyReverbDecay()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/><br/>
+                    </div>
                     <input type="checkbox" class="activeLed" value="reverb_act" id="reverbLed" onchange="toggleReverb();"/>    
                 </div>
                 <div class="effect_container">
                     <label for="boh">Boh</label><br/>
-                    <input type="range" class="input-knob effect_type" id="boh" min="0" max="100"/><br/>
+                    <div class="exagon">
+                        <input type="range" class="input-knob effect_type" id="boh" min="0" max="100" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/><br/>
+                    </div>
                     <input type="checkbox" class="activeLed" value="BOH_act" id="BOHLed"/>
                 </div>
             </div> 
@@ -134,7 +142,9 @@
                 <h1> Out </h1>
                 <button onclick="toggleInstrumentSynth()">Instrument/Synth</button>
                 <button onclick="toggleMidiKeyboard()">Keyboard/MIDI</button>
-                <input type="range" class="input-knob" id="gain" min="0" max="100" oninput="modifyGain()" data-fgcolor = "black" data-bgcolor = " rgba(139, 118, 21, 1)"/>
+                <div class="exagon">
+                    <input type="range" class="input-knob" id="gain" min="0" max="100" oninput="modifyGain()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/>
+                </div>
             </div>
         </div>
     </div>
