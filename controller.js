@@ -518,9 +518,9 @@ function showKeys() {
       idxKeyChordsNoDup*=2;
       if(idxKeyChordsNoDup>11) idxKeyChordsNoDup=24-idxKeyChordsNoDup-1;
       if(idxModeChordsNoDup==6) idxModeChordsNoDup=-1;
-      heightsForLeaves.push(windowHeight-idxKeyChordsNoDup*windowHeight/25-branchYyAdj[idxModeChordsNoDup+1]);
-      widthsForLeaves.push(windowWidth/2+(idxModeChordsNoDup+2)*windowHeight/30);
-      widthsForLeavesMirrored.push(windowWidth/2-(idxModeChordsNoDup+2)*windowHeight/30+5);
+      heightsForLeaves.push(windowHeightMod-idxKeyChordsNoDup*windowHeightMod/25-branchYyAdj[idxModeChordsNoDup+1]);
+      widthsForLeaves.push(windowWidth/2+(idxModeChordsNoDup+2)*windowHeightMod/30);
+      widthsForLeavesMirrored.push(windowWidth/2-(idxModeChordsNoDup+2)*windowHeightMod/30+5);
       
       if(specialChord==0){
         anglesForLeaves.push(angles[idxModeChordsNoDup+1]);
@@ -570,12 +570,13 @@ function showKeys() {
    */
   function showSynth(){
     if(onOff==0){
+      onOff=1;
       document.querySelectorAll(".container-synth")[0].classList.remove("container-synth-closing");
-      document.querySelectorAll(".container-synth")[0].style.display="block";
-      var interv=setInterval(function(){window.scrollTo(0,document.body.scrollHeight)},15);
-      setTimeout(function(){clearInterval(interv);onOff=1;},500);
+      /*var interv=setInterval(function(){window.scrollTo(0,document.body.scrollHeight)},15);
+      setTimeout(function(){clearInterval(interv);onOff=1;},500);*/
+      
     }
-    if(onOff==1){
+    else if(onOff==1){
       document.querySelectorAll(".container-synth")[0].classList.add("container-synth-closing");
       onOff=0;
     }
@@ -597,20 +598,20 @@ function showKeys() {
   function initializeVarToDrawLeaves(){
     branchY=[];
     branchYy=[];
-    branchYyAdj=[50,60,58,65,63,70,68];
+    branchYyAdj=[windowHeightMod*0.0625,windowHeightMod*0.075,windowHeightMod*0.0725,windowHeightMod*0.0813,windowHeightMod*0.0788,windowHeightMod*0.0875,windowHeightMod*0.085];
     branchX=[];
     branchXMirrored=[];
     anglesForLeaves=[];
     anglesForLeavesMirrored=[];
 
     for(let i=1;i<=7;i++){
-      branchX.push(windowWidth/2+i*windowHeight/30); 
-      branchXMirrored.push(windowWidth/2-i*windowHeight/30+5); 
+      branchX.push(windowWidth/2+i*windowHeightMod/30); 
+      branchXMirrored.push(windowWidth/2-i*windowHeightMod/30+5); 
     }
     for(let i=0;i<12;i++){
       branchYy=[];
       for(let j=0;j<7;j++){
-        branchYy.push(windowHeight-i*windowHeight/25-branchYyAdj[j]);
+        branchYy.push(windowHeightMod-i*windowHeightMod/25-branchYyAdj[j]);
       }
       branchY.push(branchYy);
     }
