@@ -158,6 +158,7 @@ function draw() {
 //synth fra
 var envCanvas = document.getElementById("envelopeCanvas");
 var ctx  = envCanvas.getContext("2d");
+var space = 5;
 
 function envChange(Q){
     var envchange = Q*100;
@@ -165,47 +166,60 @@ function envChange(Q){
   }
 
   function drawLines(){ 
-    ctx.lineWidth=  "0.5";
-    ctx.strokeStyle = "grey";
-    ctx.beginPath();
-    ctx.moveTo(100,0);
-    ctx.lineTo(100,150);
-    ctx.moveTo(200,0);
-    ctx.lineTo(200,150);
-    ctx.stroke();
-    
-    ctx.lineWidth=  "1";
-    ctx.strokeStyle = "black";
-    ctx.beginPath();
-    ctx.moveTo(100,0);
-    ctx.lineTo(100,7);
-    ctx.moveTo(200,0);
-    ctx.lineTo(200,7);
-    ctx.moveTo(100,140);
-    ctx.lineTo(100,150);
-    ctx.moveTo(200,140);
-    ctx.lineTo(200,150);
-    ctx.stroke();
+   /*ctx.lineWidth=  "0.5";
+   ctx.strokeStyle = "grey";
+   ctx.beginPath();
+   ctx.moveTo(100,0);
+   ctx.lineTo(100,150);
+   ctx.moveTo(200,0);
+   ctx.lineTo(200,150);
+   ctx.stroke();
+   
+   ctx.lineWidth=  "1";
+   ctx.strokeStyle = "black";
+   ctx.beginPath();
+   ctx.moveTo(100,0);
+   ctx.lineTo(100,7);
+   ctx.moveTo(200,0);
+   ctx.lineTo(200,7);
+   ctx.moveTo(100,140);
+   ctx.lineTo(100,150);
+   ctx.moveTo(200,140);
+   ctx.lineTo(200,150);
+   ctx.stroke();*/
+   
 
-    ctx.lineWidth=  "3";
-    ctx.strokeStyle = "rgb(112, 79, 66)"; 
-  
+    ctx.lineWidth=  "1";
+    ctx.strokeStyle = "rgb(115, 95, 68)";
+    ctx.fillStyle = "rgb(115, 95, 68)";
+    
     ctx.beginPath();
     ctx.moveTo(0,150);
     ctx.lineTo(envChange(A),0);
+    ctx.lineTo(envChange(A),300);
+    ctx.lineTo(300,150);
+    ctx.fill();
     ctx.stroke();
 
-    ctx.moveTo(envChange(A),0);
-    ctx.lineTo((envChange(D) + envChange(A)) , (150 - 1.5 *envChange(S)));
+    ctx.moveTo((envChange(A) + space),150);
+    ctx.lineTo(envChange(A) + space,0);
+    ctx.lineTo((envChange(D) + envChange(A)) + space ,(150 - 1.5 *envChange(S)));
+    ctx.lineTo((space + envChange(D) + envChange(A)) , 300);
+    ctx.lineTo(envChange(A) + space ,150);
+    ctx.fill();
     ctx.stroke();
 
-    ctx.moveTo((envChange(D) + envChange(A)) , (150 - 1.5 *envChange(S)));
-    ctx.lineTo((envChange(D) + envChange(A) + envChange(R)) , 150);
+    ctx.moveTo(space + (envChange(D) + envChange(A)) + space , 150);
+    ctx.lineTo(space + (envChange(D) + envChange(A)) + space , (150 - 1.5 *envChange(S)));
+    ctx.lineTo(2*space + (envChange(D) + envChange(A) + envChange(R)) , 150);
+    ctx.lineTo((envChange(D) + envChange(A)) , 300) ;
+    ctx.lineTo(space + (envChange(D) + envChange(A)),150);
+    ctx.fill();
     ctx.stroke();
  
 }
 
-function drawCircles(){  
+/*function drawCircles(){  
     ctx.beginPath(); 
     ctx.arc(envChange(A) , 0 , 2 , 0 , 2* Math.PI);
     ctx.fillStyle = "red";
@@ -224,8 +238,8 @@ function drawCircles(){
     ctx.stroke();  
   }
 
+drawCircles();*/
 drawLines();
-drawCircles();
 
 function clearCanvas(){
     ctx.clearRect(0, 0, 300, 150);
