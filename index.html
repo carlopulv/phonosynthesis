@@ -25,6 +25,7 @@
     <div class = "initial-button" style = "top:72%">compare two songs</div>
     <div class = "initial-button" style = "top:15%; left:82%">select the key</div>
     <div class = "initial-button" style = "top:46%; right:15%; display:none">search</div>
+    <div class = "initial-button" style = "top:70%; right:15%; display:none">search</div>
 
     <div class = "container" id ="keys_list"></div>
     <div class = "container-options">
@@ -35,9 +36,12 @@
             <div class="tooltiptext">save</div>
         </div>
     </div>
-    <div contenteditable="true" class="name-song" onblur="namesongOnBlur('.name-song')" onfocus="namesongOnFocus('.name-song')">Artist - Title</div>
+    <div contenteditable="true" class="name-song" onblur="namesongOnBlur('.name-song',0)" onfocus="namesongOnFocus('.name-song',0)">Artist - Title</div>
 
-    <div contenteditable="true" class="textarea-songs"onblur="namesongOnBlur('.textarea-songs')" onfocus="namesongOnFocus('.textarea-songs')">Artist - Title</div>
+    <div contenteditable="true" class="textarea-songs" onblur="namesongOnBlur('.textarea-songs',0)" onfocus="namesongOnFocus('.textarea-songs',0)">Artist - Title</div>
+
+    <div contenteditable="true" class="textarea-songs" style="top:70%" onblur="namesongOnBlur('.textarea-songs',1)" onfocus="namesongOnFocus('.textarea-songs',1)">Artist - Title</div>
+    <div contenteditable="true" class="textarea-songs" style="top:80%" onblur="namesongOnBlur('.textarea-songs',2)" onfocus="namesongOnFocus('.textarea-songs',2)">Artist - Title</div>
 
     <div class="container-synth">
         <div class="synth_window">   
@@ -152,6 +156,7 @@
 
 <script src="p5/p5.min.js"></script>
 
+<script src="song.js"></script>
 <script src="chord.js"></script>
 <script src="model.js"></script>
 <script src="controller.js"></script>
