@@ -482,6 +482,7 @@ function getKey(){
 function showKeys() {
     keysshown = true;
     openingFile=false;
+    comparingSongs=false;
     let i = 0;
     let name_key = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
     let freq_key = ["440", "466", "494", "523", "554", "587", "622", "659", "698", "740", "784", "831"];
@@ -838,16 +839,16 @@ function showKeys() {
     document.querySelectorAll(".save-button")[0].onclick=checkExistingDocuments;
   }
 
-  function namesongOnBlur(string){
-    if(document.querySelectorAll(string)[0].innerText==""){
-      document.querySelectorAll(string)[0].innerText="Artist - Title";
+  function namesongOnBlur(string,index){
+    if(document.querySelectorAll(string)[index].innerText==""){
+      document.querySelectorAll(string)[index].innerText="Artist - Title";
     }
     if(midiKeyboard==false) startPlayKeyboard();
   }
  
-  function namesongOnFocus(string){
-    if(document.querySelectorAll(string)[0].innerText=="Artist - Title"){
-      document.querySelectorAll(string)[0].innerText="";
+  function namesongOnFocus(string,index){
+    if(document.querySelectorAll(string)[index].innerText=="Artist - Title"){
+      document.querySelectorAll(string)[index].innerText="";
     }
     disableKeyboard();
   }
@@ -855,6 +856,7 @@ function showKeys() {
   function openFile(){
     openingFile=true;
     keysshown=false;
+    comparingSongs=false;
     let iterations=document.querySelectorAll(".keys_button").length;
     for(let i=0;i<iterations;i++){
       document.querySelectorAll(".keys_button")[0].remove();
@@ -862,29 +864,67 @@ function showKeys() {
   }
 
   function searchSongs(){
-    var songname=document.querySelectorAll(".textarea-songs")[0].innerText;
-    songname=songname.toLowerCase();
-    if(songname!="artist - title"){
-    db.collection("songs").doc(songname).get().then(function(doc) {
-      if (doc.exists) {
-        alert("Song found");
-        let dataChord=doc.data().chords;
-        let dataDistances=doc.data().distances;
-        let dataMaxmode=doc.data().maxmode;
-        let dataMaxtonal=doc.data().maxtonal;
-        let dataGeneralKey=doc.data().generalkey;
-        let dataListnotes=doc.data().listnotes;
-        extractSongData(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes);
-      } else {
-        alert("This song does not exists");
-        console.log(error);
+    if(comparingSongs){
+      iterations=3;
+      startindex=1;
+      songs=[];
+    }else{
+      iterations=1;
+      startindex=0;
+    }
+    for(let i=startindex;i<iterations;i++){
+        var songname=document.querySelectorAll(".textarea-songs")[i].innerText;
+        var prevSongname="";
+        var sameSong=false;
+        songname=songname.toLowerCase();
+        if(comparingSongs){
+          prevSongname=document.querySelectorAll(".textarea-songs")[1].innerText;
+          prevSongname=prevSongname.toLowerCase();
+        }
+        if(i==iterations-1&&prevSongname==songname) sameSong=true;
+        if(!sameSong){
+        if(songname!="artist - title"){
+        db.collection("songs").doc(songname).get().then(function(doc) {
+          if (doc.exists) {
+            let dataChord=doc.data().chords;
+            let dataDistances=doc.data().distances;
+            let dataMaxmode=doc.data().maxmode;
+            let dataMaxtonal=doc.data().maxtonal;
+            let dataGeneralKey=doc.data().generalkey;
+            let dataListnotes=doc.data().listnotes;
+            if(comparingSongs){
+              songs.push(new Song(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes));
+              if(songs.length==2){
+                game_state=2;
+                disableKeyboard();
+              }
+            }else{
+              extractSongData(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes);
+            }
+          } else {
+            if(comparingSongs&&i==1){
+              alert("The first song does not exist");
+            }else if(comparingSongs&&i==2){
+              alert("The second song does not exist");
+            }else{
+              alert("This song does not exists");
+              console.log(error);
+            }
+          }
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }else{
+        if(comparingSongs){
+          alert("Write the name of the two the songs to search");
+        }else{
+          alert("Write the name of the song");
+        }
       }
-    }).catch(function(error) {
-      console.log(error);
-    });
-  }else{
-    alert("Write the name of the song");
-  }
+    }else{
+      alert("Choose two different songs");
+    }
+    }
   }
 
   /**
@@ -906,7 +946,34 @@ function showKeys() {
 
     game_state=1;
     startPlayKeyboard();
-  } 
+  }
+  
+  /**
+   * This function is called when the user wants to use the "Compare two song" mode, by clicking the corresponding button.
+   */
+  function compareSongs(){
+    comparingSongs=true;
+    keysshown=false;
+    openingFile=false;
+    let iterations=document.querySelectorAll(".keys_button").length;
+    for(let i=0;i<iterations;i++){
+      document.querySelectorAll(".keys_button")[0].remove();
+    }
+  }
+
+  /**
+   * This function takes the song's attributes of the array of songs already loaded from the database. It is used only for the "Compare two song" mode.
+   * @param {Integer} i index of the song in the array "songs" of the model.
+   */
+  function extractDataForComparing(i){
+    chordsPlayedNoDup=songs[i].chordsPlayed;
+    chordsPlayed=chordsPlayedNoDup;
+    chordDistances=songs[i].chordDistances;
+    listnotes=songs[i].listnotes;
+    maxmode=songs[i].maxmode;
+    maxtonal=songs[i].maxtonal;
+    generalKey=songs[i].generalKey;
+  }
 
 
   function initializeRootsCoordinates(){
@@ -918,13 +985,55 @@ function showKeys() {
               582,597,622,653,675,649,620,632,614,593,592,605,605,600,587,587];
   }
 
+  /**
+   * This function is used to adjust the widths of the leaves before to draw them when the user select the songs to compare in the "Compare two song" mode.
+   * @param {*} index index of the song in the array "songs" of the model.
+   */
+  function adjustWidths(index){
+    if(index==0){
+      for(let i=0;i<widthsForLeaves.length;i++){
+        widthsForLeaves[i]-=windowWidth/4;
+        widthsForLeavesMirrored[i]-=windowWidth/4;
+      }
+    }else if(index==1){
+      for(let i=0;i<widthsForLeaves.length;i++){
+        widthsForLeaves[i]+=windowWidth/4;
+        widthsForLeavesMirrored[i]+=windowWidth/4;
+      }
+    }
+  }
   
+  function adjustBranchX(index){
+    if(index==0){
+      for(let i=0;i<branchX.length;i++){
+        branchX[i]=branchX[i]-windowWidth/4;
+        branchXMirrored[i]=branchXMirrored[i]-windowWidth/4;
+      }
+    }else if(index==1){
+      for(let i=0;i<branchX.length;i++){
+        branchX[i]=branchX[i]+windowWidth/4;
+        branchXMirrored[i]=branchXMirrored[i]+windowWidth/4;
+      }
+    }
+  }
+  
+  /*
+  * This function brings back to the home page.
+  */
+ function goToHomePage(){
+   game_state=0;
+   keysshown = false;
+   comparingSongs=false;
+   document.querySelectorAll(".button-synth")[0].style.display = "none";
+   document.querySelectorAll(".save-button")[0].style.display = "none";
+ }
+
   fillAnglesMirrored();
   document.querySelectorAll(".initial-button")[0].onclick=showKeys;
   document.querySelectorAll(".initial-button")[1].onclick=openFile;
-
+  document.querySelectorAll(".initial-button")[2].onclick=compareSongs;
+  document.querySelectorAll(".initial-button")[4].onclick=searchSongs;
+  document.querySelectorAll(".initial-button")[5].onclick=searchSongs;
+  document.querySelectorAll(".initial-button")[6].onclick=goToHomePage;
   document.querySelectorAll(".button-synth")[0].onclick=showSynth;
   document.querySelectorAll(".save-button")[0].onclick=openTextfield;
-  document.querySelectorAll(".initial-button")[4].onclick=searchSongs;
-
-

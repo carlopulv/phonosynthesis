@@ -7,7 +7,6 @@ body{
     font-weight: 400;
     background: linear-gradient(rgb(47,85,151), rgb(0,151,198) 27% ,rgb(246,248,252) 100%);
     background-repeat: no-repeat;
-
 }
 
 .initial-button{
@@ -424,6 +423,7 @@ body{
     resize: none;
     text-align:center;
     overflow: scroll;
+    z-index:1;
 }
 
 .button-synth{
@@ -453,13 +453,17 @@ body{
     position:absolute;
     top:49%;
     left:1vh;
-    width:31%;
+    width:29%;
     height:4vh;
     background-color: rgba(0, 0, 0, 0);
     color:rgb(56,87,35);
     overflow: scroll;
     outline:none;
-    border-bottom: 2px solid rgb(56,87,35);
+    border-bottom: 2px solid;
+    border-image-source: linear-gradient(90deg, rgb(56,87,35,0),rgb(56,87,35) 3%);
+    border-image-slice: 1;
     font-size: 3vh;
-    padding: 1vh;
+    padding:1vh;
+    padding-left: 4vh;
+    z-index: 0;
 }

@@ -235,6 +235,11 @@ function pitchFromKey(position){
 function disableKeyboard(){
   document.body.onkeydown="none";
   document.body.onkeyup="none";
+  document.body.onkeydown=function(e){
+    if(e.key=="Enter"){
+      e.preventDefault();
+    }
+  }
 }
 
 /**

@@ -39,16 +39,10 @@ function draw(){
 
   //Home page
   if(game_state==0){
-    t = new Trunk(0.3, 0, windowHeightMod, 180);
-    let i = ceil(windowHeightMod/((920-196)*0.3));
-    while(truckSuperposition*i>=0){             
-      t.transform(truckScale, 0+13, truckSuperposition*i, 180 );
-      t.plot();
-      i--;
-    } 
     l = new Leaf(1, 400, 400, angle);
     scale = windowHeightMod/900; 
     let j=0.3;
+    document.querySelectorAll(".initial-button")[6].style.display="none";
 
     if (keysshown==false){
       l.transform(scale, 12, windowHeightMod*j, angle+70);
@@ -56,12 +50,11 @@ function draw(){
 
       document.querySelectorAll(".initial-button")[3].style.display="none";
       document.querySelectorAll(".initial-button")[0].style.display="block";
-
     }
     else{
       document.querySelectorAll(".initial-button")[0].style.display="none";
       document.querySelectorAll(".initial-button")[3].style.display="block";
-
+      keys_list.style.display = "block";
       //disegna ramo
       initializePosAngleToDrawTrunk();
 
@@ -97,13 +90,46 @@ function draw(){
       document.querySelectorAll(".initial-button")[1].style.display = "block";
       document.querySelectorAll(".textarea-songs")[0].innerText = "Artist - Title";
     }
-
     j+=0.25;
     l.transform(scale, xSecondLeave, windowHeightMod*j, angle+70);
     l.plot();
-    j+=0.25;
-    l.transform(scale, 12, windowHeightMod*j, angle+70);
-    l.plot();
+
+    let xThirdLeave=12;
+    if(comparingSongs){
+      document.querySelectorAll(".textarea-songs")[1].style.display="block";
+      document.querySelectorAll(".textarea-songs")[2].style.display="block";
+      document.querySelectorAll(".initial-button")[2].style.display="none";
+      document.querySelectorAll(".initial-button")[5].style.display="block";
+      //document.querySelectorAll(".initial-button")[6].style.display="block";
+      xThirdLeave=12+windowWidth*0.3;
+
+      j+=0.21;
+      l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
+      l.plot();
+      j+=0.1;
+      l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
+      l.plot();
+
+    }else{
+      document.querySelectorAll(".textarea-songs")[1].innerText = "Artist - Title";
+      document.querySelectorAll(".textarea-songs")[2].innerText = "Artist - Title";
+      document.querySelectorAll(".initial-button")[2].style.display="block";
+      document.querySelectorAll(".textarea-songs")[1].style.display = "none";
+      document.querySelectorAll(".textarea-songs")[2].style.display = "none";
+      document.querySelectorAll(".initial-button")[5].style.display = "none";
+      //document.querySelectorAll(".initial-button")[6].style.display = "none";
+      j+=0.25;
+      l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
+      l.plot();
+    }
+
+    t = new Trunk(0.3, 0, windowHeightMod, 180);
+    let i = ceil(windowHeightMod/((920-196)*0.3));
+    while(truckSuperposition*i>=0){             
+      t.transform(truckScale, 0+13, truckSuperposition*i, 180 );
+      t.plot();
+      i--;
+    } 
   }
   //The game started
   else if(game_state==1){
@@ -113,70 +139,99 @@ function draw(){
     document.querySelectorAll(".initial-button")[2].style.display = "none";
     document.querySelectorAll(".initial-button")[3].style.display = "none";
     document.querySelectorAll(".initial-button")[4].style.display = "none";
+    document.querySelectorAll(".initial-button")[5].style.display = "none";
+    document.querySelectorAll(".initial-button")[6].style.display = "block";
+    document.querySelectorAll(".button-synth")[0].style.display = "block";
+    document.querySelectorAll(".save-button")[0].style.display = "block";
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
     document.querySelectorAll(".container-options")[0].style.display="flex";
-    t = new Trunk(truckScale, 0, windowHeightMod, 90);
-    let i = ceil(windowWidth/truckSuperposition);
-    while(truckSuperposition*i>=0){             
-      t.transform(truckScale, truckSuperposition*i,windowHeightMod-13, 90);
-      t.plot();
-      i--;
-    }
 
+    drawTrunkOnFloor();
     initializeVarToDrawLeaves();
+    drawLeaves(0);  
+    drawTrunkPlant(0);   
+  }
+  //Compare mode
+  else if(game_state==2){
+    document.querySelectorAll(".initial-button")[0].style.display = "none";
+    document.querySelectorAll(".initial-button")[1].style.display = "none";
+    document.querySelectorAll(".initial-button")[5].style.display = "none";
+    document.querySelectorAll(".initial-button")[6].style.display = "block";
+    document.querySelectorAll(".textarea-songs")[1].style.display = "none";
+    document.querySelectorAll(".textarea-songs")[2].style.display = "none";
+    
+    drawTrunkOnFloor();
+    for(let i=0;i<songs.length;i++){
+      initializeVarToDrawLeaves();
+      adjustBranchX(i);
+      extractDataForComparing(i);
+      drawLeaves(i); 
+      drawTrunkPlant(i);
+    }
+  }
+}
 
-    //draw the leaves using the chords in ChordsPlayed
-    if(chordsPlayed.length>0){
-      mapChordsToLeaves();
-      stroke(colorBranch);
-      let initialAdj=5;
-      let maxForBranchKey=maxtonal;
-      let maxForBranchMode;
-      if(maxForBranchKey<12) maxForBranchKey+=1;
-      if(maxForBranchKey==0) maxForBranchKey=1;
-      for(let i=0;i<maxForBranchKey;i++){
-        if(i%2==0) initialAdj=windowHeightMod*0.006;
-        else initialAdj=-windowHeightMod*0.006;
-        let x=windowWidth/2+windowHeightMod*0.00375;
-        let y=branchY[i][0]+initialAdj;
-        k=0;
-        maxForBranchMode=maxmode[i];
-        for(let j=0;j<maxForBranchMode;j++){
-          line(x,y,branchX[j],branchY[i][k]);
-          x=branchX[j];
-          y=branchY[i][k];
-          k++;
-        }
-        x=windowWidth/2+windowHeightMod*0.0025;
-        y=branchY[i][0]+initialAdj;
-        k=0;
-        for(let j=0;j<maxForBranchMode;j++){
-          line(x,y,branchXMirrored[j],branchY[i][k]);
-          x=branchXMirrored[j];
-          y=branchY[i][k];
-          k++;
-        }
+function drawTrunkOnFloor(){
+  t = new Trunk(truckScale, 0, windowHeightMod, 90);
+  let i = ceil(windowWidth/truckSuperposition);
+  while(truckSuperposition*i>=0){             
+    t.transform(truckScale, truckSuperposition*i,windowHeightMod-13, 90);
+    t.plot();
+    i--;
+  }
+}
+
+function drawLeaves(index){
+  if(chordsPlayed.length>0){
+    mapChordsToLeaves();
+    stroke(colorBranch);
+    let initialAdj=5;
+    let maxForBranchKey=maxtonal;
+    let maxForBranchMode;
+    if(maxForBranchKey<12) maxForBranchKey+=1;
+    if(maxForBranchKey==0) maxForBranchKey=1;
+    for(let i=0;i<maxForBranchKey;i++){
+      if(i%2==0) initialAdj=windowHeightMod*0.006;
+      else initialAdj=-windowHeightMod*0.006;
+
+      let x=windowWidth/2+windowHeightMod*0.00375;
+
+      if(comparingSongs&&index==0) x=windowWidth/4+windowHeightMod*0.00375;
+      else if(comparingSongs&&index==1) x=windowWidth*3/4+windowHeightMod*0.00375;
+      else x=windowWidth/2+windowHeightMod*0.00375;
+
+      let y=branchY[i][0]+initialAdj;
+      k=0;
+      maxForBranchMode=maxmode[i];
+      for(let j=0;j<maxForBranchMode;j++){
+        line(x,y,branchX[j],branchY[i][k]);
+        x=branchX[j];
+        y=branchY[i][k];
+        k++;
       }
 
-      //Draws the leaves
-      for(let i=0;i<heightsForLeaves.length;i++){
-        l3.transform(windowHeightMod/2500,widthsForLeaves[i],heightsForLeaves[i],anglesForLeaves[i]);
-        l3.plot();
-        l3.transform(windowHeightMod/2500,widthsForLeavesMirrored[i],heightsForLeaves[i],anglesForLeavesMirrored[i]);
-        l3.plot();
+      if(comparingSongs&&index==0) x=windowWidth/4+windowHeightMod*0.0025;
+      else if(comparingSongs&&index==1) x=windowWidth*3/4+windowHeightMod*0.0025;
+      else x=windowWidth/2+windowHeightMod*0.0025;
+
+      y=branchY[i][0]+initialAdj;
+      k=0;
+      for(let j=0;j<maxForBranchMode;j++){
+        line(x,y,branchXMirrored[j],branchY[i][k]);
+        x=branchXMirrored[j];
+        y=branchY[i][k];
+        k++;
       }
     }
 
-    // Draws the central trunk of the plant.
-    i=0;
-    t1= new Trunk(scalePlantTrunk,windowWidth/2,windowHeightMod,0);
-    if(maxtonal==0) truckLength=0;
-    if(maxtonal>=2) truckLength=ceil(maxtonal-maxtonal/2);
-    if(maxtonal>=9) truckLength=4;
-    while(i<=truckLength){
-      t1.transform(scalePlantTrunk,windowWidth/2,windowHeightMod-truckPlantSuperposition*i,0);
-      t1.plot();
-      i++;
+    if(comparingSongs) adjustWidths(index);
+
+    //Draws the leaves
+    for(let i=0;i<heightsForLeaves.length;i++){
+      l3.transform(windowHeightMod/2500,widthsForLeaves[i],heightsForLeaves[i],anglesForLeaves[i]);
+      l3.plot();
+      l3.transform(windowHeightMod/2500,widthsForLeavesMirrored[i],heightsForLeaves[i],anglesForLeavesMirrored[i]);
+      l3.plot();
     }
   }
 }
@@ -227,6 +282,24 @@ function drawRoots(){
 
 //   endShape(CLOSE);  
 // }
+
+
+function drawTrunkPlant(index){
+  let widthForTrunk=windowWidth/2;
+  if(comparingSongs&&index==0) widthForTrunk=windowWidth/4;
+  else if(comparingSongs&&index==1) widthForTrunk=windowWidth*3/4;
+  
+  i=0;
+  t1= new Trunk(scalePlantTrunk,widthForTrunk,windowHeightMod,0);
+  if(maxtonal==0) truckLength=0;
+  if(maxtonal>=2) truckLength=ceil(maxtonal-maxtonal/2);
+  if(maxtonal>=9) truckLength=4;
+  while(i<=truckLength){
+    t1.transform(scalePlantTrunk,widthForTrunk,windowHeightMod-truckPlantSuperposition*i,0);
+    t1.plot();
+    i++;
+  }
+}
 
 //synth fra
 var envCanvas = document.getElementById("envelopeCanvas");
