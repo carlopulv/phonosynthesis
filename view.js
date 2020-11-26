@@ -52,7 +52,7 @@ function draw() {
     else{
       document.querySelectorAll(".initial-button")[0].style.display="none";
       document.querySelectorAll(".initial-button")[3].style.display="block";
-
+      keys_list.style.display = "block";
       //disegna ramo
       initializePosAngleToDrawTrunk();
 
@@ -104,6 +104,9 @@ function draw() {
     document.querySelectorAll(".initial-button")[2].style.display = "none";
     document.querySelectorAll(".initial-button")[3].style.display = "none";
     document.querySelectorAll(".initial-button")[4].style.display = "none";
+    document.querySelectorAll(".initial-button")[5].style.display = "block";
+    document.querySelectorAll(".button-synth")[0].style.display = "block";
+    document.querySelectorAll(".save-button")[0].style.display = "block";
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
     document.querySelectorAll(".container-options")[0].style.display="flex";
     t = new Trunk(truckScale, 0, windowHeightMod, 90);
