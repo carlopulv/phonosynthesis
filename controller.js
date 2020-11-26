@@ -1007,25 +1007,22 @@ function showKeys() {
   }
   
   /*
-  * this function brings back to the home page.
+  * This function brings back to the home page.
   */
  function goToHomePage(){
    game_state=0;
    keysshown = false;
-   document.querySelectorAll(".initial-button")[2].style.display = "block";  //non so perchè non compaia da solo
-   document.querySelectorAll(".initial-button")[5].style.display = "none";
+   comparingSongs=false;
    document.querySelectorAll(".button-synth")[0].style.display = "none";
    document.querySelectorAll(".save-button")[0].style.display = "none";
-   //keys_list.style.display = "none";
  }
 
   fillAnglesMirrored();
   document.querySelectorAll(".initial-button")[0].onclick=showKeys;
   document.querySelectorAll(".initial-button")[1].onclick=openFile;
   document.querySelectorAll(".initial-button")[2].onclick=compareSongs;
-  document.querySelectorAll(".initial-button")[5].onclick=goToHomePage;
-
-  document.querySelectorAll(".button-synth")[0].onclick=showSynth;
-  document.querySelectorAll(".save-button")[0].onclick=openTextfield;
   document.querySelectorAll(".initial-button")[4].onclick=searchSongs;
   document.querySelectorAll(".initial-button")[5].onclick=searchSongs;
+  document.querySelectorAll(".initial-button")[6].onclick=goToHomePage;
+  document.querySelectorAll(".button-synth")[0].onclick=showSynth;
+  document.querySelectorAll(".save-button")[0].onclick=openTextfield;

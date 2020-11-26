@@ -33,6 +33,7 @@ function draw() {
     l = new Leaf(1, 400, 400, angle);
     scale = windowHeightMod/900; 
     let j=0.3;
+    document.querySelectorAll(".initial-button")[6].style.display="none";
 
     if (keysshown==false){
       l.transform(scale, 12, windowHeightMod*j, angle+70);
@@ -40,7 +41,6 @@ function draw() {
 
       document.querySelectorAll(".initial-button")[3].style.display="none";
       document.querySelectorAll(".initial-button")[0].style.display="block";
-
     }
     else{
       document.querySelectorAll(".initial-button")[0].style.display="none";
@@ -130,7 +130,8 @@ function draw() {
     document.querySelectorAll(".initial-button")[2].style.display = "none";
     document.querySelectorAll(".initial-button")[3].style.display = "none";
     document.querySelectorAll(".initial-button")[4].style.display = "none";
-    document.querySelectorAll(".initial-button")[5].style.display = "block";
+    document.querySelectorAll(".initial-button")[5].style.display = "none";
+    document.querySelectorAll(".initial-button")[6].style.display = "block";
     document.querySelectorAll(".button-synth")[0].style.display = "block";
     document.querySelectorAll(".save-button")[0].style.display = "block";
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
@@ -146,6 +147,7 @@ function draw() {
     document.querySelectorAll(".initial-button")[0].style.display = "none";
     document.querySelectorAll(".initial-button")[1].style.display = "none";
     document.querySelectorAll(".initial-button")[5].style.display = "none";
+    document.querySelectorAll(".initial-button")[6].style.display = "block";
     document.querySelectorAll(".textarea-songs")[1].style.display = "none";
     document.querySelectorAll(".textarea-songs")[2].style.display = "none";
     
