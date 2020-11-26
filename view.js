@@ -75,6 +75,8 @@ function draw() {
       document.querySelectorAll(".initial-button")[1].style.display="none"
       document.querySelectorAll(".initial-button")[4].style.display="block";
       xSecondLeave=12+windowWidth*0.3;
+      initializePosAngleToDrawTrunk();
+      drawTrunkForText(windowHeightMod*(j+0.25));
     }else{
       document.querySelectorAll(".initial-button")[4].style.display = "none";
       document.querySelectorAll(".textarea-songs")[0].style.display = "none";
@@ -237,6 +239,18 @@ function drawTrunkPlant(index){
     t1.plot();
     i++;
   }
+}
+
+function drawTrunkForText(yStart){
+  beginShape();
+  noFill();
+  strokeWeight(2);
+  stroke(56,87,35);
+  while(a<14){
+    vertex(windowWidth*position_x[a]/2, windowHeightMod*position_y[a]+yStart/2);
+    a++;
+  }
+  endShape();
 }
 
 //synth fra
