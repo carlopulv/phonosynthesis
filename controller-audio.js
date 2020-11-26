@@ -210,9 +210,11 @@ function on(){
  * This function is used to change from the instrument mode to the synth mode. The global variable instrumentSynth is false when we are using an instrument, true otherwise.
  */
 function toggleInstrumentSynth(){
-  if(instrumentSynth) instrumentSynth=false;
-  else instrumentSynth=true;
+  if(document.getElementById("instrument").checked) instrumentSynth=false;
+  else if(document.getElementById("synth").checked) instrumentSynth=true;
+  
 }
+
 
 player.loader.decodeAfterLoading(audioContext, '_tone_0000_JCLive_sf2_file');
 
@@ -334,11 +336,11 @@ function startPlayMidi(){
  * This function is used to change from midi input to keyboard input and viceversa. The global variable midiKeyboard is false when the input is taken from the keyboard, true viceversa.
  */
 function toggleMidiKeyboard(){
-  if(midiKeyboard){
+  if(document.getElementById("keyboard").checked){
     midiKeyboard=false;
     startPlayKeyboard();
   } 
-  else{
+  else if(document.getElementById("midi").checked){
     midiKeyboard=true;
     firstTimeMidi=false;
     disableKeyboard();

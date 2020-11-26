@@ -5,7 +5,7 @@ function setup() {
   windowHeightMod=windowHeight;
 }
 
-function draw() {  
+function draw(){  
   if(onOff==1){
     if(windowHeightMod>windowHeight*0.65){
       windowHeightMod-=windowHeight*0.06;
@@ -21,10 +21,19 @@ function draw() {
     if(windowHeightMod>=windowHeight){
       windowHeightMod=windowHeight;
       document.querySelectorAll(".container-synth")[0].style.display="none";
+  
     } 
+    
   }
-  createCanvas(windowWidth, windowHeightMod);
+
+  
+  
+  createCanvas(windowWidth, windowHeight);
   clear();
+  
+  
+  if(onOff == 1)  drawRoots();
+
   scalePlantTrunk=truckScale/2*windowHeightMod/900;
   truckPlantSuperposition=truckSuperposition/2*windowHeightMod/900;
 
@@ -33,6 +42,7 @@ function draw() {
     l = new Leaf(1, 400, 400, angle);
     scale = windowHeightMod/900; 
     let j=0.3;
+    document.querySelectorAll(".initial-button")[6].style.display="none";
 
     if (keysshown==false){
       l.transform(scale, 12, windowHeightMod*j, angle+70);
@@ -40,12 +50,11 @@ function draw() {
 
       document.querySelectorAll(".initial-button")[3].style.display="none";
       document.querySelectorAll(".initial-button")[0].style.display="block";
-
     }
     else{
       document.querySelectorAll(".initial-button")[0].style.display="none";
       document.querySelectorAll(".initial-button")[3].style.display="block";
-
+      keys_list.style.display = "block";
       //disegna ramo
       initializePosAngleToDrawTrunk();
 
@@ -132,6 +141,10 @@ function draw() {
     document.querySelectorAll(".initial-button")[2].style.display = "none";
     document.querySelectorAll(".initial-button")[3].style.display = "none";
     document.querySelectorAll(".initial-button")[4].style.display = "none";
+    document.querySelectorAll(".initial-button")[5].style.display = "none";
+    document.querySelectorAll(".initial-button")[6].style.display = "block";
+    document.querySelectorAll(".button-synth")[0].style.display = "block";
+    document.querySelectorAll(".save-button")[0].style.display = "block";
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
     document.querySelectorAll(".container-options")[0].style.display="flex";
 
@@ -145,6 +158,7 @@ function draw() {
     document.querySelectorAll(".initial-button")[0].style.display = "none";
     document.querySelectorAll(".initial-button")[1].style.display = "none";
     document.querySelectorAll(".initial-button")[5].style.display = "none";
+    document.querySelectorAll(".initial-button")[6].style.display = "block";
     document.querySelectorAll(".textarea-songs")[1].style.display = "none";
     document.querySelectorAll(".textarea-songs")[2].style.display = "none";
     
@@ -224,6 +238,54 @@ function drawLeaves(index){
   }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+
+function mapRootsCoord(){
+      initializeRootsCoordinates();
+      var offset = 605;
+      var xscaling = 0.5;
+      var yscaling = 0.5;
+      for (var i = 0; i < xRoots.length; i++) {
+      xRoots[i] = xRoots[i] - offset + windowWidth/2; 
+      yRoots[i] = yRoots[i];
+      }
+    }
+    
+    
+function drawRoots(){
+    var xsubtract = min(xRoots);
+    var ysubtract = min(yRoots);
+
+
+  var rootsCanvas = document.getElementById("rootsCanvas");
+    var rootsCtx  = rootsCanvas.getContext("2d");
+    rootsCtx.beginPath();
+    rootsCtx.moveTo(xRoots[0],yRoots[0]);
+    for (var i = 1; i < xRoots.length; i++) {
+        rootsCtx.lineTo(xRoots[i]-xsubtract,yRoots[i]-ysubtract); 
+    }
+ 
+  rootsCtx.closePath();
+     rootsCtx.fillStyle = "rgb(115,95,68)";
+     rootsCtx.fill();
+}
+
+// function drawRoots(){
+//   mapRootsCoord();
+  
+  
+//   fill(115,95,68);
+//   beginShape();
+
+//   for (var i = 0; i < xRoots.length; i++) {
+//     vertex((xRoots[i]-30),(yRoots[i]-100)); 
+//   }
+
+//   endShape(CLOSE);  
+// }
+
+
 function drawTrunkPlant(index){
   let widthForTrunk=windowWidth/2;
   if(comparingSongs&&index==0) widthForTrunk=windowWidth/4;
@@ -256,7 +318,7 @@ function drawTrunkForText(yStart){
 //synth fra
 var envCanvas = document.getElementById("envelopeCanvas");
 var ctx  = envCanvas.getContext("2d");
-var space = 5;
+var space = 3;
 
 function envChange(Q){
     var envchange = Q*100;
@@ -264,29 +326,6 @@ function envChange(Q){
   }
 
   function drawLines(){ 
-   /*ctx.lineWidth=  "0.5";
-   ctx.strokeStyle = "grey";
-   ctx.beginPath();
-   ctx.moveTo(100,0);
-   ctx.lineTo(100,150);
-   ctx.moveTo(200,0);
-   ctx.lineTo(200,150);
-   ctx.stroke();
-   
-   ctx.lineWidth=  "1";
-   ctx.strokeStyle = "black";
-   ctx.beginPath();
-   ctx.moveTo(100,0);
-   ctx.lineTo(100,7);
-   ctx.moveTo(200,0);
-   ctx.lineTo(200,7);
-   ctx.moveTo(100,140);
-   ctx.lineTo(100,150);
-   ctx.moveTo(200,140);
-   ctx.lineTo(200,150);
-   ctx.stroke();*/
-   
-
     ctx.lineWidth=  "1";
     ctx.strokeStyle = "rgb(115, 95, 68)";
     ctx.fillStyle = "rgb(115, 95, 68)";
@@ -317,26 +356,6 @@ function envChange(Q){
  
 }
 
-/*function drawCircles(){  
-    ctx.beginPath(); 
-    ctx.arc(envChange(A) , 0 , 2 , 0 , 2* Math.PI);
-    ctx.fillStyle = "red";
-    ctx.stroke();
-    
-    ctx.beginPath();
-    ctx.arc((envChange(D) + envChange(A)) , (150 - 1.5 *envChange(S)) , 2 , 0 , 2* Math.PI);
-    ctx.fillStyle = "red";
-    ctx.fill();
-    ctx.stroke();
-    
-    ctx.beginPath();
-    ctx.arc(envChange(D) + envChange(A) + envChange(R) , 150 , 2 , 0 , 2* Math.PI);
-    ctx.fillStyle = "red";
-    ctx.fill();
-    ctx.stroke();  
-  }
-
-drawCircles();*/
 drawLines();
 
 function clearCanvas(){

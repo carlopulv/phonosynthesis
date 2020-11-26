@@ -26,6 +26,8 @@
     <div class = "initial-button" style = "top:15%; left:82%">select the key</div>
     <div class = "initial-button" style = "top:46%; right:15%; display:none">search</div>
     <div class = "initial-button" style = "top:70%; right:15%; display:none">search</div>
+    <div class = "initial-button" style = "top:2%; left:2%; display:none">Go back</div>
+    
 
     <div class = "container" id ="keys_list"></div>
     <div class = "container-options">
@@ -44,27 +46,33 @@
     <div contenteditable="true" class="textarea-songs" style="top:80%" onblur="namesongOnBlur('.textarea-songs',2)" onfocus="namesongOnFocus('.textarea-songs',2)">Artist - Title</div>
 
     <div class="container-synth">
-        <div class="synth_window">   
+        <div class="synth_window">
+            <div class="roots_container">
+                <canvas id = "rootsCanvas"></canvas>
+            </div>    
             <div class="oscillators">
-                <div class="osc_label"></div>
-                <form name = "oscillators" method="POST">
-                    <div class="osc_container">                    
-                        <!-- <label for="lowpass">sine</label><br/> -->
-                        <input type="radio" name="osc" class="osc activeLed" value="val" id="sine"  onchange='modifyOscillatorType();'/>
-                    </div>
-                    <div class="osc_container">
-                        <!-- <label for="bandpass">square</label><br/> -->
-                        <input type="radio" name="osc" class="osc activeLed" value = "val" id="square" checked onchange='modifyOscillatorType();'/>
-                    </div>
-                    <div class="osc_container">
-                        <!-- <label for="highpass">tri</label><br/> -->
-                        <input type="radio" name="osc" class="osc activeLed" value= "val" id="triangle" onchange='modifyOscillatorType();'/>
-                    </div>
-                </form>                
+                <div class="osc_label"></div> <!-- immaginette -->
+                    <div class="oscillators_container">
+                        <form name = "oscillators" method="POST">
+                            <div class="osc_container">                    
+                                <!-- <label for="lowpass">sine</label><br/> -->
+                                <div class="ext_activeLed">
+                                    <input type="radio" name="osc" class="osc activeLed" value="val" id="sine"  onchange='modifyOscillatorType();'/>
+                                </div>
+                            </div>
+                            <div class="osc_container">
+                                <!-- <label for="bandpass">square</label><br/> -->
+                                <input type="radio" name="osc" class="osc activeLed" value = "val" id="square" checked onchange='modifyOscillatorType();'/>
+                            </div>
+                            <div class="osc_container">
+                                <!-- <label for="highpass">tri</label><br/> -->
+                                <input type="radio" name="osc" class="osc activeLed" value= "val" id="triangle" onchange='modifyOscillatorType();'/>
+                            </div>
+                        </form>
+                    </div>            
             </div>
             
             <div class="env">
-                <canvas id = "envelopeCanvas"></canvas>
                 <div class="env_container">
                     <div class="env_label_container">
                         <label for="envelopeAttack">A</label>
@@ -79,75 +87,103 @@
                         <input id = "envelopeSustain" type="range" min="0" max="1" step=0.005 value = 1 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
                         <input id = "envelopeRelease" type="range" min="0" max="1" step=0.005 value = 1 class = "envelopeSlider" oninput = "envelopeModifier()"></input>
                     </div> 
-                </div>                      
+                </div>  
+                <canvas id = "envelopeCanvas"></canvas>                    
             </div>
                 
             <div class="filter">
                 <div class="filters_container">
                     <form name = "filters" method="POST">
-                        <div class="group_container">                    
-                            <label for="lowpass">L</label><br/>
+                        <!-- <div class="group_container">                     -->
+                            <!-- <label for="lowpass">L</label><br/> -->
                             <input type="radio" name="filter" class="activeLed filter_type" value="lp" id="lowpass" checked onchange='updateFilterType();'/>
-                        </div>
-                        <div class="group_container">
-                            <label for="bandpass">B</label><br/>
+                        <!-- </div> -->
+                        <!-- <div class="group_container"> -->
+                            <!-- <label for="bandpass">B</label><br/> -->
                             <input type="radio" name="filter" class="activeLed filter_type" value = "bp" id="bandpass" onchange='updateFilterType();'/>
-                        </div>
-                        <div class="group_container">
-                            <label for="highpass">H</label><br/>
+                        <!-- </div> -->
+                        <!-- <div class="group_container"> -->
+                            <!-- <label for="highpass">H</label><br/> -->
                             <input type="radio" name="filter" class="activeLed filter_type" value= "hp" id="highpass" onchange='updateFilterType();'/>
-                        </div>
+                        <!-- </div> -->
                     </form>
                 </div>
                 
                 
                 <div class="modifiers_container">
                     <div class = "modifier_container">
-                        <!--<label for="cutoff">Cutoff</label><br/>-->
                         <div class="exagon">
                             <input name = "cutoff "type="range" class="input-knob filter_modifier" id="cutofffreq" min="0" max="100" oninput="modifyCutoffFreq()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/>
                         </div>
+                        <label for="cutoff">Cutoff</label>
                     </div>
                     <div class = "modifier_container">
-                         <!--<label for="resonance">Resonance</label><br/>-->
+                         
                         <div class="exagon">
-                            <input name = "resonance" type="range" class="input-knob filter_modifier" id="resonance" min="0" max="100" oninput="modifyResonance()" data-diameter="60" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/>
+                            <input name = "resonance" type="range" class="input-knob filter_modifier" id="resonance" min="0" max="100" oninput="modifyResonance()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/>
                         </div>
+                        <label for="resonance">Resonance</label>
                     </div>
                 </div>
             </div> 
         
             <div class="effects">
                 <div class="effect_container">
-                    <label for="delay">Delay</label><br/>
+                    <input type="checkbox" class="activeLed activeEffect" value="delay_act" id="delayLed" onchange="toggleDelay();"/>
                     <div class="exagon">
                         <input type="range" class="input-knob effect_type" id="delay" min="0" max="100" oninput="modifyDelayTime()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/><br/>
                     </div>
-                    <input type="checkbox" class="activeLed" value="delay_act" id="delayLed" onchange="toggleDelay();"/>
+                    <label for="delay">Delay</label>
                 </div>
                 <div class="effect_container">
-                    <label for="reverb">Reverb</label><br/>
+                    <input type="checkbox" class="activeLed activeEffect" value="reverb_act" id="reverbLed" onchange="toggleReverb();"/> 
                     <div class="exagon">
                         <input type="range" class="input-knob effect_type" id="reverb" min="0" max="100" oninput="modifyReverbDecay()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/><br/>
                     </div>
-                    <input type="checkbox" class="activeLed" value="reverb_act" id="reverbLed" onchange="toggleReverb();"/>    
+                    <label for="reverb">Reverb</label>   
                 </div>
                 <div class="effect_container">
-                    <label for="boh">Boh</label><br/>
+                    <input type="checkbox" class="activeLed activeEffect" value="BOH_act" id="BOHLed"/>
                     <div class="exagon">
                         <input type="range" class="input-knob effect_type" id="boh" min="0" max="100" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/><br/>
                     </div>
-                    <input type="checkbox" class="activeLed" value="BOH_act" id="BOHLed"/>
+                    <label for="boh">Boh</label>
                 </div>
             </div> 
 
             
             <div class="output">
-                <h1> Out </h1>
-                <button onclick="toggleInstrumentSynth()">Instrument/Synth</button>
-                <button onclick="toggleMidiKeyboard()">Keyboard/MIDI</button>
-                <div class="exagon">
-                    <input type="range" class="input-knob" id="gain" min="0" max="100" oninput="modifyGain()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/>
+                <form name = "synth_instrument" method="POST">
+                    <div class="selector_label_container">
+                        <div class="selector_container">               
+                            <input type="radio" name="synthinstrument" class="activeLed" value="val" id="synth"  onchange="toggleInstrumentSynth();"/>
+                            <label for="synth">Synth</label>
+                        </div>
+                        <div class="selector_container">
+                            <input type="radio" name="synthinstrument" class="activeLed" value= "val" id="instrument" checked onchange='toggleInstrumentSynth();'/>
+                            <label for="instrument">Instrument</label>
+                        </div>
+                    </div>
+                </form>
+                <form name = "keyboard_midi" method="POST">
+                    <div class="selector_label_container">
+                        <div class="selector_container">
+                            <input type="radio" name="keyboardmidi" class="activeLed" value = "val" id="keyboard" checked onchange="toggleMidiKeyboard();"/>
+                            <label for="keyboard">Keyboard</label>
+                        </div>
+                        <div class="selector_container">
+                            <input type="radio" name="keyboardmidi" class="activeLed" value= "val" id="midi" onchange='toggleMidiKeyboard();'/>
+                            <label for="midi">Midi</label>
+                        </div>
+                    </div>
+                </form>
+                <!-- <button onclick="toggleInstrumentSynth()">Instrument/Synth</button>
+                <button onclick="toggleMidiKeyboard();">Keyboard/MIDI</button> -->
+                <div class="main_out_container">
+                    <div class="exagon">
+                        <input type="range" class="input-knob" id="gain" min="0" max="100" oninput="modifyGain()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(198, 153, 99)"/>
+                    </div>
+                    <label for="gain" class="downLabel">Out</label>
                 </div>
             </div>
         </div>

@@ -59,10 +59,11 @@ body{
     display:none;
     width:100%;
     height:35vh;
-    background:linear-gradient(rgb(198,153,99) , rgb(115,95,68));
+    background:linear-gradient(rgb(198, 153, 99) , rgb(115,95,68));
     animation-name:sliding;
     animation-duration:0.2s;
     animation-timing-function:linear;
+    /* z-index: -1; */
 }
 
 .container-synth-closing{
@@ -71,39 +72,6 @@ body{
     animation-duration:0.2s;
     animation-timing-function:linear;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -120,13 +88,41 @@ body{
     outline: none;
 }
 
+.roots_container{
+    border: 1px solid black;
+    position: relative;
+    left: 40%;
+    height: 50%;
+    width: 20%;
+} 
+
+ #rootsCanvas{
+    height: 100%;
+    width: 100%
+} 
+
+/* #defaultCanvas0{
+    z-index: 1;
+} */
+
+
 .oscillators{
     position: absolute;
     top: 10%;
     left: 3%;
-    height: 20%;
+    height: 30%;
     width: 6%;
-    /*border: 1px solid black;*/
+    /* border: 1px solid black; */
+    z-index: 1;
+}
+
+.oscillators_container{
+    position: relative;
+    /* border: 1px solid black; */
+    height: 100%;
+    width: 30%;
+    top: 1vh;
+
 }
 
 .osc{
@@ -142,8 +138,9 @@ body{
     transition: all 0.15s linear;
 }
 
-.osc_container{
-}
+ /* .osc_container{
+    border: 1px solid black; 
+} */
 
 .osc:checked{
     /* background: rgb(255, 226, 226);
@@ -152,56 +149,59 @@ body{
                 0px 1px 4.5px 5px red inset; */
     background:  rgb(115, 95, 68);
 }
+
 .env{
     position: absolute;
-    top: 5%;
+    top: 10%;
     left: 10%;;
-    height: 25%;
-    width: 45%;
-    /*border: 1px solid black;*/
+    height: 5vw;
+    width: 25vw;
+    /* border: 1px solid black;  */
+    display: inline-flex;
+    z-index: 1;
 }
+
 #envelopeCanvas{
-    width : 250px;
-    height : 100px;
+    width : 60%;
+    height : 100%;
     background : rgba(80, 54, 44,0);
     position: relative;
-    /*border: 1px solid black;*/
+    /* border: 1px solid black; */
 }
 
 .env_container{
-    height: 84%;
-    width: 30%;
+    height: 100%;
+    width: 40%;
     position: relative;
-    left: 2%;
-    display: inline-block;
-    /*border: 1px solid black;*/
+    /* border: 1px solid black; */
+    display: inline-flex;
+    top: 5%;
+    
 }
 
 .env_label_container{
-    color: rgb(206, 166, 114);
+    color:  rgb(115, 95, 68);
     position: relative;
-    top: 10%;
-    left: 5%;
-    /*border: 1px solid black;*/
-    display: grid;
+    /* border: 1px solid black; */
+    font-size: 2vh;
+    height: 100%;
+    width: 10%;
 }
 
 .env_slider_container{
     position: relative;
-    height: 85%;
-    width: 60%;
-    top: -70%;
-    left: 20%;
+    height: 100%;
+    width: 90%;
+    /* border: 1px solid black; */
     display: grid;
-    /*border: 1px solid black;*/
+    top: 5%;   
 }
 
 .envelopeSlider {
     -webkit-appearance : none;
     background : rgb(115, 95, 68);
     width : 80%;
-    height: 7px;
-    border-radius: 50px;
+    height: 0.7vh;
     opacity: 0.8;
     -webkit-transition: .2s;
     transition: opacity .2s;
@@ -213,12 +213,13 @@ body{
   }
   
   .envelopeSlider::-webkit-slider-thumb {
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     -webkit-appearance: none;
-    width: 14px;
-    height: 13px;
+    width: 2vh;
+    height: 2vh;
     border-radius: 50%; 
-    background:   rgb(198, 153, 99);
-    border: 2px solid rgb(115, 95, 68);
+    background: rgb(115, 95, 68);
+    /* rgb(198, 153, 99) */
     cursor: pointer;
     -webkit-transition: .3s;
     transition: border .3s;
@@ -228,84 +229,40 @@ body{
     border: 2.5px solid  rgb(247, 225, 196);
   }
   
-
-
 .filter{
     position: absolute;
-    top: 50%;
-    left: 20%;
     height: 35%;
-    width: 30%;
-    border: 1px solid black;
+    width: 20%;
+    top: 55%;
+    left: 10%;
+    /* border: 1px solid black; */
+    display: inline-flex;
 }
 
 .filters_container{
-    border: 1px solid black;
     height: 100%;
-    width: 20%;
-    display: grid;
+    width: 10%;
+    /* border: 1px solid black; */
     position: relative;
+    top: 1vh;
+    left: 10%;
 }
-
-
-
-.group_container{
-    text-align: center;
-    display: inline-block;
-    margin: 8%;
-    margin-top: 2%;
-    margin-left: 14%;
-    border: 1px solid black;
-}
-
-/*.filter_type{
-    -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    position: relative;
-    border: 2px solid rgb(182, 156, 146);*/
-    /* background: linear-gradient(grey,white);
-    box-shadow: 0px 0px 10px 1px black inset,
-                0px 0px 10px 5px white inset;    */
-    /*background:  rgb(148, 119, 108);
-    transition: all 0.15s linear;
-}*/
-
-.filter_type {
-    -webkit-appearance: none;
-    margin-top: 30px;
-    width: 15px;
-    height: 15px;
-    background-color:rgb(148, 119, 108);
-    position: relative;
-    transition: all 0.15s linear;
-    /* background: linear-gradient(grey,white);
-    box-shadow: 0px 0px 10px 1px black inset,
-                0px 0px 10px 5px white inset;    */
-}
-
-.filter_type:checked{
-    /* background: rgb(255, 226, 226);
-    box-shadow: 0px -0.5px 7px 2px red,
-                0px 0px 4px 1px rgb(75, 56, 56) inset,
-                0px 1px 4.5px 5px red inset; */
-    background:  rgb(80, 54, 44);
-}
-
 
 .modifier_container{
     text-align: center;
-    display: inline-block;
+    font-size: 2vh;
     position: relative;
-    margin-top: -2%;
-    margin-left: 15%;
+    /* border: 1px solid black; */
+    height: 100%;
+    margin-left: 15px;
 }
 
 .modifiers_container{
-    /*border: 1px solid black;*/
+    /* border: 1px solid black; */
+    position: relative;
     height: 100%;
-    width:100%;
+    display: inline-flex;
+    left: 30%;
 }
 
 .exagon{
@@ -313,59 +270,96 @@ body{
     height: 67.5px;
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     background-color: rgb(115, 95, 68);
-    position: absolute;
-    outline: none;
-}
-
-.filter_modifier{
+    /* background-color: rgb(199, 113, 0); */
     position: relative;
 }
   
 
 .effects{
     position: absolute;
-    top: 50%;
-    left: 52.5%;
-    height: 35%;
-    width: 30%;
-    border: 1px solid black;
+    top: 45%;
+    left: 65%;
+    height: 45%;
+    width: 22%;
+    /* border: 1px solid black; */
+    display: inline-flex;
 }
 
 .effect_container{
+    height: 100%;
     text-align: center;
-    display: inline-block;
     position: relative;
-    margin-top: 5%;
-    margin-left: 13%;
-    border: 1px solid black;
+    margin-left: 20px;
+    /* border: 1px solid black; */
+    font-size: 2vh;
 }
 
+.activeEffect{
+    position: relative;
+    right: 50%;
+    top: 15%;
+}
 
 
 .output{
     position: absolute;
     top: 10%;
-    left: 75%;
+    left: 65%;
     height: 30%;
-    width: 20%;
-    border: 1px solid black;
+    width: 30%;
+    /* border: 1px solid black; */
+    font-size: 2vh;
+    display: inline-flex;
+}
+
+.selector_label_container{
+    /* border: 1px solid black; */
+    height: 100%;
+    display: grid;
+}
+
+.selector_container{
+    /* border: 1px solid black; */
+    height: 100%;
+    display: inline-flex;
+    margin-left: 10px;
 }
 
 
+.main_out_container{
+    text-align: center;
+    /* border: 1px solid black; */
+    height: 100%;
+    position: relative;
+    left: 30%;
+    
+}
+
+/* .ext_activeLed{
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    -webkit-appearance: none;
+    background:  rgb(115, 95, 68);;
+    transition: all 0.15s linear;
+    outline: none;
+    cursor: pointer;
+} */
+
+
 .activeLed{
+    /* background: linear-gradient(grey,white);
+    box-shadow: 0px 0px 10px 1px black inset,
+                0px 0px 10px 5px white inset;  */
+
     clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     -webkit-appearance: none;
     height: 15px;
     width: 15px;
-   /* border: 2px solid rgb(182, 156, 146);*/
     position: relative;
-    /* background: linear-gradient(grey,white);
-    box-shadow: 0px 0px 10px 1px black inset,
-                0px 0px 10px 5px white inset;  */
-    background:  rgb(182, 156, 146);
+    background:  rgba(182, 156, 146,1);
     transition: all 0.15s linear;
     outline: none;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
  .activeLed:checked{
@@ -373,10 +367,9 @@ body{
     box-shadow: 0px -0.5px 7px 2px red,
                 0px 0px 4px 1px rgb(75, 56, 56) inset,
                 0px 1px 4.5px 5px red inset; */
-    background:  rgb(115, 95, 68);
-    /*border: 1px solid rgb(198, 153, 99);*/
-}
 
+    background:  rgb(115, 95, 68);
+}
 
 .container-options{
     display: none;
