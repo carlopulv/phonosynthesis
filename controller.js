@@ -1011,8 +1011,9 @@ function showKeys() {
   */
  function goToHomePage(){
    game_state=0;
-   keysshown = false;
+   keysshown=false;
    comparingSongs=false;
+   onOff=false;
    document.querySelectorAll(".button-synth")[0].style.display = "none";
    document.querySelectorAll(".save-button")[0].style.display = "none";
  }

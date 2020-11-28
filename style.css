@@ -19,6 +19,7 @@ body{
     font-size: 5vh;
     height: 60px;
 }
+
 .initial-button:hover{
     cursor: pointer;
 }

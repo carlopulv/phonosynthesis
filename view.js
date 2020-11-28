@@ -91,7 +91,6 @@ function draw() {
       document.querySelectorAll(".textarea-songs")[2].style.display="block";
       document.querySelectorAll(".initial-button")[2].style.display="none";
       document.querySelectorAll(".initial-button")[5].style.display="block";
-      //document.querySelectorAll(".initial-button")[6].style.display="block";
       xThirdLeave=12+windowWidth*0.3;
 
       j+=0.21;
@@ -108,7 +107,6 @@ function draw() {
       document.querySelectorAll(".textarea-songs")[1].style.display = "none";
       document.querySelectorAll(".textarea-songs")[2].style.display = "none";
       document.querySelectorAll(".initial-button")[5].style.display = "none";
-      //document.querySelectorAll(".initial-button")[6].style.display = "none";
       j+=0.25;
       l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
       l.plot();
