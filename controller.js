@@ -1017,7 +1017,7 @@ function showKeys() {
     }
   }
   
-  /*
+  /**
   * This function brings back to the home page.
   */
  function goToHomePage(){
@@ -1029,6 +1029,35 @@ function showKeys() {
    document.querySelectorAll(".save-button")[0].style.display = "none";
  }
 
+/**
+*This function positions the close button accordingly to which button of the home page has been opened"
+*/
+function placeCloseButton(pos_x,pos_y){
+  var pos = document.querySelectorAll(".close-button")[0];
+  pos.style.display = "block";
+  pos.style.left = pos_x+'px';
+  pos.style.top = pos_y+'px';
+}
+
+/**
+*This function gives the possibility to close the menu in the home page
+*/
+function closeMenu(){
+  if(keysshown==true){
+    keysshown=false;
+    keys_list.style.display = "none";
+  }
+  else if(openingFile==true){
+    openingFile=false;
+  }
+  else if(comparingSongs==true){
+    comparingSongs=false;
+  }
+  document.querySelectorAll(".close-button")[0].style.display="none";
+}
+
+
+
   fillAnglesMirrored();
   document.querySelectorAll(".initial-button")[0].onclick=showKeys;
   document.querySelectorAll(".initial-button")[1].onclick=openFile;
@@ -1038,3 +1067,4 @@ function showKeys() {
   document.querySelectorAll(".initial-button")[6].onclick=goToHomePage;
   document.querySelectorAll(".button-synth")[0].onclick=showSynth;
   document.querySelectorAll(".save-button")[0].onclick=openTextfield;
+  document.querySelectorAll(".close-button")[0].onclick=closeMenu;

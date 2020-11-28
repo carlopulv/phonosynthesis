@@ -24,6 +24,26 @@ body{
     cursor: pointer;
 }
 
+#goBack{    
+    background-color: rgb(56,87,35);
+    clip-path: polygon(40% 0, 31% 40%, 100% 40%, 100% 60%, 31% 60%, 40% 100%, 0 50%);
+    width: 7vh;
+    height: 7vh;
+}
+
+.close-button{
+   /*display: block;*/
+    position: absolute;
+    border: none;
+    background-color: rgb(56,87,35);
+    clip-path: polygon(10% 0, 0 10%, 40% 50%, 0 90%, 10% 100%, 50% 60%, 90% 100%, 100% 90%, 60% 50%, 100% 10%, 90% 0, 50% 40%);
+    width: 6vh;
+    height: 6vh;
+}
+.close-button:hover{
+    cursor: pointer;
+}
+
 @font-face {
     font-family: 'Montserrat';
     src: url('Montserrat/Montserrat-Bold.ttf') format('truetype');;
