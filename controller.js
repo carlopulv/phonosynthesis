@@ -571,8 +571,9 @@ function showKeys() {
    */
   function showSynth(){
     if(onOff==0){
-      onOff=1;
+     
       document.querySelectorAll(".container-synth")[0].classList.remove("container-synth-closing");
+       onOff=1;
       /*var interv=setInterval(function(){window.scrollTo(0,document.body.scrollHeight)},15);
       setTimeout(function(){clearInterval(interv);onOff=1;},500);*/
       
@@ -972,6 +973,16 @@ function showKeys() {
     maxmode=songs[i].maxmode;
     maxtonal=songs[i].maxtonal;
     generalKey=songs[i].generalKey;
+  }
+
+
+  function initializeRootsCoordinates(){
+    xRoots = [816,785,764,726,697,664,700,729,761,737,709,737,724,704,729,744,767,790,795,777,
+              767,751,771,775,772,779,777,780,800,804,824,830,833,835,855,873,860,837,827,809,
+              814,846,867,882,905,885,872,901,871,849,873,899,933,901,870,839];
+    yRoots = [580,579,589,589,602,607,606,592,593,615,630,621,649,672,651,620,595,582,582,604,
+              634,661,636,660,701,671,630,606,582,582,605,635,670,636,659,689,657,632,603,582,
+              582,597,622,653,675,649,620,632,614,593,592,605,605,600,587,587];
   }
 
   /**
