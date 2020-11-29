@@ -32,7 +32,6 @@ body{
 }
 
 .close-button{
-   /*display: block;*/
     position: absolute;
     border: none;
     background-color: rgb(56,87,35);
