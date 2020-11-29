@@ -28,11 +28,14 @@ function draw(){
 
   
   
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeightMod);
   clear();
   
   
-  if(onOff == 1)  drawRoots();
+  if(onOff == 1){
+    initializeRootsCoordinates();
+    drawRoots();
+  }  
 
   scalePlantTrunk=truckScale/2*windowHeightMod/900;
   truckPlantSuperposition=truckSuperposition/2*windowHeightMod/900;
@@ -60,7 +63,7 @@ function draw(){
 
       beginShape();
       noFill();
-      strokeWeight(2);
+      strokeWeight(1.5);
       stroke(56,87,35);
       while(a<14){
         vertex(windowWidth*position_x[a], windowHeightMod*position_y[a]);
@@ -85,7 +88,6 @@ function draw(){
       document.querySelectorAll(".initial-button")[1].style.display="none"
       document.querySelectorAll(".initial-button")[4].style.display="block";
       xSecondLeave=12+windowWidth*0.3;
-      initializePosAngleToDrawTrunk();
       drawTrunkForText(windowHeightMod*(j+0.25));
       placeCloseButton(xSecondLeave*1.06,windowHeightMod*(j+0.25)*0.9);
     }else{
@@ -107,9 +109,11 @@ function draw(){
       xThirdLeave=12+windowWidth*0.3;
 
       j+=0.21;
+      drawTrunkForText(windowHeightMod*(j));
       l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
       l.plot();
       j+=0.1;
+      drawTrunkForText(windowHeightMod*(j));
       l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
       l.plot();
       placeCloseButton(xThirdLeave*1.05,windowHeightMod*j*0.94);
@@ -257,16 +261,13 @@ function mapRootsCoord(){
     
     
 function drawRoots(){
-    var xsubtract = min(xRoots);
-    var ysubtract = min(yRoots);
-
 
   var rootsCanvas = document.getElementById("rootsCanvas");
     var rootsCtx  = rootsCanvas.getContext("2d");
     rootsCtx.beginPath();
     rootsCtx.moveTo(xRoots[0],yRoots[0]);
     for (var i = 1; i < xRoots.length; i++) {
-        rootsCtx.lineTo(xRoots[i]-xsubtract,yRoots[i]-ysubtract); 
+        rootsCtx.lineTo(xRoots[i],yRoots[i]); 
     }
  
   rootsCtx.closePath();
@@ -309,11 +310,10 @@ function drawTrunkPlant(index){
 function drawTrunkForText(yStart){
   beginShape();
   noFill();
-  strokeWeight(2);
+  strokeWeight(1.5);
   stroke(56,87,35);
-  while(a<14){
-    vertex(windowWidth*position_x[a]/2, windowHeightMod*position_y[a]+yStart/2);
-    a++;
+  for(let i=0;i<posTrunkOpeningx.length;i++){
+    vertex(windowWidth*posTrunkOpeningx[i], windowHeightMod*posTrunkOpeningy[i]+yStart);
   }
   endShape();
 }

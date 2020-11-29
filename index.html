@@ -43,13 +43,41 @@
 
     <div contenteditable="true" class="textarea-songs" onblur="namesongOnBlur('.textarea-songs',0)" onfocus="namesongOnFocus('.textarea-songs',0)">Artist - Title</div>
 
-    <div contenteditable="true" class="textarea-songs" style="top:70%" onblur="namesongOnBlur('.textarea-songs',1)" onfocus="namesongOnFocus('.textarea-songs',1)">Artist - Title</div>
-    <div contenteditable="true" class="textarea-songs" style="top:80%" onblur="namesongOnBlur('.textarea-songs',2)" onfocus="namesongOnFocus('.textarea-songs',2)">Artist - Title</div>
+    <div contenteditable="true" class="textarea-songs" style="top:71%" onblur="namesongOnBlur('.textarea-songs',1)" onfocus="namesongOnFocus('.textarea-songs',1)">Artist - Title</div>
+    <div contenteditable="true" class="textarea-songs" style="top:81%" onblur="namesongOnBlur('.textarea-songs',2)" onfocus="namesongOnFocus('.textarea-songs',2)">Artist - Title</div>
+
+    <div class="notification-screen" style="display: none;" >
+            <div class="notification1-text"></div>
+        
+        <div class="main-container-notification"  >
+
+            <div class="container-listsongs">
+                <div class="notification-title">Choose a song</div>
+                <div class="buttons-songs">
+                </div>
+                <div class="button-notification button-darkgreen non-clickable">Select the song</div>
+            </div>
+            <div class="container-listsongs">
+                <div class="notification-title">Choose a song</div>
+                <div class="buttons-songs"></div>
+                <div class="button-notification button-green non-clickable">Select the song</div>
+            </div>
+        </div>
+        <div class="button-notification button-lightgreen">OK</div>
+        <div class="button-notification button-grey">CANCEL</div>
+    </div>
+
+    <div class="notification-screen" style="display: none;" >
+        <div class="main-container-notification2"  >
+            <div class="notification2-text" style=" text-align: center;"></div>
+        </div>
+        <div class="button-notification button-lightgreen">OK</div>
+    </div>
 
     <div class="container-synth">
         <div class="synth_window">
             <div class="roots_container">
-                <canvas id = "rootsCanvas"></canvas>
+                <canvas id = "rootsCanvas" width="1000" height="547"></canvas>
             </div>    
             <div class="oscillators">
                 <div class="osc_label"></div> <!-- immaginette -->

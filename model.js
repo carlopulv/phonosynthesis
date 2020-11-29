@@ -28,6 +28,7 @@ var midi=0, data=0, note=0, dataMidi=0;
 var openingFile=false;
 var comparingSongs=false;
 var songs=[];
+var songsname=[];
 
 
 
@@ -54,6 +55,10 @@ let position_x;
 let position_y;
 let pos_angle ;
 let a=0;
+
+let posTrunkOpeningx=[0, 0.015,0.2,0.27,0.325];
+let posTrunkOpeningy=[0, 0.0125,0.012,-0.01,0.002];
+
 
 //Roots
      var xRoots = [816,785,764,726,697,664,700,729,761,737,709,737,724,704,729,744,767,790,795,777,

@@ -589,7 +589,7 @@ function showKeys() {
    */
   function initializePosAngleToDrawTrunk(){
     position_x = [0,0.02,0.07,0.13,0.18,0.25,0.31,0.37,0.43,0.49,0.55,0.61,0.67,0.72];
-    position_y = [0.3,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
+    position_y = [0.25,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
     pos_angle = [55,120,60,150,130,50,120,60,130,70,140,40];
     a=0;
   }
@@ -864,6 +864,8 @@ function showKeys() {
   }
 
   function searchSongs(){
+    disableKeyboard();
+    fillListButtonSong(songsname);
     if(comparingSongs){
       iterations=3;
       startindex=1;
@@ -902,29 +904,155 @@ function showKeys() {
               extractSongData(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes);
             }
           } else {
-            if(comparingSongs&&i==1){
-              alert("The first song does not exist");
-            }else if(comparingSongs&&i==2){
-              alert("The second song does not exist");
-            }else{
-              alert("This song does not exists");
-              console.log(error);
-            }
+            notificationManagement1(i);
           }
         }).catch(function(error) {
           console.log(error);
         });
       }else{
-        if(comparingSongs){
-          alert("Write the name of the two the songs to search");
-        }else{
-          alert("Write the name of the song");
-        }
+        notificationManagement2();
       }
     }else{
-      alert("Choose two different songs");
+      notificationManagement3();
     }
     }
+  }
+
+  function searchSongsNoCheck(){
+    fillListButtonSong(songsname);
+    var songnames=[];
+    songnames.push(document.querySelectorAll(".button-darkgreen")[0].innerText);
+    if(document.querySelectorAll(".container-listsongs")[1].style.display!="none") songnames.push(document.querySelectorAll(".button-green")[0].innerText);
+    closeNotification();
+    for(let i=0;i<songnames.length;i++){
+      db.collection("songs").doc(songnames[i]).get().then(function(doc) {
+          let dataChord=doc.data().chords;
+          let dataDistances=doc.data().distances;
+          let dataMaxmode=doc.data().maxmode;
+          let dataMaxtonal=doc.data().maxtonal;
+          let dataGeneralKey=doc.data().generalkey;
+          let dataListnotes=doc.data().listnotes;
+          if(comparingSongs){
+            songs.push(new Song(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes));
+            if(songs.length==2){
+              game_state=2;
+              disableKeyboard();
+            }
+          }else{
+            extractSongData(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes);
+          }
+      }).catch(function(error) {
+        console.log(error);
+      });
+    } 
+  }
+
+  function notificationManagement1(i){
+    document.querySelectorAll(".notification1-text")[0].innerText="Sorry, we don't have the songs that you searched."
+    document.querySelectorAll(".notification-screen")[1].style.display="none";
+    document.querySelectorAll(".notification1-text")[0].style.display="block";
+    if(comparingSongs&&i==1){
+      document.querySelectorAll(".notification-title")[0].innerText="Choose the first song from this list."
+      document.querySelectorAll(".notification-screen")[0].style.display="block";
+    }else if(comparingSongs&&i==2){
+      document.querySelectorAll(".notification-title")[1].innerText="Choose the second song from this list."
+      document.querySelectorAll(".notification-screen")[0].style.display="block";
+    }else{
+      document.querySelectorAll(".notification-title")[0].innerText="Choose a song from this list."
+      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, we don't have the song that you searched."
+      document.querySelectorAll(".notification-screen")[0].style.display="block";
+      document.querySelectorAll(".container-listsongs")[0].style.display="block";
+      document.querySelectorAll(".container-listsongs")[1].style.display="none";
+      console.log(error);
+    }
+  }
+
+  function notificationManagement2(){
+    document.querySelectorAll(".notification-screen")[0].style.display="block";
+    document.querySelectorAll(".notification-screen")[1].style.display="none";
+    if(comparingSongs){
+      document.querySelectorAll(".notification-title")[0].innerText="Choose the first song from this list."
+      document.querySelectorAll(".notification-title")[1].innerText="Choose the second song from this list."
+      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, we don't have the songs that you searched."
+      document.querySelectorAll(".container-listsongs")[0].style.display="block";
+      document.querySelectorAll(".container-listsongs")[1].style.display="block";
+      document.querySelectorAll(".notification-screen")[1].style.display="none"; 
+    }else{
+      document.querySelectorAll(".notification-title")[0].innerText="Choose a song from this list."  
+      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, we don't have the song that you searched."
+      document.querySelectorAll(".container-listsongs")[1].style.display="none";
+    }
+  }
+
+  function notificationManagement3(){
+    document.querySelectorAll(".notification-title")[0].innerText="Choose the first song from this list."
+      document.querySelectorAll(".notification-title")[1].innerText="Choose the second song from this list."
+      document.querySelectorAll(".notification1-text")[0].innerText="Choose two different songs."
+      document.querySelectorAll(".notification-screen")[0].style.display="block";
+      document.querySelectorAll(".container-listsongs")[0].style.display="block";
+      document.querySelectorAll(".container-listsongs")[1].style.display="block";
+      document.querySelectorAll(".notification-screen")[1].style.display="none";
+  }
+
+  function fillListButtonSong(tempsongsname){
+    deleteListsong();
+    for(let i=0;i<tempsongsname.length;i++){
+      el=document.createElement("div");
+      el.classList.add("button-song");
+      el.innerText=tempsongsname[i];
+      el1=document.createElement("div");
+      el1.classList.add("button-song");
+      el1.innerText=tempsongsname[i];
+      el.onclick=chooseSong1;
+      el1.onclick=chooseSong2;
+
+      document.querySelectorAll(".buttons-songs")[0].appendChild(el);
+      document.querySelectorAll(".buttons-songs")[1].appendChild(el1);
+    } 
+  }
+
+  function chooseSong1(){
+    document.querySelectorAll(".button-darkgreen")[0].innerText=this.innerText;
+    var nameFirstSong=this.innerText;
+    var nameSecondSong=document.querySelectorAll(".button-green")[0].innerText;
+    var index=songsname.indexOf(this.innerText);
+    var tempsongsname=[];
+    for(let i=0;i<songsname.length;i++){
+      tempsongsname.push(songsname[i]);
+    }
+    if(tempsongsname.indexOf(nameFirstSong)!=-1&&tempsongsname.indexOf(nameSecondSong)!=-1){
+      document.querySelectorAll(".button-lightgreen")[0].onclick=searchSongsNoCheck;
+    }
+    else if(tempsongsname.indexOf(nameFirstSong)!=-1&&document.querySelectorAll(".container-listsongs")[1].style.display=="none"){
+      document.querySelectorAll(".button-lightgreen")[0].onclick=searchSongsNoCheck;
+    }
+    if(tempsongsname.indexOf(nameFirstSong)!=-1) tempsongsname.splice(tempsongsname.indexOf(nameFirstSong),1);
+    if(tempsongsname.indexOf(nameSecondSong)!=-1) tempsongsname.splice(tempsongsname.indexOf(nameSecondSong),1);
+    fillListButtonSong(tempsongsname);
+  }
+  function chooseSong2(){
+    document.querySelectorAll(".button-green")[0].innerText=this.innerText;
+    var nameSecondSong=this.innerText;
+    var nameFirstSong=document.querySelectorAll(".button-darkgreen")[0].innerText;
+    var index=songsname.indexOf(this.innerText);
+    var tempsongsname=[];
+    for(let i=0;i<songsname.length;i++){
+      tempsongsname.push(songsname[i]);
+    }
+    if(tempsongsname.indexOf(nameFirstSong)!=-1&&tempsongsname.indexOf(nameSecondSong)!=-1){
+      document.querySelectorAll(".button-lightgreen")[0].onclick=searchSongsNoCheck;
+    }
+    if(tempsongsname.indexOf(nameFirstSong)!=-1) tempsongsname.splice(tempsongsname.indexOf(nameFirstSong),1);
+    if(tempsongsname.indexOf(nameSecondSong)!=-1) tempsongsname.splice(tempsongsname.indexOf(nameSecondSong),1);
+    fillListButtonSong(tempsongsname);
+  }
+
+  function closeNotification(){
+    document.querySelectorAll(".notification-screen")[0].style.display="none";
+    document.querySelectorAll(".notification-screen")[1].style.display="none";
+    document.querySelectorAll(".button-darkgreen")[0].innerText="Select the song"
+    document.querySelectorAll(".button-green")[0].innerText="Select the song";
+    document.querySelectorAll(".button-lightgreen")[0].onclick="none";
   }
 
   /**
@@ -980,9 +1108,18 @@ function showKeys() {
     xRoots = [816,785,764,726,697,664,700,729,761,737,709,737,724,704,729,744,767,790,795,777,
               767,751,771,775,772,779,777,780,800,804,824,830,833,835,855,873,860,837,827,809,
               814,846,867,882,905,885,872,901,871,849,873,899,933,901,870,839];
-    yRoots = [580,579,589,589,602,607,606,592,593,615,630,621,649,672,651,620,595,582,582,604,
+    yRoots = [580,580,589,589,602,607,606,592,593,615,630,621,649,672,651,620,595,582,582,604,
               634,661,636,660,701,671,630,606,582,582,605,635,670,636,659,689,657,632,603,582,
               582,597,622,653,675,649,620,632,614,593,592,605,605,600,587,587];
+
+    var xsubtract = min(xRoots);
+    var ysubtract = min(yRoots);
+    for(let i=0;i<xRoots.length;i++){
+      xRoots[i]-=xsubtract;
+      xRoots[i]*=3.7;
+      yRoots[i]-=ysubtract;
+      yRoots[i]*=3.7;
+    }
   }
 
   /**
@@ -1021,13 +1158,47 @@ function showKeys() {
   * This function brings back to the home page.
   */
  function goToHomePage(){
-   game_state=0;
-   keysshown=false;
-   comparingSongs=false;
-   onOff=false;
-   document.querySelectorAll(".button-synth")[0].style.display = "none";
-   document.querySelectorAll(".save-button")[0].style.display = "none";
+  getListsong();
+  deleteListsong();
+  initializeModel();
+  game_state=0;
+  keysshown = false;
+  openingFile=false;
+  comparingSongs=false;
+  document.querySelectorAll(".button-synth")[0].style.display = "none";
+  document.querySelectorAll(".save-button")[0].style.display = "none";
  }
+
+ /**
+  * This function takes the name of all the songs in the database before starting the game;
+  */
+ function getListsong(){
+  songsname=[];
+  db.collection("songs").get().then(querySnapshot => {
+    querySnapshot.docs.forEach(doc => {
+    songsname.push(doc.id);
+    });
+  });
+ }
+
+ function deleteListsong(){
+   var songs=document.querySelectorAll(".button-song");
+   var length=songs.length;
+   for(let i=0;i<length;i++){
+     songs[i].remove();
+   }
+ }
+
+ function initializeModel(){
+  chordsPlayed=[];
+  chordsPlayedNoDup=[];
+  chordDistances=[];
+  listnotes=[];
+  maxmode=[0,0,0,0,0,0,0,0,0,0,0,0];
+  maxtonal=0
+  generalKey=0;
+ }
+
 
 /**
 *This function positions the close button accordingly to which button of the home page has been opened
@@ -1056,15 +1227,16 @@ function closeMenu(){
   document.querySelectorAll(".close-button")[0].style.display="none";
 }
 
+getListsong();
+fillAnglesMirrored();
 
-
-  fillAnglesMirrored();
-  document.querySelectorAll(".initial-button")[0].onclick=showKeys;
-  document.querySelectorAll(".initial-button")[1].onclick=openFile;
-  document.querySelectorAll(".initial-button")[2].onclick=compareSongs;
-  document.querySelectorAll(".initial-button")[4].onclick=searchSongs;
-  document.querySelectorAll(".initial-button")[5].onclick=searchSongs;
-  document.querySelectorAll(".initial-button")[6].onclick=goToHomePage;
-  document.querySelectorAll(".button-synth")[0].onclick=showSynth;
-  document.querySelectorAll(".save-button")[0].onclick=openTextfield;
-  document.querySelectorAll(".close-button")[0].onclick=closeMenu;
+document.querySelectorAll(".initial-button")[0].onclick=showKeys;
+document.querySelectorAll(".initial-button")[1].onclick=openFile;
+document.querySelectorAll(".initial-button")[2].onclick=compareSongs;
+document.querySelectorAll(".initial-button")[4].onclick=searchSongs;
+document.querySelectorAll(".initial-button")[5].onclick=searchSongs;
+document.querySelectorAll(".initial-button")[6].onclick=goToHomePage;
+document.querySelectorAll(".button-synth")[0].onclick=showSynth;
+document.querySelectorAll(".save-button")[0].onclick=openTextfield;
+document.querySelectorAll(".button-grey")[0].onclick=closeNotification;
+document.querySelectorAll(".close-button")[0].onclick=closeMenu;
