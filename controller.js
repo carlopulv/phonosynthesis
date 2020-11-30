@@ -1225,13 +1225,13 @@ function showKeys() {
 
 
 /**
-*This function positions the close button accordingly to which button of the home page has been opened"
+*This function positions the close button accordingly to which button of the home page has been opened
 */
 function placeCloseButton(pos_x,pos_y){
   var pos = document.querySelectorAll(".close-button")[0];
   pos.style.display = "block";
-  pos.style.left = pos_x+'px';
-  pos.style.top = pos_y+'px';
+  pos.style.left = pos_x + 'px';
+  pos.style.top = pos_y + 'px';
 }
 
 /**
