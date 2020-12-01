@@ -573,13 +573,19 @@ function showKeys() {
     if(onOff==0){
      
       document.querySelectorAll(".container-synth")[0].classList.remove("container-synth-closing");
-       onOff=1;
+      document.querySelectorAll(".container-options")[0].classList.add("container-options-open");
+      document.querySelectorAll(".name-song")[0].style.bottom="45vh";
+
+      onOff=1;
       /*var interv=setInterval(function(){window.scrollTo(0,document.body.scrollHeight)},15);
       setTimeout(function(){clearInterval(interv);onOff=1;},500);*/
       
     }
     else if(onOff==1){
       document.querySelectorAll(".container-synth")[0].classList.add("container-synth-closing");
+      document.querySelectorAll(".container-options")[0].classList.remove("container-options-open");
+      document.querySelectorAll(".name-song")[0].style.bottom="10vh";
+
       onOff=0;
     }
   }
@@ -790,12 +796,21 @@ function showKeys() {
         maxtonal: maxtonalString,
         listnotes: listnotesString,
       });
-      alert("Song saved");
+      document.querySelectorAll(".notification-screen")[1].style.display="none";
+      document.querySelectorAll(".notification-screen")[2].style.display="block";
+      document.querySelectorAll(".notification2-text")[1].innerText="Song saved."
+      document.querySelectorAll(".button-lightgreen")[2].onclick=closeNotification;
     }
     else{
       alert("Sorry, there was an error. Try again");
     }
     
+  }
+
+  function confirmOverride(){
+    var name=document.querySelectorAll(".name-song")[0].innerText;
+    name=name.toLowerCase();
+    saveToDB(1, name);
   }
   
   /**
@@ -811,12 +826,18 @@ function showKeys() {
     if(name!=""&&name!="artist - title"){
     db.collection("songs").doc(name).get().then(function(doc) {
     if (doc.exists) {
-      var r = confirm("A song with the same name already exists. The song will be overwritten.");
-      if (r == true) {
+      //var r = confirm("A song with the same name already exists. The song will be overwritten.");
+
+      document.querySelectorAll(".notification-screen")[1].style.display="block";
+      document.querySelectorAll(".notification2-text")[0].innerText="A song with the same name already exists. The song will be overwritten."
+      document.querySelectorAll(".button-lightgreen")[1].onclick=confirmOverride;
+      document.querySelectorAll(".button-grey")[1].onclick=closeNotification;
+
+      /*if (r == true) {
         saveToDB(1, name);
       } else {
         console.log("action cancelled");
-      }
+      }*/
     } else {
       saveToDB(1,name);
     }
@@ -1050,6 +1071,7 @@ function showKeys() {
   function closeNotification(){
     document.querySelectorAll(".notification-screen")[0].style.display="none";
     document.querySelectorAll(".notification-screen")[1].style.display="none";
+    document.querySelectorAll(".notification-screen")[2].style.display="none";
     document.querySelectorAll(".button-darkgreen")[0].innerText="Select the song"
     document.querySelectorAll(".button-green")[0].innerText="Select the song";
     document.querySelectorAll(".button-lightgreen")[0].onclick="none";
@@ -1165,8 +1187,10 @@ function showKeys() {
   keysshown = false;
   openingFile=false;
   comparingSongs=false;
+  onOff=false;
   document.querySelectorAll(".button-synth")[0].style.display = "none";
   document.querySelectorAll(".save-button")[0].style.display = "none";
+  document.querySelectorAll(".container-options")[0].classList.remove("container-options-open")
  }
 
  /**
@@ -1240,3 +1264,4 @@ document.querySelectorAll(".button-synth")[0].onclick=showSynth;
 document.querySelectorAll(".save-button")[0].onclick=openTextfield;
 document.querySelectorAll(".button-grey")[0].onclick=closeNotification;
 document.querySelectorAll(".close-button")[0].onclick=closeMenu;
+document.querySelectorAll(".container-transparent")[0].onclick=closeMenu;

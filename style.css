@@ -400,31 +400,61 @@ body{
     display: none;
     position: absolute;
     float:right;
-    border: none;
     background-color: rgba(255, 255, 255, 0);
-    right: 5vh;  
-    top:90vh;
-    width:100px;
-    height: 20px;
+    left: 95%;
+    transform: translateX(-5vh); 
+    top:92.5vh;
+    width:11vh;
+    height: 3vh;
     z-index:1;
+    animation-name:sliding-options-down;
+    animation-duration:0.2s;
+    animation-timing-function:linear;
+}
+
+.container-options-open{
+    top:60vh;
+    width:7.15vh;
+    height:1.95vh;
+    transform: translateX(-3.25vh);
+    animation-name:sliding-options-up;
+    animation-duration:0.2s;
+    animation-timing-function:linear;
+}
+
+@keyframes sliding-options-up{
+    from{width:11vh;height:3vh;top:92.5vh;transform: translateX(-5vh);}
+    to{width:7.15vh;height:1.95vh;top:60vh;transform: translateX(-3.25vh);}
+}
+@keyframes sliding-options-down{
+    from{width:7.15vh;height:1.95vh;top:60vh;transform: translateX(-3.25vh);}
+    to{width:11vh;height:3vh;top:92.5vh;transform: translateX(-5vh);}
 }
 
 .save-button{
     position: relative;
     border: none;
-    background-color: rgb(56,87,35);
+    background-image: url("img/save.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
     width:50%;
     height: 100%;
+    cursor: pointer;
+    filter: hue-rotate(90deg);
 }
 
 .save-button .tooltiptext{
+    clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 100% 100%, 10% 100%, 0% 50%);
     visibility: hidden;
-    width: 7.5vh;
-    background-color: rgba(0, 0, 0, 0);
+    width: 11vh;
+    right:10%;
+    bottom:10vh;
+    background-color: rgba(80, 124, 50);
     color: rgb(255, 255, 255);
     text-align: center;
     position: relative;
-    font-size: 16px;
+    font-size: 2vh;
     z-index: 1;
 }
 .save-button:hover .tooltiptext{
@@ -432,15 +462,18 @@ body{
 }
 
 .name-song{
+    clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 100% 100%, 10% 100%, 0% 50%);
     position: absolute;
     display : none;
-    min-width: 100px;
-    max-width:200px;
-    min-height:5px;
-    max-height:50px;
+    min-width: 12.5vh;
+    max-width:25vh;
+    min-height:0.625vh;
+    max-height:6.25vh;
     bottom:10vh;
-    right:5vh;
-    font-size:15.4px;
+    right:1%;
+    font-size:2.5vh;
+    padding-right:1vh;
+    padding-left:1vh;
     background-color:rgb(56,87,35);
     border:none;
     color:white;
@@ -448,26 +481,32 @@ body{
     resize: none;
     text-align:center;
     overflow: scroll;
-    z-index:1;
+    z-index:2;
 }
 
 .button-synth{
     position: relative;
     border: none;
-    background-color: rgb(80, 124, 50);
+    background-image: url("img/synth.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
     width:50%;
     height:100%;
     cursor: pointer;
 }
 .button-synth .tooltiptext{
+    clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 100% 100%, 10% 100%, 0% 50%);
     visibility: hidden;
-    width: 7.5vh;
-    background-color: rgba(0, 0, 0, 0);
+    width: 6.25vw;
+    background-color: rgb(56,87,35);
     color: rgb(255, 255, 255);
     text-align: center;
     position: relative;
-    font-size: 16px;
+    font-size: 1.25vw;
     z-index: 1;
+    top:-5vh;
+    right:-0.5vh;
 }
 .button-synth:hover .tooltiptext{
     visibility: visible;
@@ -504,6 +543,7 @@ body{
     animation-duration:0.2s;
     animation-timing-function:ease-in;
     font-family: 'MontserratRegular';
+    z-index:2;
 }
 
 .notification-screen-closing{
@@ -648,4 +688,13 @@ body{
     color:white;
     text-align:left;
     font-family: 'MontserratRegular';
+}
+
+.container-transparent{
+    position:absolute;
+    background-color: rgba(0,0,0,0);
+    width:100%;
+    height:100%;
+    z-index:0;
+
 }

@@ -154,6 +154,8 @@ function draw(){
     document.querySelectorAll(".container-options")[0].style.display = "flex";
     document.querySelectorAll(".close-button")[0].style.display = "none";
 
+    drawLittlePlant();
+
     drawTrunkOnFloor();
     initializeVarToDrawLeaves();
     drawLeaves(0);  
@@ -243,6 +245,15 @@ function drawLeaves(index){
       l3.plot();
     }
   }
+}
+
+function drawLittlePlant(){
+  let t=new Trunk(windowHeightMod*0.00015,windowWidth*0.95,windowHeightMod,0);
+  let l=new Leaf(windowHeightMod*0.0004,windowWidth*0.95+windowHeightMod*0.00015*79,windowHeightMod*0.95,70);
+  t.plot();
+  l.plot();
+  l.transform(windowHeightMod*0.0004,windowWidth*0.95,windowHeightMod*0.95,290);
+  l.plot();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
