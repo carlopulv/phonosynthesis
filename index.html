@@ -19,23 +19,24 @@
   <meta name="CocoaVersion" content="1894.1">
 </head>
 <body>
+    <div class="container-transparent"></div>
 
     <div class = "initial-button" style = "top:20%">play</div>
     <div class = "initial-button" style = "top:46%">open a song</div>
     <div class = "initial-button" style = "top:72%">compare two songs</div>
     <div class = "initial-button" style = "top:15%; left:82%">select the key</div>
-    <div class = "initial-button" style = "top:46%; right:15%; display:none">search</div>
-    <div class = "initial-button" style = "top:70%; right:15%; display:none">search</div>
+    <div class = "initial-button" style = "top:46%; left:40vw; display:none; width:30vh">search</div>
+    <div class = "initial-button" style = "top:70%; left:40vw; display:none; width:30vh">search</div>
     <div class = "initial-button" id="goBack" style = "top:2%; left:2%; display:none"></div>
     
 
     <div class = "container" id ="keys_list"></div>
     <div class = "container-options">
         <div class = "button-synth">
-            <div class="tooltiptext">synth</div>
+            <!--<div class="tooltiptext">synth</div>-->
         </div>
         <div class="save-button">
-            <div class="tooltiptext">save</div>
+            <!--<div class="tooltiptext">save</div>-->
         </div>
     </div>
     <div contenteditable="true" class="name-song" onblur="namesongOnBlur('.name-song',0)" onfocus="namesongOnFocus('.name-song',0)">Artist - Title</div>
@@ -61,6 +62,14 @@
                 <div class="buttons-songs"></div>
                 <div class="button-notification button-green non-clickable">Select the song</div>
             </div>
+        </div>
+        <div class="button-notification button-lightgreen">OK</div>
+        <div class="button-notification button-grey">CANCEL</div>
+    </div>
+
+    <div class="notification-screen" style="display: none;" >
+        <div class="main-container-notification2"  >
+            <div class="notification2-text" style=" text-align: center;"></div>
         </div>
         <div class="button-notification button-lightgreen">OK</div>
         <div class="button-notification button-grey">CANCEL</div>
