@@ -240,11 +240,11 @@ body{
     /* rgb(198, 153, 99) */
     cursor: pointer;
     -webkit-transition: .3s;
-    transition: border .3s;
+    transition: all .3s;
   }
 
   .envelopeSlider::-webkit-slider-thumb:hover{
-    border: 0.4vh solid  rgb(186, 151, 104);
+    background-color:rgb(73, 60, 43);
     border-radius: 40%;
   }
 
