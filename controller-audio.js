@@ -134,7 +134,7 @@ function toggleReverb(){
 
 
 function modifyOscillatorType(){
-  psynth.oscillator.type = document.querySelector(".oscillators:checked").id;
+  psynth.oscillator.type = document.querySelector(".osc:checked").id;
 }
 
 
@@ -304,7 +304,7 @@ function startPlayMidi(){
       if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
       else{
         on();
-        psynth.triggerAttackRelease(pitch, A+D); 
+        psynth.triggerAttackRelease(pitch, A+D+100); 
       }
     }  
 
@@ -318,9 +318,9 @@ function startPlayMidi(){
     }
     if(instrumentSynth){
         var pitch = midiToFreq(note);
-        psynth.triggerRelease(pitch, A+D);
+        psynth.triggerRelease(pitch);
         notes.pop();
-        on();
+        //on();
     }
     else{
       notes.pop();

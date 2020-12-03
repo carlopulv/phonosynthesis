@@ -23,7 +23,6 @@ function draw(){
       document.querySelectorAll(".container-synth")[0].style.display="none";
   
     } 
-    
   }
 
   
@@ -79,7 +78,7 @@ function draw(){
       }
       l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeightMod*position_y[position_y.length-1], angle+70);
       l.plot();
-      placeCloseButton(windowWidth*position_x[position_x.length-1]*1.025 , windowHeightMod*position_y[position_y.length-1]*0.78);
+      //placeCloseButton(windowWidth*position_x[position_x.length-1]*1.025 , windowHeightMod*position_y[position_y.length-1]*0.78);
     }
 
     let xSecondLeave=12;
@@ -89,7 +88,7 @@ function draw(){
       document.querySelectorAll(".initial-button")[4].style.display="block";
       xSecondLeave=12+windowWidth*0.3;
       drawTrunkForText(windowHeightMod*(j+0.25));
-      placeCloseButton(xSecondLeave*1.06,windowHeightMod*(j+0.25)*0.9);
+      //placeCloseButton(xSecondLeave*1.06,windowHeightMod*(j+0.25)*0.9);
     }else{
       document.querySelectorAll(".initial-button")[4].style.display = "none";
       document.querySelectorAll(".textarea-songs")[0].style.display = "none";
@@ -116,7 +115,7 @@ function draw(){
       drawTrunkForText(windowHeightMod*(j));
       l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
       l.plot();
-      placeCloseButton(xThirdLeave*1.05,windowHeightMod*j*0.94);
+      //placeCloseButton(xThirdLeave*1.05,windowHeightMod*j*0.94);
 
     }else{
       document.querySelectorAll(".textarea-songs")[1].innerText = "Artist - Title";
@@ -152,7 +151,7 @@ function draw(){
     document.querySelectorAll(".save-button")[0].style.display = "block";
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
     document.querySelectorAll(".container-options")[0].style.display = "flex";
-    document.querySelectorAll(".close-button")[0].style.display = "none";
+    //document.querySelectorAll(".close-button")[0].style.display = "none";
 
     drawLittlePlant();
 
@@ -169,7 +168,7 @@ function draw(){
     document.querySelectorAll(".initial-button")[6].style.display = "block";
     document.querySelectorAll(".textarea-songs")[1].style.display = "none";
     document.querySelectorAll(".textarea-songs")[2].style.display = "none";
-    document.querySelectorAll(".close-button")[0].style.display = "none";
+    //document.querySelectorAll(".close-button")[0].style.display = "none";
     
     drawTrunkOnFloor();
     for(let i=0;i<songs.length;i++){
@@ -179,6 +178,13 @@ function draw(){
       drawLeaves(i); 
       drawTrunkPlant(i);
     }
+  }
+
+  for(let i=0;i<document.querySelectorAll(".input-knob").length;i++){
+    document.querySelectorAll(".input-knob")[i].style.width=String(windowHeight*0.08)+"px";
+    document.querySelectorAll(".input-knob")[i].style.height=String(windowHeight*0.08)+"px";
+    document.querySelectorAll(".input-knob")[i].width="8vh";
+    document.querySelectorAll(".input-knob")[i].height="8vh";
   }
 }
 
