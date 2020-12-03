@@ -1190,6 +1190,10 @@ function showKeys() {
   onOff=false;
   document.querySelectorAll(".button-synth")[0].style.display = "none";
   document.querySelectorAll(".save-button")[0].style.display = "none";
+  document.querySelectorAll(".name-song")[0].style.display="none";
+  document.querySelectorAll(".name-song")[0].innerText="Artist - Title";
+  document.querySelectorAll(".save-button")[0].onclick=openTextfield;
+
   document.querySelectorAll(".container-options")[0].classList.remove("container-options-open")
  }
 
@@ -1227,12 +1231,12 @@ function showKeys() {
 /**
 *This function positions the close button accordingly to which button of the home page has been opened
 */
-function placeCloseButton(pos_x,pos_y){
+/*function placeCloseButton(pos_x,pos_y){
   var pos = document.querySelectorAll(".close-button")[0];
   pos.style.display = "block";
   pos.style.left = pos_x + 'px';
   pos.style.top = pos_y + 'px';
-}
+}*/
 
 /**
 *This function gives the possibility to close the menu in the home page
@@ -1248,7 +1252,7 @@ function closeMenu(){
   else if(comparingSongs==true){
     comparingSongs=false;
   }
-  document.querySelectorAll(".close-button")[0].style.display="none";
+  //document.querySelectorAll(".close-button")[0].style.display="none";
 }
 
 getListsong();
@@ -1263,5 +1267,4 @@ document.querySelectorAll(".initial-button")[6].onclick=goToHomePage;
 document.querySelectorAll(".button-synth")[0].onclick=showSynth;
 document.querySelectorAll(".save-button")[0].onclick=openTextfield;
 document.querySelectorAll(".button-grey")[0].onclick=closeNotification;
-document.querySelectorAll(".close-button")[0].onclick=closeMenu;
 document.querySelectorAll(".container-transparent")[0].onclick=closeMenu;
