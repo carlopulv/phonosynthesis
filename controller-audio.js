@@ -1,52 +1,80 @@
+
 delayknob = document.getElementById("delay");
 reverbknob = document.getElementById("reverb");
 cutoffknob = document.getElementById("cutofffreq");
 resonanceknob = document.getElementById("resonance");
 gainknob = document.getElementById("gain");
+
 lpf = document.getElementById("lowpass");
 bpf = document.getElementById("bandpass");
 hpf = document.getElementById("highpass");
-
 
 gainknob.value = 70;
 
 var minDelay = 4;
 var maxDelay = 20;
+
 var maxFreq = 10000;
 var minFreq = 150;
 var minRes = Math.exp(0);
 var maxRes = 10;
+
 var minRev = Math.exp(0);
 var maxRev = 5;
+
 var gain = gainknob.value/100;
 var filterType = document.querySelector(".filter_type:checked").id;
 var rolloff = -24;
 var env;
-
 var delayTime = 4 + ((delayknob.value*36)/100) + "n";
 var decay = 0.00001 + ((reverbknob.value*5)/100);
 var feedback = 0.7;
 var cutoffFreq = minFreq + ((cutoffknob.value*(maxFreq-minFreq))/100);
 var resonance = 0 + ((resonanceknob.value*30)/100);
+var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
+var reverb = new Tone.Reverb(decay);
+var filter = new Tone.Filter(100, filterType);
+var outputGain = new Tone.Gain(gain);
 
-function modifyDelayTime(){
-  //delayTime = Math.round(4 + ((delayknob.value*36)/100)) + "n";
-  minv = Math.log(minDelay);
-  maxv = Math.log(maxDelay);
-  minp = delayknob.min;
-  maxp = delayknob.max;
-  scale = ((maxv - minv)/(maxp - minp));
-  delayTime = Math.round(Math.exp(minv + scale*(delayknob.value - minp))) + "n";
+//var synth = new Tone.Synth();
+var psynth = new Tone.PolySynth(Tone.Synth);
+
+var A = parseFloat(document.getElementById("envelopeAttack").value);
+var D = parseFloat(document.getElementById("envelopeDecay").value);
+var S = parseFloat(document.getElementById("envelopeSustain").value);
+var R = parseFloat(document.getElementById("envelopeRelease").value);
+
+
+
+function modifyOscillatorType(){
+  psynth.set({
+    "oscillator" : {
+      "type" : document.querySelector(".osc:checked").id
+    }
+  });
 }
 
-function modifyReverbDecay(){
-  //decay = 0.0001 + ((reverbknob.value*5)/100);
-  minv = Math.log(minRev);
-  maxv = Math.log(maxRev);
-  minp = reverbknob.min;
-  maxp = reverbknob.max;
-  scale = ((maxv - minv)/(maxp - minp));
-  decay = Math.round(Math.exp(minv + scale*(reverbknob.value - minp)));
+function envelopeModifier(){
+  A = parseFloat(document.getElementById("envelopeAttack").value);
+  D = parseFloat(document.getElementById("envelopeDecay").value);
+  S = parseFloat(document.getElementById("envelopeSustain").value);
+  R = parseFloat(document.getElementById("envelopeRelease").value);
+
+  clearCanvas();
+  drawLines();
+}
+
+
+function updateFilterType(){
+  if(lpf.checked == true){
+      filterType = "lowpass";
+  }
+  else if(bpf.checked == true){
+      filterType = "bandpass";
+  }
+  else{
+      filterType = "highpass";
+  }    
 }
 
 function modifyCutoffFreq(){
@@ -69,49 +97,15 @@ function modifyResonance(){
   resonance = Math.round(Math.exp(minv + scale*(resonanceknob.value - minp)));
 }
 
-function modifyGain(){
-  gain = gainknob.value/100;
+function modifyDelayTime(){
+  //delayTime = Math.round(4 + ((delayknob.value*36)/100)) + "n";
+  minv = Math.log(minDelay);
+  maxv = Math.log(maxDelay);
+  minp = delayknob.min;
+  maxp = delayknob.max;
+  scale = ((maxv - minv)/(maxp - minp));
+  delayTime = Math.round(Math.exp(minv + scale*(delayknob.value - minp))) + "n";
 }
-
-function initialize(){
-modifyCutoffFreq();
-modifyDelayTime();
-modifyResonance();
-modifyReverbDecay();
-modifyGain();
-}
-
-initialize();
-
-var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
-var reverb = new Tone.Reverb(decay);
-var filter = new Tone.Filter(100, filterType);
-var outputGain = new Tone.Gain(gain);
-
-var synth = new Tone.Synth();
-var psynth = new Tone.PolySynth(Tone.synth);
-
-function initializeEffects(){
-  feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
-  reverb = new Tone.Reverb(decay);
-  filter = new Tone.Filter(100, filterType);
-  outputGain = new Tone.Gain(gain);
-}
-
-
-//use switch???
-function updateFilterType(){
-  if(lpf.checked == true){
-      filterType = "lowpass";
-  }
-  else if(bpf.checked == true){
-      filterType = "bandpass";
-  }
-  else{
-      filterType = "highpass";
-  }    
-}
-
 
 function toggleDelay(){
   if(document.getElementById("delayLed").checked == true){
@@ -120,6 +114,16 @@ function toggleDelay(){
   else{
       feedbackDelay.wet.value=0;
   }
+}
+
+function modifyReverbDecay(){
+  //decay = 0.0001 + ((reverbknob.value*5)/100);
+  minv = Math.log(minRev);
+  maxv = Math.log(maxRev);
+  minp = reverbknob.min;
+  maxp = reverbknob.max;
+  scale = ((maxv - minv)/(maxp - minp));
+  decay = Math.round(Math.exp(minv + scale*(reverbknob.value - minp)));
 }
 
 function toggleReverb(){
@@ -131,12 +135,27 @@ function toggleReverb(){
   }
 }
 
-
-
-function modifyOscillatorType(){
-  psynth.oscillator.type = document.querySelector(".osc:checked").id;
+function modifyGain(){
+  gain = gainknob.value/100;
 }
 
+function initializeEffects(){
+  feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
+  reverb = new Tone.Reverb(decay);
+  filter = new Tone.Filter(100, filterType);
+  outputGain = new Tone.Gain(gain);
+}
+
+function createAmpEnvelope(){
+  psynth.set({
+    envelope:{
+      attack: A,
+      decay:D,
+      sustain:S,
+      release:R
+    }
+  })
+}
 
 function createFilter(){
   filter.dispose();
@@ -160,51 +179,44 @@ function createGain(){
   outputGain = new Tone.Gain(gain);
 }
 
-  var A = parseFloat(document.getElementById("envelopeAttack").value);
-  var D = parseFloat(document.getElementById("envelopeDecay").value);
-  var S = parseFloat(document.getElementById("envelopeSustain").value);
-  var R = parseFloat(document.getElementById("envelopeRelease").value);
+function initialize(){
+  modifyCutoffFreq();
+  modifyDelayTime();
+  modifyResonance();
+  modifyReverbDecay();
+  modifyGain();
+  }
 
-function envelopeModifier(){
-  A = parseFloat(document.getElementById("envelopeAttack").value);
-  D = parseFloat(document.getElementById("envelopeDecay").value);
-  S = parseFloat(document.getElementById("envelopeSustain").value);
-  R = parseFloat(document.getElementById("envelopeRelease").value);
-
-  clearCanvas();
-  drawLines();
-  //drawCircles();
-}
-
-
-function createAmpEnvelope(){
-     psynth.set({
-       envelope:{
-         attack: A,
-         decay:D,
-         sustain:S,
-         release:R
-       }
-     })
-}
+initialize();
 
 function on(){
   if(firstTime){
-      initializeEffects();
-      firstTime=false;
+    initializeEffects();
+    firstTime=false;
   } 
+
   Tone.context.resume();
 
+  createAmpEnvelope();
   createFilter();
   createDelay();
-  createReverb();
-  createAmpEnvelope();
-  createGain();
   toggleDelay();
+  createReverb();
   toggleReverb();
+  createGain();
 
-  psynth.chain(filter, feedbackDelay, reverb, outputGain, Tone.Destination);   
+  
+  psynth.chain(filter, feedbackDelay, reverb, outputGain, Tone.Destination); 
 }
+
+
+
+
+
+
+
+
+
 
 /**
  * This function is used to change from the instrument mode to the synth mode. The global variable instrumentSynth is false when we are using an instrument, true otherwise.
@@ -212,7 +224,6 @@ function on(){
 function toggleInstrumentSynth(){
   if(document.getElementById("instrument").checked) instrumentSynth=false;
   else if(document.getElementById("synth").checked) instrumentSynth=true;
-  
 }
 
 
@@ -243,29 +254,30 @@ function disableKeyboard(){
 }
 
 /**
- * This function activate the keyboard input.
+ * This function activates the keyboard input.
  */
-function startPlayKeyboard(){
-if(midiKeyboard==false){
-  document.body.onkeydown = function(e) {
-    duration=3;
-    if(e.repeat)return;
-    var position = keys.indexOf(e.key);
-    if(position>=0){
-      var pitch = pitchFromKey(position);
-      midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
-      notes.push(pitch);
-      if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
-      else{
-        on();
-        psynth.triggerAttackRelease(pitch, A+D); 
-      }
-    }  
-  }
 
-  document.body.onkeyup = function(e) {
+function startPlayKeyboard(){
+  if(midiKeyboard==false){
+    document.body.onkeydown = function(e){
+      duration=3;
+      if(e.repeat) return;
+      var position = keys.indexOf(e.key);
+      if(position>=0){
+        var pitch = pitchFromKey(position);
+        midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
+        notes.push(pitch);
+        if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
+        else{
+        on();
+        psynth.triggerAttackRelease(pitch, A+D+100); 
+        }
+      }  
+    }
+
+  document.body.onkeyup = function(e){
     if(notes.length==4){
-          typeChord(notes);
+      typeChord(notes);
     }
     else if(notes.length==1){
       if(!instrumentSynth) player.cancelQueue(audioContext);
@@ -274,7 +286,7 @@ if(midiKeyboard==false){
       var position=keys.indexOf(e.key);
       if(position>=0){
         var pitch = pitchFromKey(position);
-        psynth.triggerRelease(pitch, A+D);
+        psynth.triggerRelease(pitch);
         notes.pop();
         on();
       }
@@ -283,18 +295,18 @@ if(midiKeyboard==false){
       notes.pop();
     }
   }
-}
+  }
 }
 
 /**
- * This function activate the mini input.
+ * This function activate the midi input.
  */
 function startPlayMidi(){
   /*document.body.onkeydown="none";
   document.body.onkeyup="none";*/
   if(midiKeyboard){
   //midion
-  if(dataMidi[2]>0) {
+  if(dataMidi[2]>0 && dataMidi[2] != 64) {
     duration=3;
     //if(data[2].repeat)return;
       var pitch = midiToFreq(dataMidi[1]);
@@ -303,13 +315,13 @@ function startPlayMidi(){
       notes.push(pitch);
       if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
       else{
-        on();
+        if(notes.length == 1) on();
         psynth.triggerAttackRelease(pitch, A+D+100); 
       }
     }  
 
   //midioff
-  if(dataMidi[2]==0) {
+  if(dataMidi[2]==0 || dataMidi[2] == 64){
     if(notes.length==4){
           typeChord(notes);
     }
@@ -380,6 +392,8 @@ function onMIDIMessage(message) {
       note = dataMidi[1];
       startPlayMidi();
     }
+
+    //console.log(data);
 }
 
 function midiToFreq(note) {
