@@ -14,7 +14,7 @@ body{
     position: absolute;
     border: none;
     color: rgb(56,87,35);
-    left: 20vh; 
+    left: 20vh;
     text-align: center;
     font-size: 5vh;
     height: 10vh;
@@ -24,7 +24,7 @@ body{
     cursor: pointer;
 }
 
-#goBack{    
+#goBack{
     background-color: rgb(56,87,35);
     clip-path: polygon(40% 0, 31% 40%, 100% 40%, 100% 60%, 31% 60%, 40% 100%, 0 50%);
     width: 7vh;
@@ -69,7 +69,7 @@ body{
 
 .keys_button{
     position: absolute;
-    color: white;   
+    color: white;
     font-size: 4.5vh;
 }
 .keys_button:hover{
@@ -105,12 +105,16 @@ body{
     animation-timing-function:linear;
 }
 
-
-
+/* .disable_synth_container{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: transparent;
+ } */
 
 
 .synth_window{
-    position: relative;
+    position: absolute;
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -126,12 +130,14 @@ body{
     width: 20vh;
     left: 50vw;
     transform: translate(-10vh);
-} 
+
+}
 
  #rootsCanvas{
     height: 100%;
-    width: 100%
-} 
+    width: 100%;
+    position: relative;
+}
 
 .oscillators{
     position: absolute;
@@ -140,7 +146,6 @@ body{
     height: 30%;
     width: 6%;
     /* border: 1px solid black; */
-    z-index: 1;
 }
 
 .oscillators_container{
@@ -165,7 +170,7 @@ body{
 }
 
  /* .osc_container{
-    border: 1px solid black; 
+    border: 1px solid black;
 } */
 
 .osc:checked{
@@ -184,7 +189,6 @@ body{
     width: 25vw;
     /* border: 1px solid black;  */
     display: inline-flex;
-    z-index: 1;
 }
 
 #envelopeCanvas{
@@ -202,7 +206,7 @@ body{
     /* border: 1px solid black; */
     display: inline-flex;
     top: 5%;
-    
+
 }
 
 .env_label_container{
@@ -220,7 +224,7 @@ body{
     width: 90%;
     /* border: 1px solid black; */
     display: grid;
-    top: 5%;   
+    top: 5%;
 }
 
 .envelopeSlider {
@@ -237,7 +241,7 @@ body{
   .envelopeSlider:hover {
     opacity: 100;
   }
-  
+
   .envelopeSlider::-webkit-slider-thumb {
     clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     -webkit-appearance: none;
@@ -249,11 +253,11 @@ body{
     -webkit-transition: .3s;
     transition: border .3s;
   }
-  
+
   .envelopeSlider::-webkit-slider-thumb:hover{
-    border: 2.5px solid  rgb(247, 225, 196);
+    background: rgb(85, 67, 44);
   }
-  
+
 .filter{
     position: absolute;
     height: 35%;
@@ -298,7 +302,7 @@ body{
     /* background-color: rgb(199, 113, 0); */
     position: relative;
 }
-  
+
 
 .effects{
     position: absolute;
@@ -357,7 +361,7 @@ body{
     height: 100%;
     position: relative;
     left: 30%;
-    
+
 }
 
 /* .ext_activeLed{
@@ -402,7 +406,7 @@ body{
     float:right;
     background-color: rgba(255, 255, 255, 0);
     left: 95%;
-    transform: translateX(-5vh); 
+    transform: translateX(-5vh);
     top:92.5vh;
     width:11vh;
     height: 3vh;

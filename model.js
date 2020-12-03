@@ -21,7 +21,7 @@ var audioContext = new AudioContextFunc();
 var player=new WebAudioFontPlayer();
 var firstTime=true;
 var firstTimeMidi=true;
-var instrumentSynth=false;
+var instrumentSynth=true;
 var midiKeyboard=false;
 var namesong="Artist - Title";
 var midi=0, data=0, note=0, dataMidi=0;
