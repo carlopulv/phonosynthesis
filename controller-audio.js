@@ -22,7 +22,7 @@ var maxRes = 10;
 var minRev = Math.exp(0);
 var maxRev = 5;
 
-var gainReduction = -60;
+var treshold = -60;
 var ratio = 4;
 
 var gain = gainknob.value/100;
@@ -37,7 +37,7 @@ var resonance = 0 + ((resonanceknob.value*30)/100);
 var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
 var reverb = new Tone.Reverb(decay);
 var filter = new Tone.Filter(100, filterType);
-var compressor = new Tone.Compressor(gainReduction, ratio);
+var compressor = new Tone.Compressor(treshold, ratio);
 var outputGain = new Tone.Gain(gain);
 
 
@@ -119,6 +119,7 @@ function toggleDelay(){
   }
   else{
       feedbackDelay.wet.value=0;
+
   }
 }
 
@@ -148,7 +149,7 @@ function modifyGain(){
 function initializeEffects(){
   feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
   reverb = new Tone.Reverb(decay);
-  filter = new Tone.Filter(100, filterType);
+  filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
   outputGain = new Tone.Gain(gain);
 }
 
@@ -165,16 +166,7 @@ function createAmpEnvelope(){
       "decayCurve" : curve,
       "releaseCurve" : curve
     }
-  })
-  
-//  psynth.set({
-//    "envelope" : {
-//     "attackCurve" : curve,
-//     "decayCurve" : curve,
-//     "releaseCurve" : curve
-//    }
-//  });
- 
+  }) 
 }
 
 function createFilter(){
@@ -195,7 +187,9 @@ function createReverb(){
 
 function createCompressor(){
   compressor.dispose();
-  compressor = new Tone.Compressor(gainReduction, ratio);
+  compressor = new Tone.Compressor(treshold, ratio);
+  compressor.knee.value = 30;
+  compressor.attack.value = 0.03;
   }
 
 function createGain(){
@@ -233,7 +227,8 @@ function on(){
   createCompressor();
   createGain();
 
-  psynth.chain(filter, feedbackDelay, reverb, compressor, outputGain, Tone.Destination); 
+  psynth.chain(filter, feedbackDelay, reverb, compressor, outputGain, Tone.Destination);
+  
 }
 
 
@@ -249,8 +244,15 @@ function on(){
  * This function is used to change from the instrument mode to the synth mode. The global variable instrumentSynth is false when we are using an instrument, true otherwise.
  */
 function toggleInstrumentSynth(){
-  if(document.getElementById("instrument").checked) instrumentSynth=false;
-  else if(document.getElementById("synth").checked) instrumentSynth=true;
+  if(document.getElementById("instrument").checked){
+    document.querySelectorAll(".disable_synth_in")[0].style.display = "block";
+    document.querySelectorAll(".disable_synth_in")[0].classList.remove("disable_synth_out");
+    instrumentSynth=false;
+  }
+  else if(document.getElementById("synth").checked){
+    document.querySelectorAll(".disable_synth_in")[0].classList.add("disable_synth_out");
+    instrumentSynth=true;
+  }
 }
 
 
