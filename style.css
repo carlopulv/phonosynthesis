@@ -95,7 +95,6 @@ body{
     animation-name:sliding;
     animation-duration:0.2s;
     animation-timing-function:linear;
-    /* z-index: -1; */
 }
 
 .container-synth-closing{
@@ -105,12 +104,74 @@ body{
     animation-timing-function:linear;
 }
 
-/* .disable_synth_container{
-    height: 100%;
-    width: 100%;
+.disable_synth_in{
     position: absolute;
-    background-color: transparent;
- } */
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgb(198, 153, 99) , rgb(115,95,68));
+    opacity: 0.7;
+    z-index: 1;
+    animation-name: opacity-animation-in;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+}
+
+.disable_synth_out{
+    position: absolute;
+    display: none; /* funziona anche con block bohbohboh*/
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgb(198, 153, 99) , rgb(115,95,68));
+    opacity: 0;
+    z-index: 0;
+    animation-name: opacity-animation-out;
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+}
+
+
+@keyframes opacity-animation-in{
+    from {display: none; opacity: 0;}
+    to {display: block; opacity: 0.7;}
+}
+
+@keyframes opacity-animation-out{
+    from {z-index: 1; display: block; opacity: 0.7;}
+    to {z-index: 0; display: none; opacity: 0;}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .disable_synth_opacity_animation{
+    display: block;
+    opacity: 0.7;
+    animation-name: opacity-animation;
+    animation-duration:1s;
+    animation-timing-function:linear;
+}
+
+@keyframes opacity-animation-out{
+    from{display: block; opacity:0.7;}
+    to{display: none; opacity:0;}
+}
+
+@keyframes opacity-animation{
+    from{display: none; opacity:0;}
+    to{display: block; opacity:0.7;}
+} */
+
 
 
 .synth_window{
@@ -130,7 +191,7 @@ body{
     width: 20vh;
     left: 50vw;
     transform: translate(-10vh);
-
+    z-index: 1;
 }
 
  #rootsCanvas{
@@ -146,7 +207,7 @@ body{
     left: 13%;
     height: 8vh;
     width: 6vh;
-    z-index: 1;
+    z-index: 0;
     box-sizing: border-box;
 }
 
@@ -177,7 +238,7 @@ body{
     height: 8vh;
     width: 40vh;
     display: inline-flex;
-    z-index: 1;
+    z-index: 0;
     box-sizing: border-box;
 }
 
@@ -257,6 +318,7 @@ body{
     display: inline-flex;
     box-sizing: border-box;
     box-sizing: border-box;
+    z-index: 0;
 }
 
 .filters_container{
@@ -329,6 +391,7 @@ body{
     display: inline-flex;
     box-sizing: border-box;
     box-sizing: border-box;
+    z-index: 0;
 }
 
 .effect_container{
@@ -365,6 +428,7 @@ body{
     color:rgb(115, 95, 68);
     margin:0 auto;
     box-sizing: border-box;
+    z-index: 1;
 }
 
 .output_container{
@@ -415,7 +479,6 @@ body{
     background:  rgb(115, 95, 68);;
     transition: all 0.15s linear;
     outline: none;
-    cursor: pointer;
     height:100%;
     width:100%;  
     box-sizing: border-box;
