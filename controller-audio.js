@@ -22,10 +22,13 @@ var maxRes = 10;
 var minRev = Math.exp(0);
 var maxRev = 5;
 
+var treshold = -60;
+var ratio = 4;
+
 var gain = gainknob.value/100;
 var filterType = document.querySelector(".filter_type:checked").id;
 var rolloff = -24;
-var env;
+
 var delayTime = 4 + ((delayknob.value*36)/100) + "n";
 var decay = 0.00001 + ((reverbknob.value*5)/100);
 var feedback = 0.7;
@@ -34,7 +37,10 @@ var resonance = 0 + ((resonanceknob.value*30)/100);
 var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
 var reverb = new Tone.Reverb(decay);
 var filter = new Tone.Filter(100, filterType);
+var compressor = new Tone.Compressor(treshold, ratio);
 var outputGain = new Tone.Gain(gain);
+
+
 
 //var synth = new Tone.Synth();
 var psynth = new Tone.PolySynth(Tone.Synth);
@@ -113,6 +119,7 @@ function toggleDelay(){
   }
   else{
       feedbackDelay.wet.value=0;
+
   }
 }
 
@@ -142,19 +149,24 @@ function modifyGain(){
 function initializeEffects(){
   feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
   reverb = new Tone.Reverb(decay);
-  filter = new Tone.Filter(100, filterType);
+  filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
   outputGain = new Tone.Gain(gain);
 }
 
 function createAmpEnvelope(){
+  var curve = "exponential"
+
   psynth.set({
     envelope:{
       attack: A,
-      decay:D,
-      sustain:S,
-      release:R
+      decay: D,
+      sustain: S,
+      release: R,
+      "attackCurve" : curve,
+      "decayCurve" : curve,
+      "releaseCurve" : curve
     }
-  })
+  }) 
 }
 
 function createFilter(){
@@ -170,9 +182,15 @@ function createDelay(){
 
 function createReverb(){
   reverb.dispose();
-  reverb = new Tone.Reverb(decay);  
-
+  reverb = new Tone.Reverb(decay);
 }
+
+function createCompressor(){
+  compressor.dispose();
+  compressor = new Tone.Compressor(treshold, ratio);
+  compressor.knee.value = 30;
+  compressor.attack.value = 0.03;
+  }
 
 function createGain(){
   outputGain.dispose();
@@ -189,6 +207,9 @@ function initialize(){
 
 initialize();
 
+
+
+
 function on(){
   if(firstTime){
     initializeEffects();
@@ -203,10 +224,11 @@ function on(){
   toggleDelay();
   createReverb();
   toggleReverb();
+  createCompressor();
   createGain();
 
+  psynth.chain(filter, feedbackDelay, reverb, compressor, outputGain, Tone.Destination);
   
-  psynth.chain(filter, feedbackDelay, reverb, outputGain, Tone.Destination); 
 }
 
 
@@ -222,8 +244,15 @@ function on(){
  * This function is used to change from the instrument mode to the synth mode. The global variable instrumentSynth is false when we are using an instrument, true otherwise.
  */
 function toggleInstrumentSynth(){
-  if(document.getElementById("instrument").checked) instrumentSynth=false;
-  else if(document.getElementById("synth").checked) instrumentSynth=true;
+  if(document.getElementById("instrument").checked){
+    document.querySelectorAll(".disable_synth_in")[0].style.display = "block";
+    document.querySelectorAll(".disable_synth_in")[0].classList.remove("disable_synth_out");
+    instrumentSynth=false;
+  }
+  else if(document.getElementById("synth").checked){
+    document.querySelectorAll(".disable_synth_in")[0].classList.add("disable_synth_out");
+    instrumentSynth=true;
+  }
 }
 
 
@@ -269,8 +298,8 @@ function startPlayKeyboard(){
         notes.push(pitch);
         if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
         else{
-        on();
-        psynth.triggerAttackRelease(pitch, A+D+100); 
+        if(notes.length == 1) on();
+        psynth.triggerAttackRelease(pitch, A+D+100);
         }
       }  
     }
@@ -288,7 +317,7 @@ function startPlayKeyboard(){
         var pitch = pitchFromKey(position);
         psynth.triggerRelease(pitch);
         notes.pop();
-        on();
+        //on();
       }
     }
     else{

@@ -1190,6 +1190,10 @@ function showKeys() {
   onOff=false;
   document.querySelectorAll(".button-synth")[0].style.display = "none";
   document.querySelectorAll(".save-button")[0].style.display = "none";
+  document.querySelectorAll(".name-song")[0].style.display="none";
+  document.querySelectorAll(".name-song")[0].innerText="Artist - Title";
+  document.querySelectorAll(".save-button")[0].onclick=openTextfield;
+
   document.querySelectorAll(".container-options")[0].classList.remove("container-options-open")
  }
 

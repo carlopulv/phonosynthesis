@@ -23,7 +23,6 @@ function draw(){
       document.querySelectorAll(".container-synth")[0].style.display="none";
   
     } 
-    
   }
 
   
@@ -176,6 +175,13 @@ function draw(){
       drawTrunkPlant(i);
     }
   }
+
+  for(let i=0;i<document.querySelectorAll(".input-knob").length;i++){
+    document.querySelectorAll(".input-knob")[i].style.width=String(windowHeight*0.08)+"px";
+    document.querySelectorAll(".input-knob")[i].style.height=String(windowHeight*0.08)+"px";
+    document.querySelectorAll(".input-knob")[i].width="8vh";
+    document.querySelectorAll(".input-knob")[i].height="8vh";
+  }
 }
 
 function drawTrunkOnFloor(){
@@ -282,7 +288,8 @@ function drawRoots(){
      rootsCtx.fill();
 }
 
-// function drawRoots(){
+// P5 Roots 
+//function drawRoots(){
 //   mapRootsCoord();
   
   
@@ -325,10 +332,12 @@ function drawTrunkForText(yStart){
   endShape();
 }
 
-//synth fra
+// Synth Envelope 
 var envCanvas = document.getElementById("envelopeCanvas");
 var ctx  = envCanvas.getContext("2d");
 var space = 3;
+var xCanvas = document.getElementById("envelopeCanvas").width;
+var yCanvas = document.getElementById("envelopeCanvas").height;
 
 function envChange(Q){
     var envchange = Q*100;
@@ -339,28 +348,27 @@ function envChange(Q){
     ctx.lineWidth=  "1";
     ctx.strokeStyle = "rgb(115, 95, 68)";
     ctx.fillStyle = "rgb(115, 95, 68)";
-    
+ 
     ctx.beginPath();
     ctx.moveTo(0,150);
     ctx.lineTo(envChange(A),0);
-    ctx.lineTo(envChange(A),300);
-    ctx.lineTo(300,150);
+    ctx.lineTo(envChange(A),yCanvas);
+    ctx.lineTo(0, yCanvas);
     ctx.fill();
     ctx.stroke();
 
-    ctx.moveTo((envChange(A) + space),150);
+    ctx.moveTo((envChange(A) + space),yCanvas);
     ctx.lineTo(envChange(A) + space,0);
-    ctx.lineTo((envChange(D) + envChange(A)) + space ,(150 - 1.5 *envChange(S)));
-    ctx.lineTo((space + envChange(D) + envChange(A)) , 300);
-    ctx.lineTo(envChange(A) + space ,150);
+    ctx.lineTo((envChange(A) + envChange(D)) + space ,(yCanvas - (yCanvas/100) *envChange(S)));
+    ctx.lineTo((envChange(A) + envChange(D) + space) , yCanvas);
+    ctx.lineTo(envChange(A) + space ,yCanvas);
     ctx.fill();
     ctx.stroke();
 
-    ctx.moveTo(space + (envChange(D) + envChange(A)) + space , 150);
-    ctx.lineTo(space + (envChange(D) + envChange(A)) + space , (150 - 1.5 *envChange(S)));
-    ctx.lineTo(2*space + (envChange(D) + envChange(A) + envChange(R)) , 150);
-    ctx.lineTo((envChange(D) + envChange(A)) , 300) ;
-    ctx.lineTo(space + (envChange(D) + envChange(A)),150);
+    ctx.moveTo(2*space + (envChange(D) + envChange(A)) , yCanvas);
+    ctx.lineTo(2*space + (envChange(D) + envChange(A)) , (yCanvas - (yCanvas/100) *(envChange(S)-0.5)));
+    ctx.lineTo(2*space + (envChange(D) + envChange(A) + envChange(R)) , yCanvas);
+    ctx.lineTo(2*space + (envChange(D) + envChange(A)),yCanvas);
     ctx.fill();
     ctx.stroke();
  
@@ -369,5 +377,5 @@ function envChange(Q){
 drawLines();
 
 function clearCanvas(){
-    ctx.clearRect(0, 0, 300, 150);
+    ctx.clearRect(0, 0, xCanvas, yCanvas);
   }
