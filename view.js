@@ -21,11 +21,9 @@ function draw(){
     if(windowHeightMod>=windowHeight){
       windowHeightMod=windowHeight;
       document.querySelectorAll(".container-synth")[0].style.display="none";
-  
     } 
   }
 
-  
   
   createCanvas(windowWidth, windowHeightMod);
   clear();

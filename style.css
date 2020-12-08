@@ -25,10 +25,10 @@ body{
 }
 
 #goBack{    
-    background-color: white;
+    background-color: whitesmoke;
     clip-path: polygon(0 50%, 50% 10%, 57% 18%, 25% 44%, 100% 44%, 100% 56%, 25% 56%, 57% 82%, 50% 90%);
-    width: 5vh;
-    height: 5vh;
+    width: 3.25vh;
+    height: 3.25vh;
 }
 
 @font-face {
