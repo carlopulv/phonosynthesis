@@ -885,6 +885,24 @@ body{
 
 }
 
+.score{
+    position: absolute;
+    margin: 0 auto;
+    display: none;
+    color:rgb(29,110,169);
+    font-size: 3vh;
+    right:0%;
+    top:5.5vh;
+    transform: translateX(-5vh);
+    width:9vh;
+    text-align:center;
+}
+
+.score2{
+    right:50%;
+    transform: translateX(-5vh);
+}
+
 @media (max-width: 805px) {
     #envelopeCanvas {
         width:30%;

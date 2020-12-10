@@ -25,35 +25,35 @@ class Cloud{
         let x3=x1+width;
         let y3=y1;
 
-        let x4=x1+width+1;
+        let x4=x1+width;
         let y4=y1;
-        let x5=x2+1;
+        let x5=x2;
         let y5=y2;
         let x6=x5+width;
         let y6=y5;
 
-        let x7=x4+1
+        let x7=x4
         let y7=y4;
-        let x8=x6+1;
+        let x8=x6;
         let y8=y6;
         let x9=x7+width;
         let y9=y7;
 
-        let x10=x9+1;
+        let x10=x9;
         let y10=y9;
-        let x11=x8+1;
+        let x11=x8;
         let y11=y8;
         let x12=x11+width;
         let y12=y11;
 
-        let x13=x10+1;
+        let x13=x10;
         let y13=y10;
         let x14=x13+width/2;
         let y14=y13-height;
         let x15=x14;
         let y15=y13;
 
-        let x16=x15+1;
+        let x16=x15;
         let y16=y13;
         let x17=x16;
         let y17=y16-height;
@@ -62,13 +62,13 @@ class Cloud{
 
         let height2=height/3;
         let x19=x16;
-        let y19=y17-1;
+        let y19=y17;
         let x20=x19;
         let y20=y19-height2;
         let x21=x19+width/2;
         let y21=y19;
 
-        let x22=x19-1;
+        let x22=x19;
         let y22=y19;
         let x23=x22-width/2;
         let y23=y20;
@@ -76,43 +76,44 @@ class Cloud{
         let y24=y23;
 
         let height3=height2*2;
-        let x25=x22-width-1;
+        let x25=x22-width;
         let y25=y22;
         let x26=x25;
         let y26=y25-height3;
-        let x27=x22-1;
+        let x27=x22;
         let y27=y25;
 
-        let x28=x25-1;
+        let x28=x25;
         let y28=y25;
         let x29=x28-width/1.74;
         let y29=y26;
         let x30=x28;
         let y30=y29;
 
-        let x31=x28-width-1;
+        let x31=x28-width;
         let y31=y25;
         let x32=x31;
         let y32=y31-width;
-        let x33=x28-1;
+        let x33=x28;
         let y33=y31;
 
-        let x34=x31-1;
+        let x34=x31;
         let y34=y31;
         let x35=x34-width*Math.cos(Math.PI/10);
         let y35=y34-width*Math.sin(Math.PI/10);
         let x36=x34;
         let y36=y32;
 
-        let x37=x1-1;
+        let x37=x1;
         let y37=y1;
         let x38=x35;
-        let y38=y35+1;
-        let x39=x34-1
-        let y39=y34+1;
+        let y38=y35;
+        let x39=x34;
+        let y39=y34;
 
 
-        noStroke();
+        stroke(255,255,255);
+        strokeWeight(0.5);
         fill(c1);
         triangle(x1,y1,x2,y2,x3,y3);
         

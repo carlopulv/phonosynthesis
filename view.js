@@ -136,10 +136,14 @@ function draw(){
       t.plot();
       i--;
     } 
+    document.querySelectorAll(".container-transparent")[0].style.display="block";
+    document.querySelectorAll(".score")[0].style.display="none";
+    document.querySelectorAll(".score")[1].style.display="none";
   }
   //The game started
   else if(game_state==1){
     keys_list.style.display = "none";
+    document.querySelectorAll(".container-transparent")[0].style.display="none";
     document.querySelectorAll(".initial-button")[0].style.display = "none";
     document.querySelectorAll(".initial-button")[1].style.display = "none";
     document.querySelectorAll(".initial-button")[2].style.display = "none";
@@ -158,10 +162,13 @@ function draw(){
     drawTrunkOnFloor();
     initializeVarToDrawLeaves();
     drawLeaves(0);  
-    drawTrunkPlant(0);   
+    drawTrunkPlant(0);
+    
+    drawClouds(0);
   }
   //Compare mode
   else if(game_state==2){
+    document.querySelectorAll(".container-transparent")[0].style.display="none";
     document.querySelectorAll(".initial-button")[0].style.display = "none";
     document.querySelectorAll(".initial-button")[1].style.display = "none";
     document.querySelectorAll(".initial-button")[5].style.display = "none";
@@ -178,6 +185,7 @@ function draw(){
       drawLeaves(i); 
       drawTrunkPlant(i);
     }
+    drawClouds(1);
   }
 
   for(let i=0;i<document.querySelectorAll(".input-knob").length;i++){
@@ -185,6 +193,19 @@ function draw(){
     document.querySelectorAll(".input-knob")[i].style.height=String(windowHeight*0.08)+"px";
     document.querySelectorAll(".input-knob")[i].width="8vh";
     document.querySelectorAll(".input-knob")[i].height="8vh";
+  }
+}
+
+function drawClouds(i){
+  let c=new Cloud(windowHeight*0.0003,windowWidth-windowHeight*0.15, windowHeight*0.1);
+  c.plot();
+  document.querySelectorAll(".score")[0].innerText=finalScores[0];
+  document.querySelectorAll(".score")[0].style.display="block";
+  if(i==1){
+    c.transform(windowHeight*0.0003,windowWidth/2-windowHeight*0.15, windowHeight*0.1);
+    c.plot();
+    document.querySelectorAll(".score")[1].innerText=finalScores[1];
+    document.querySelectorAll(".score")[1].style.display="block";
   }
 }
 
