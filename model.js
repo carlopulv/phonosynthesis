@@ -29,7 +29,7 @@ var openingFile=false;
 var comparingSongs=false;
 var songs=[];
 var songsname=[];
-
+var finalScores=[0,0];
 
 
 let angle=0;

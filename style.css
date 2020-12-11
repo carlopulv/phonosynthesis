@@ -24,23 +24,11 @@ body{
     cursor: pointer;
 }
 
-#goBack{
-    background-color: rgb(56,87,35);
-    clip-path: polygon(40% 0, 31% 40%, 100% 40%, 100% 60%, 31% 60%, 40% 100%, 0 50%);
-    width: 7vh;
-    height: 7vh;
-}
-
-.close-button{
-    position: absolute;
-    border: none;
-    background-color: rgb(56,87,35);
-    clip-path: polygon(10% 0, 0 10%, 40% 50%, 0 90%, 10% 100%, 50% 60%, 90% 100%, 100% 90%, 60% 50%, 100% 10%, 90% 0, 50% 40%);
-    width: 6vh;
-    height: 6vh;
-}
-.close-button:hover{
-    cursor: pointer;
+#goBack{    
+    background-color: whitesmoke;
+    clip-path: polygon(0 50%, 50% 10%, 57% 18%, 25% 44%, 100% 44%, 100% 56%, 25% 56%, 57% 82%, 50% 90%);
+    width: 3.25vh;
+    height: 3.25vh;
 }
 
 @font-face {
@@ -157,7 +145,7 @@ body{
     position: relative;
     height: 11vh;
     width: 20vh;
-    left: 50vw;
+    left: 50.1vw;
     transform: translate(-10vh);
     z-index: 1;
 }
@@ -933,6 +921,24 @@ body{
     height:100%;
     z-index:0;
 
+}
+
+.score{
+    position: absolute;
+    margin: 0 auto;
+    display: none;
+    color:rgb(29,110,169);
+    font-size: 3vh;
+    right:0%;
+    top:5.5vh;
+    transform: translateX(-5vh);
+    width:9vh;
+    text-align:center;
+}
+
+.score2{
+    right:50%;
+    transform: translateX(-5vh);
 }
 
 @media (max-width: 805px) {

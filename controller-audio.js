@@ -469,7 +469,7 @@ function toggleMidiKeyboard(){
 
 }
 // request MIDI access
-  if (navigator.requestMIDIAccess) { //see if it works
+  if (navigator.requestMIDIAccess) { //fare dentro funzione che si attiva quando clicca midi nel synth
     navigator.requestMIDIAccess({
         sysex: false
     }).then(onMIDISuccess, onMIDIFailure);

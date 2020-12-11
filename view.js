@@ -21,11 +21,9 @@ function draw(){
     if(windowHeightMod>=windowHeight){
       windowHeightMod=windowHeight;
       document.querySelectorAll(".container-synth")[0].style.display="none";
-  
     } 
   }
 
-  
   
   createCanvas(windowWidth, windowHeightMod);
   clear();
@@ -78,7 +76,6 @@ function draw(){
       }
       l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeightMod*position_y[position_y.length-1], angle+70);
       l.plot();
-      //placeCloseButton(windowWidth*position_x[position_x.length-1]*1.025 , windowHeightMod*position_y[position_y.length-1]*0.78);
     }
 
     let xSecondLeave=12;
@@ -88,7 +85,6 @@ function draw(){
       document.querySelectorAll(".initial-button")[4].style.display="block";
       xSecondLeave=12+windowWidth*0.3;
       drawTrunkForText(windowHeightMod*(j+0.25));
-      //placeCloseButton(xSecondLeave*1.06,windowHeightMod*(j+0.25)*0.9);
     }else{
       document.querySelectorAll(".initial-button")[4].style.display = "none";
       document.querySelectorAll(".textarea-songs")[0].style.display = "none";
@@ -115,9 +111,9 @@ function draw(){
       drawTrunkForText(windowHeightMod*(j));
       l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
       l.plot();
-      //placeCloseButton(xThirdLeave*1.05,windowHeightMod*j*0.94);
-
-    }else{
+    }
+    
+    else{
       document.querySelectorAll(".textarea-songs")[1].innerText = "Artist - Title";
       document.querySelectorAll(".textarea-songs")[2].innerText = "Artist - Title";
       document.querySelectorAll(".initial-button")[2].style.display="block";
@@ -136,10 +132,14 @@ function draw(){
       t.plot();
       i--;
     } 
+    document.querySelectorAll(".container-transparent")[0].style.display="block";
+    document.querySelectorAll(".score")[0].style.display="none";
+    document.querySelectorAll(".score")[1].style.display="none";
   }
   //The game started
   else if(game_state==1){
     keys_list.style.display = "none";
+    document.querySelectorAll(".container-transparent")[0].style.display="none";
     document.querySelectorAll(".initial-button")[0].style.display = "none";
     document.querySelectorAll(".initial-button")[1].style.display = "none";
     document.querySelectorAll(".initial-button")[2].style.display = "none";
@@ -151,24 +151,25 @@ function draw(){
     document.querySelectorAll(".save-button")[0].style.display = "block";
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
     document.querySelectorAll(".container-options")[0].style.display = "flex";
-    //document.querySelectorAll(".close-button")[0].style.display = "none";
 
     drawLittlePlant();
 
     drawTrunkOnFloor();
     initializeVarToDrawLeaves();
     drawLeaves(0);  
-    drawTrunkPlant(0);   
+    drawTrunkPlant(0);
+    
+    drawClouds(0);
   }
   //Compare mode
   else if(game_state==2){
+    document.querySelectorAll(".container-transparent")[0].style.display="none";
     document.querySelectorAll(".initial-button")[0].style.display = "none";
     document.querySelectorAll(".initial-button")[1].style.display = "none";
     document.querySelectorAll(".initial-button")[5].style.display = "none";
     document.querySelectorAll(".initial-button")[6].style.display = "block";
     document.querySelectorAll(".textarea-songs")[1].style.display = "none";
     document.querySelectorAll(".textarea-songs")[2].style.display = "none";
-    //document.querySelectorAll(".close-button")[0].style.display = "none";
     
     drawTrunkOnFloor();
     for(let i=0;i<songs.length;i++){
@@ -178,6 +179,7 @@ function draw(){
       drawLeaves(i); 
       drawTrunkPlant(i);
     }
+    drawClouds(1);
   }
 
   for(let i=0;i<document.querySelectorAll(".input-knob").length;i++){
@@ -185,6 +187,19 @@ function draw(){
     document.querySelectorAll(".input-knob")[i].style.height=String(windowHeight*0.08)+"px";
     document.querySelectorAll(".input-knob")[i].width="8vh";
     document.querySelectorAll(".input-knob")[i].height="8vh";
+  }
+}
+
+function drawClouds(i){
+  let c=new Cloud(windowHeight*0.0003,windowWidth-windowHeight*0.15, windowHeight*0.1);
+  c.plot();
+  document.querySelectorAll(".score")[0].innerText=finalScores[0];
+  document.querySelectorAll(".score")[0].style.display="block";
+  if(i==1){
+    c.transform(windowHeight*0.0003,windowWidth/2-windowHeight*0.15, windowHeight*0.1);
+    c.plot();
+    document.querySelectorAll(".score")[1].innerText=finalScores[1];
+    document.querySelectorAll(".score")[1].style.display="block";
   }
 }
 

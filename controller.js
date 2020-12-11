@@ -405,6 +405,7 @@ function getKey(){
       console.log(chordsPlayed);
       if(oldChordsPlayedLength<chordsPlayed.length){
         harmonicDistance();
+        finalScores[0]=computeScore(chordDistances);
         chordsPlayedNoDup=unique(chordsPlayed);
         mapChordsToLeaves();
       }
@@ -434,7 +435,7 @@ function getKey(){
       //this part is useful for the phrigyan mode and its position in the circle of fifths.
       indexForMode1=circleOfFifthForMode.indexOf(chordsPlayed[len].mode);
       indexForMode2=circleOfFifthForMode.indexOf(chordsPlayed[ii-1].mode);
-      if(indexForMode1==6&&indexForMode1==6){
+      if(indexForMode1==6&&indexForMode2==6){
         modeDistance=0;
       }
       else if(indexForMode1==6){
@@ -451,8 +452,10 @@ function getKey(){
       if(keydistance>6){
         keydistance=12-keydistance;
       }
-  
-      distance=keydistance+modeDistance+hammingDistance;
+      //console.log(keydistance+" "+modeDistance+" "+hammingDistance);
+
+      //The keydistance has to be twice the mode distance because of the alterations distance.
+      distance=keydistance*20+modeDistance*10+hammingDistance;
   
       if(ii==len){
         chordDistances.push(distance);        
@@ -477,6 +480,17 @@ function getKey(){
   }
 
   /**
+   * This function computes the score achieved by the user making the sum of all the distances saved in the array chordDistances.
+   */
+  function computeScore(chordDistances){
+    let finalScore=0;
+    for(let i=0;i<chordDistances.length;i++){
+      finalScore+=chordDistances[i];
+    }
+    return finalScore;
+  }
+
+/**
  * This function is called when "play" button is clicked. It creates the buttons to be used to select the key.
  */
 function showKeys() {
@@ -1093,7 +1107,7 @@ function showKeys() {
     maxmode=int(dataMaxmode);
     maxtonal=int(dataMaxtonal);
     generalKey=dataGeneralKey;
-
+    finalScores[0]=computeScore(chordDistances);
     game_state=1;
     startPlayKeyboard();
   }
@@ -1123,6 +1137,7 @@ function showKeys() {
     maxmode=songs[i].maxmode;
     maxtonal=songs[i].maxtonal;
     generalKey=songs[i].generalKey;
+    finalScores[i]=computeScore(chordDistances);
   }
 
 
@@ -1190,6 +1205,7 @@ function showKeys() {
   openingFile=false;
   comparingSongs=false;
   onOff=false;
+  finalScores=[0,0];
   document.querySelectorAll(".button-synth")[0].style.display = "none";
   document.querySelectorAll(".save-button")[0].style.display = "none";
   document.querySelectorAll(".name-song")[0].style.display="none";
@@ -1229,17 +1245,6 @@ function showKeys() {
   generalKey=0;
  }
 
-
-/**
-*This function positions the close button accordingly to which button of the home page has been opened
-*/
-/*function placeCloseButton(pos_x,pos_y){
-  var pos = document.querySelectorAll(".close-button")[0];
-  pos.style.display = "block";
-  pos.style.left = pos_x + 'px';
-  pos.style.top = pos_y + 'px';
-}*/
-
 /**
 *This function gives the possibility to close the menu in the home page
 */
@@ -1254,7 +1259,6 @@ function closeMenu(){
   else if(comparingSongs==true){
     comparingSongs=false;
   }
-  //document.querySelectorAll(".close-button")[0].style.display="none";
 }
 
 getListsong();
