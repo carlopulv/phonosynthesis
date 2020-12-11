@@ -177,7 +177,7 @@ body{
     position: relative;
     height: 11vh;
     width: 20vh;
-    left: 50vw;
+    left: 50.1vw;
     transform: translate(-10vh);
     z-index: 1;
 }
