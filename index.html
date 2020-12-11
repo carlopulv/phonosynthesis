@@ -8,6 +8,9 @@
 
 <script src="https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js"></script>
 <script src="https://surikov.github.io/webaudiofontdata/sound/0000_Aspirin_sf2_file.js"></script>
+<script src="https://surikov.github.io/webaudiofontdata/sound/0040_GeneralUserGS_sf2_file.js"></script>
+<script src="https://surikov.github.io/webaudiofontdata/sound/0240_FluidR3_GM_sf2_file.js"></script>
+
 <script src="input-knobs.js"></script>
 <script src="https://unpkg.com/tone@latest/build/Tone.js"></script>
 
@@ -21,9 +24,9 @@
 <body>
     <div class="container-transparent"></div>
 
-    <div class = "initial-button" style = "top:20%">play</div>
-    <div class = "initial-button" style = "top:46%">open a song</div>
-    <div class = "initial-button" style = "top:72%">compare two songs</div>
+    <div class = "initial-button" style = "top:20%">Play</div>
+    <div class = "initial-button" style = "top:46%">Open a song</div>
+    <div class = "initial-button" style = "top:72%">Compare two songs</div>
     <div class = "initial-button" style = "top:15%; left:82%">select the key</div>
     <div class = "initial-button" style = "top:46%; left:40vw; display:none; width:30vh">search</div>
     <div class = "initial-button" style = "top:70%; left:40vw; display:none; width:30vh">search</div>
@@ -234,15 +237,15 @@
                 <div class="led-container">
                     <div class="container-checkbox">
                         <div class="ext_activeLed">
-                            <input type="checkbox" class="activeEffect activeLed" value="BOH_act" id="BOHLed"/>
+                            <input type="checkbox" class="activeEffect activeLed" value="chorus_act" id="chorusLed" onchange="toggleChorus();"/>
                         </div>
                     </div>
                 </div>
                 <div class="effect_container">
                     <div class="exagon">
-                        <input type="range" class="input-knob effect_type" id="boh" min="0" max="100" width="8vh" height="8vh"  style="height: 8vh; width:8vh" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(153,122,82)"/><br/>
+                        <input type="range" class="input-knob effect_type" id="chorus" min="0" max="100" width="8vh" height="8vh"  style="height: 8vh; width:8vh" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(153,122,82)"/><br/>
                     </div>
-                    <label for="boh">Boh</label>
+                    <label for="chorus">Chorus</label>
                 </div>
             </div> 
 
@@ -265,7 +268,8 @@
                             </div>
                         <!--</div>-->
                     </form>
-                </div>
+                </div>               
+                
                 <div class="selector_label_container">
                     <div class="selector_container">
                         <label for="synth">Synth</label>
@@ -305,6 +309,53 @@
                     <label for="gain" class="downLabel">Out</label>
                 </div>
             </div>
+
+            <div class="instruments_container">
+                <div class="all_inst_container">  
+                    <form name = "instruments" method="POST" class="inst_form">
+                        <div class="inline_container_parent">
+                            <div class="inline_cont">
+                                <div class="container-checkbox">
+                                    <div class="ext_activeLed">
+                                        <input type="radio" name="instruments" class="activeLed" value="val" id="piano" checked onchange="toggleInstrumentSynth();"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline_container_parent">
+                            <div class="inline_cont">
+                                <div class="container-checkbox">
+                                    <div class="ext_activeLed">
+                                        <input type="radio" name="instruments" class="activeLed" value="val" id="e-piano" onchange="toggleInstrumentSynth();"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="inline_container_parent">
+                                <div class="inline_cont">
+                                <div class="container-checkbox">
+                                    <div class="ext_activeLed">
+                                        <input type="radio" name="instruments" class="activeLed" value="val" id="guitar" onchange="toggleInstrumentSynth();"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                </div>
+            
+            <div class="inst_label">
+                <div class="inst_label_container">
+                    <label for="piano">Piano</label>
+                </div>
+                <div class="inst_label_container">
+                    <label for="e-piano">E-Piano</label>
+                </div>
+                <div class="inst_label_container">
+                    <label for="guitar">Guitar</label>
+                </div>
+            </div>
+        </div>
+
         </div>
     </div>
 </body>

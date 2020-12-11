@@ -4,6 +4,7 @@ reverbknob = document.getElementById("reverb");
 cutoffknob = document.getElementById("cutofffreq");
 resonanceknob = document.getElementById("resonance");
 gainknob = document.getElementById("gain");
+chorusknob = document.getElementById("chorus");
 
 lpf = document.getElementById("lowpass");
 bpf = document.getElementById("bandpass");
@@ -22,12 +23,16 @@ var maxRes = 10;
 var minRev = Math.exp(0);
 var maxRev = 5;
 
-var treshold = -60;
+var treshold = -40;
 var ratio = 4;
 
 var gain = gainknob.value/100;
 var filterType = document.querySelector(".filter_type:checked").id;
 var rolloff = -24;
+
+var chorusFrequency = 100;
+var chorusDelayTime = 5;
+var depth = 1;
 
 var delayTime = 4 + ((delayknob.value*36)/100) + "n";
 var decay = 0.00001 + ((reverbknob.value*5)/100);
@@ -36,13 +41,14 @@ var cutoffFreq = minFreq + ((cutoffknob.value*(maxFreq-minFreq))/100);
 var resonance = 0 + ((resonanceknob.value*30)/100);
 var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
 var reverb = new Tone.Reverb(decay);
+// var chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
+var chorus = new Tone.Tremolo(9, 0.75);
 var filter = new Tone.Filter(100, filterType);
 var compressor = new Tone.Compressor(treshold, ratio);
 var outputGain = new Tone.Gain(gain);
 
 
 
-//var synth = new Tone.Synth();
 var psynth = new Tone.PolySynth(Tone.Synth);
 
 var A = parseFloat(document.getElementById("envelopeAttack").value);
@@ -80,7 +86,7 @@ function updateFilterType(){
   }
   else{
       filterType = "highpass";
-  }    
+  }
 }
 
 function modifyCutoffFreq(){
@@ -113,16 +119,6 @@ function modifyDelayTime(){
   delayTime = Math.round(Math.exp(minv + scale*(delayknob.value - minp))) + "n";
 }
 
-function toggleDelay(){
-  if(document.getElementById("delayLed").checked == true){
-      return;
-  }
-  else{
-      feedbackDelay.wet.value=0;
-
-  }
-}
-
 function modifyReverbDecay(){
   //decay = 0.0001 + ((reverbknob.value*5)/100);
   minv = Math.log(minRev);
@@ -133,14 +129,7 @@ function modifyReverbDecay(){
   decay = Math.round(Math.exp(minv + scale*(reverbknob.value - minp)));
 }
 
-function toggleReverb(){
-  if(document.getElementById("reverbLed").checked == true){
-      return;    
-  }
-  else{
-      reverb.wet.value=0;
-  }
-}
+
 
 function modifyGain(){
   gain = gainknob.value/100;
@@ -151,6 +140,8 @@ function initializeEffects(){
   reverb = new Tone.Reverb(decay);
   filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
   outputGain = new Tone.Gain(gain);
+  // chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
+  chorus = new Tone.Tremolo(9,0.75);
 }
 
 function createAmpEnvelope(){
@@ -166,7 +157,7 @@ function createAmpEnvelope(){
       "decayCurve" : curve,
       "releaseCurve" : curve
     }
-  }) 
+  })
 }
 
 function createFilter(){
@@ -177,12 +168,21 @@ function createFilter(){
 
 function createDelay(){
   feedbackDelay.dispose();
+  // feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback).toDestination();
   feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
 }
 
 function createReverb(){
   reverb.dispose();
+  // reverb = new Tone.Reverb(decay).toDestination();
   reverb = new Tone.Reverb(decay);
+}
+
+function createChorus(){
+  chorus.dispose();
+  // chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
+  //chorus = new Tone.Tremolo(9, 0.75).toDestination().start();
+  chorus = new Tone.Tremolo(9, 0.75).start();
 }
 
 function createCompressor(){
@@ -197,6 +197,36 @@ function createGain(){
   outputGain = new Tone.Gain(gain);
 }
 
+
+
+
+function toggleDelay(){
+  if(document.getElementById("delayLed").checked == true){
+    return;
+  }
+  else{
+    feedbackDelay.disconnect();
+  }
+}
+function toggleReverb(){
+  if(document.getElementById("reverbLed").checked == true){
+    psynth.connect(reverb);
+    reverb.toDestination();
+  }
+  else{
+      reverb.disconnect();
+  }
+}
+function toggleChorus(){
+  if(document.getElementById("chorusLed").checked == true){
+  chorus.toDestination();
+  psynth.connect(chorus);
+}
+else{
+    chorus.disconnect();
+}
+}
+
 function initialize(){
   modifyCutoffFreq();
   modifyDelayTime();
@@ -208,32 +238,52 @@ function initialize(){
 initialize();
 
 
-
+var delayChannel = new Tone.Channel(-20).toDestination();
+var channel = new Tone.Channel(-20);
 
 function on(){
   if(firstTime){
     initializeEffects();
     firstTime=false;
-  } 
+  }
 
   Tone.context.resume();
+  // Tone.start();
 
   createAmpEnvelope();
   createFilter();
+  createChorus();
   createDelay();
-  toggleDelay();
   createReverb();
-  toggleReverb();
+  // toggleDelay();
+  // toggleChorus();
+  // toggleReverb();
   createCompressor();
   createGain();
 
-  psynth.chain(filter, feedbackDelay, reverb, compressor, outputGain, Tone.Destination);
+
+  //psynth.chain(filter, feedbackDelay, chorus, reverb, compressor, outputGain, Tone.Destination);
+
+
   
+  psynth.toDestination();
+
 }
 
 
 
+function selectInstrument(){
+  if(document.getElementById("instrument").checked == true){
+    console.log("mbare");
+    document.querySelectorAll(".instruments_container")[0].style.display="inline-block";
 
+  }
+
+  else{
+    document.querySelectorAll(".instruments_container")[0].style.display="none";
+  }
+
+}
 
 
 
@@ -244,6 +294,8 @@ function on(){
  * This function is used to change from the instrument mode to the synth mode. The global variable instrumentSynth is false when we are using an instrument, true otherwise.
  */
 function toggleInstrumentSynth(){
+  selectInstrument();
+
   if(document.getElementById("instrument").checked){
     document.querySelectorAll(".disable_synth_in")[0].style.display = "block";
     document.querySelectorAll(".disable_synth_in")[0].classList.remove("disable_synth_out");
@@ -256,13 +308,21 @@ function toggleInstrumentSynth(){
 }
 
 
-player.loader.decodeAfterLoading(audioContext, '_tone_0000_JCLive_sf2_file');
+
 
 function playKey(pitch){
-	player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_Aspirin_sf2_file, 0, pitch, 0.75);
-}
+  if(document.getElementById("piano").checked){
+  player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_Aspirin_sf2_file, 0, pitch, 0.75);
+  }
+  else if(document.getElementById("e-piano").checked){
+    player.queueWaveTable(audioContext, audioContext.destination, _tone_0040_GeneralUserGS_sf2_file, 0, pitch, 0.75);
+    }
+  else if(document.getElementById("guitar").checked){
+    player.queueWaveTable(audioContext, audioContext.destination, _tone_0240_FluidR3_GM_sf2_file, 0, pitch, 0.75);
+    }
+  }
 
-function resume_context() {
+function resume_context(){
     c.resume();
 }
 
@@ -296,12 +356,22 @@ function startPlayKeyboard(){
         var pitch = pitchFromKey(position);
         midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
         notes.push(pitch);
-        if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
+        if(!instrumentSynth){
+          if(document.getElementById("piano").checked){
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_Aspirin_sf2_file, 0, midiPitch, duration);
+          }
+        else if(document.getElementById("e-piano").checked){
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0040_GeneralUserGS_sf2_file, 0, midiPitch, duration);
+          }
+        else if(document.getElementById("guitar").checked){
+            player.queueWaveTable(audioContext, audioContext.destination, _tone_0240_FluidR3_GM_sf2_file, 0, midiPitch, duration);
+          }
+        }
         else{
         if(notes.length == 1) on();
         psynth.triggerAttackRelease(pitch, A+D+100);
         }
-      }  
+      }
     }
 
   document.body.onkeyup = function(e){
@@ -342,12 +412,22 @@ function startPlayMidi(){
       console.log(dataMidi[1]);
       midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
       notes.push(pitch);
-      if(!instrumentSynth) player.queueWaveTable(audioContext, audioContext.destination, selectedPreset, 0, midiPitch, duration);
+      if(!instrumentSynth){
+        if(document.getElementById("piano").checked){
+          player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_Aspirin_sf2_file, 0, midiPitch, duration);
+        }
+      else if(document.getElementById("e-piano").checked){
+          player.queueWaveTable(audioContext, audioContext.destination, _tone_0040_GeneralUserGS_sf2_file, 0, midiPitch, duration);
+        }
+      else if(document.getElementById("guitar").checked){
+          player.queueWaveTable(audioContext, audioContext.destination, _tone_0240_FluidR3_GM_sf2_file, 0, midiPitch, duration);
+        }
+      }
       else{
         if(notes.length == 1) on();
-        psynth.triggerAttackRelease(pitch, A+D+100); 
+        psynth.triggerAttackRelease(pitch, A+D+100);
       }
-    }  
+    }
 
   //midioff
   if(dataMidi[2]==0 || dataMidi[2] == 64){
@@ -380,13 +460,13 @@ function toggleMidiKeyboard(){
   if(document.getElementById("keyboard").checked){
     midiKeyboard=false;
     startPlayKeyboard();
-  } 
+  }
   else if(document.getElementById("midi").checked){
     midiKeyboard=true;
     firstTimeMidi=false;
     disableKeyboard();
-  } 
-  
+  }
+
 }
 // request MIDI access
   if (navigator.requestMIDIAccess) { //see if it works

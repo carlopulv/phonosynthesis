@@ -1180,6 +1180,8 @@ function showKeys() {
   * This function brings back to the home page.
   */
  function goToHomePage(){
+  document.getElementById("synth").checked = true;
+  
   getListsong();
   deleteListsong();
   initializeModel();
