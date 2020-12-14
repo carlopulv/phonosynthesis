@@ -23,6 +23,7 @@ var firstTime=true;
 var firstTimeMidi=true;
 var instrumentSynth=true;
 var midiKeyboard=false;
+var keyModeSpaceOn=false;
 var namesong="Artist - Title";
 var midi=0, data=0, note=0, dataMidi=0;
 var openingFile=false;
@@ -31,6 +32,12 @@ var songs=[];
 var songsname=[];
 var finalScores=[0,0];
 
+let name_key = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
+let labelsForKeyModeSpace= ["C","F", "G", "A#", "D", "D#", "A", "G#", "E", "C#", "B", "F#"];
+let freq_key = ["440", "466", "494", "523", "554", "587", "622", "659", "698", "740", "784", "831"];
+let position_x_keyButton = ["3vw","7.5vw","14vw","18vw","25vw","32vw","37.5vw","44vw","50vw","56vw","61.5vw","67vw"];
+let position_y_keyButton = ["16.5vh","22vh","16vh","29vh","33vh","24vh","34.5vh","26vh","31vh","20vh","30.5vh","20.5vh"];
+    
 
 let angle=0;
 let scale=1;

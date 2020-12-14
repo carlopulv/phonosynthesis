@@ -24,6 +24,9 @@ function draw(){
     } 
   }
 
+  if(keyModeSpaceOn) document.querySelectorAll(".keymode-space")[0].style.display="block";
+  else document.querySelectorAll(".keymode-space")[0].style.display="none";
+
   
   createCanvas(windowWidth, windowHeightMod);
   clear();
@@ -43,6 +46,7 @@ function draw(){
     scale = windowHeightMod/900; 
     let j=0.3;
     document.querySelectorAll(".initial-button")[6].style.display="none";
+    document.querySelectorAll(".button-keymodespace")[0].style.display = "none";
 
     if (keysshown==false){
       l.transform(scale, 12, windowHeightMod*j, angle+70);
@@ -151,6 +155,7 @@ function draw(){
     document.querySelectorAll(".save-button")[0].style.display = "block";
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
     document.querySelectorAll(".container-options")[0].style.display = "flex";
+    document.querySelectorAll(".button-keymodespace")[0].style.display = "block";
 
     drawLittlePlant();
 
@@ -274,6 +279,8 @@ function drawLittlePlant(){
   t.plot();
   l.plot();
   l.transform(windowHeightMod*0.0004,windowWidth*0.95,windowHeightMod*0.95,290);
+  l.plot();
+  l.transform(windowHeightMod*0.0004,windowWidth*0.95+windowHeightMod*0.00015*50,windowHeightMod*0.92,20);
   l.plot();
 }
 

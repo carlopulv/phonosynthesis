@@ -678,7 +678,7 @@ body{
     max-width:25vh;
     min-height:0.625vh;
     max-height:6.25vh;
-    bottom:10vh;
+    bottom:15vh;
     right:1%;
     font-size:2.5vh;
     padding-right:1vh;
@@ -710,6 +710,47 @@ body{
     height:100%;
     cursor: pointer;
 }
+
+.button-keymodespace{
+    position:absolute;
+    display: none;
+    background-image: url("img/keymodespace.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    float:right;
+    background-color: rgba(255, 255, 255, 0);
+    left: 95%;
+    transform: translateX(0.75vh);
+    top:88vh;
+    width:2.6vh;
+    height: 2.2vh;
+    z-index:2;
+    animation-name:sliding-options-down-space;
+    animation-duration:0.2s;
+    animation-timing-function:linear;
+}
+
+.button-keymodespace-open{
+    top:57vh;
+    width:1.5vh;
+    height:1.43vh;
+    transform: translateX(0.75vh);
+    animation-name:sliding-options-up-space;
+    animation-duration:0.2s;
+    animation-timing-function:linear;
+}
+
+@keyframes sliding-options-up-space{
+    from{width:2.6vh;height:2.2vh;top:88vh;transform: translateX(0.75vh);}
+    to{width:1.5vh;height:1.43vh;top:57vh;transform: translateX(0.75vh);}
+}
+@keyframes sliding-options-down-space{
+    from{width:1.5vh;height:1.43vh;top:57vh;transform: translateX(0.75vh);}
+    to{width:2.6vh;height:2.2vh;top:88vh;transform: translateX(0.75vh);}
+}
+
 .button-synth .tooltiptext{
     clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 100% 100%, 10% 100%, 0% 50%);
     visibility: hidden;
@@ -920,6 +961,85 @@ body{
     width:100%;
     height:100%;
     z-index:0;
+}
+
+.keymode-space{
+    position:absolute;
+    display:none;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.3);
+    z-index:2;
+    animation-name:fading-in;
+    animation-duration:2s;
+    animation-timing-function:linear;
+}
+
+/*.keymode-space-open{
+    background: rgba(0,0,0,0.3);
+    animation-name:fading-out;
+    animation-duration:2s;
+    animation-timing-function:linear;
+}
+
+@keyframes fading-in{
+    from{background: rgba(0,0,0,0);}
+    to{background: rgba(0,0,0,0.3);}
+}
+@keyframes fading-out{
+    from{background: rgba(0,0,0,0.3);}
+    to{background: rgba(0,0,0,0);}
+}*/
+
+.container-keynames{
+    position:absolute;
+    top:47%;
+    display:block;
+    width:50%;
+    height:47%;
+    background: transparent;
+    z-index:1;
+}
+.container-modes{
+    position:absolute;
+    display:inline-flex;
+    right:50%;
+    width:22.528vh;
+    height:100%;
+    background-color: transparent;
+    align-items: center;
+    z-index:1;
+    transform: translateX(-2.7vh);
+}
+
+.key-labels{
+    position:relative;
+    display:block;
+    margin:0 auto;
+    text-align: left;
+    width:100%;
+    height:8.33%;
+    font-size: 2vh;
+    font-family:'MontserratRegular';
+    color:white;
+    box-sizing: border-box;
+    border-bottom:0.1vh dotted white;
+    padding-left: 1vh;
+}
+
+.mode-labels{
+    position:relative;
+    display:inline-block;
+    width:14.3%;
+    height:100%;
+    font-size: 2vh;
+    font-family:'MontserratRegular';
+    color:white;
+    writing-mode: tb-rl;
+    white-space: nowrap;
+    overflow: visible;
+    border-right:0.5px dotted white;
+    padding-top: 5vh;
 
 }
 
@@ -963,5 +1083,9 @@ body{
     }
     .modcontainer{
         margin-left:2vw;
+    }
+    .instruments_container{
+        right:1vw;
+        transform: translateX(-120%);
     }
 }

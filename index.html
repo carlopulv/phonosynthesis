@@ -23,6 +23,31 @@
 </head>
 <body>
     <div class="container-transparent"></div>
+    <div class="keymode-space">
+        <div class="container-keynames">
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+            <label class="key-labels"></label>
+        </div>
+        <div class="container-modes">
+            <label class="mode-labels">VII MODE</label>
+            <label class="mode-labels">III MODE</label>
+            <label class="mode-labels">VI MODE</label>
+            <label class="mode-labels">II MODE</label>
+            <label class="mode-labels">V MODE</label>
+            <label class="mode-labels">I MODE</label>
+            <label class="mode-labels">IV MODE</label>
+        </div>
+    </div>
 
     <div class = "initial-button" style = "top:20%">Play</div>
     <div class = "initial-button" style = "top:46%">Open a song</div>
@@ -30,7 +55,7 @@
     <div class = "initial-button" style = "top:15%; left:82%">select the key</div>
     <div class = "initial-button" style = "top:46%; left:40vw; display:none; width:30vh">search</div>
     <div class = "initial-button" style = "top:70%; left:40vw; display:none; width:30vh">search</div>
-    <div class = "initial-button" id="goBack" style = "top:2%; left:2%; display:none"></div>
+    <div class = "initial-button" id="goBack" style = "top:2%; left:2%; display:none;z-index:2"></div>
     
     <label class="score">1000</label>
     <label class="score score2">177</label>
@@ -44,6 +69,7 @@
             <!--<div class="tooltiptext">save</div>-->
         </div>
     </div>
+    <div class="button-keymodespace"></div>
     <div contenteditable="true" class="name-song" onblur="namesongOnBlur('.name-song',0)" onfocus="namesongOnFocus('.name-song',0)">Artist - Title</div>
 
     <div contenteditable="true" class="textarea-songs" onblur="namesongOnBlur('.textarea-songs',0)" onfocus="namesongOnFocus('.textarea-songs',0)">Artist - Title</div>
@@ -51,7 +77,7 @@
     <div contenteditable="true" class="textarea-songs" style="top:71%" onblur="namesongOnBlur('.textarea-songs',1)" onfocus="namesongOnFocus('.textarea-songs',1)">Artist - Title</div>
     <div contenteditable="true" class="textarea-songs" style="top:81%" onblur="namesongOnBlur('.textarea-songs',2)" onfocus="namesongOnFocus('.textarea-songs',2)">Artist - Title</div>
 
-    <div class="notification-screen" style="display: none;" >
+    <div class="notification-screen" style="display: none" >
             <div class="notification1-text"></div>
         
         <div class="main-container-notification"  >
@@ -308,7 +334,7 @@
                     <div class="exagon">
                         <input type="range" class="input-knob" id="gain" min="0" max="100" width="8vh" height="8vh"  style="height: 8vh; width:8vh" oninput="modifyGain()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(189, 146, 97)"/>
                     </div>
-                    <label for="gain" class="downLabel">Out</label>
+                    <label for="gain" class="downLabel" style="color:rgb(73, 60, 4)">Out</label>
                 </div>
             </div>
 
