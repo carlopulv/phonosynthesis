@@ -4,6 +4,8 @@
 function getKey(){
     generalKey=this.value;
     game_state=1;
+
+    fillKeyModeSpace(generalKey);
     startPlayKeyboard();
   }
   
@@ -498,10 +500,6 @@ function showKeys() {
     openingFile=false;
     comparingSongs=false;
     let i = 0;
-    let name_key = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
-    let freq_key = ["440", "466", "494", "523", "554", "587", "622", "659", "698", "740", "784", "831"];
-    let position_x_keyButton = ["3vw","7.5vw","14vw","18vw","25vw","32vw","37.5vw","44vw","50vw","56vw","61.5vw","67vw"];
-    let position_y_keyButton = ["16.5vh","22vh","16vh","29vh","33vh","24vh","34.5vh","26vh","31vh","20vh","30.5vh","20.5vh"];
     while(i<12){
       el=document.createElement("div");
       el.classList.add("keys_button");
@@ -588,20 +586,24 @@ function showKeys() {
      
       document.querySelectorAll(".container-synth")[0].classList.remove("container-synth-closing");
       document.querySelectorAll(".container-options")[0].classList.add("container-options-open");
+      document.querySelectorAll(".button-keymodespace")[0].classList.add("button-keymodespace-open");
+
       document.querySelectorAll(".name-song")[0].style.bottom="45vh";
 
       onOff=1;
-      /*var interv=setInterval(function(){window.scrollTo(0,document.body.scrollHeight)},15);
-      setTimeout(function(){clearInterval(interv);onOff=1;},500);*/
       
     }
     else if(onOff==1){
       document.querySelectorAll(".container-synth")[0].classList.add("container-synth-closing");
       document.querySelectorAll(".container-options")[0].classList.remove("container-options-open");
-      document.querySelectorAll(".name-song")[0].style.bottom="10vh";
+      document.querySelectorAll(".button-keymodespace")[0].classList.remove("button-keymodespace-open");
+
+      document.querySelectorAll(".name-song")[0].style.bottom="15vh";
 
       onOff=0;
+      keyModeSpaceOn=false;
     }
+    
   }
 
   /**
@@ -1110,6 +1112,7 @@ function showKeys() {
     finalScores[0]=computeScore(chordDistances);
     game_state=1;
     startPlayKeyboard();
+    fillKeyModeSpace(generalKey);
   }
   
   /**
@@ -1195,6 +1198,8 @@ function showKeys() {
   * This function brings back to the home page.
   */
  function goToHomePage(){
+  document.getElementById("synth").checked = true;
+  
   getListsong();
   deleteListsong();
   initializeModel();
@@ -1202,7 +1207,8 @@ function showKeys() {
   keysshown = false;
   openingFile=false;
   comparingSongs=false;
-  onOff=false;
+  onOff=0;
+  keyModeSpaceOn=false;
   finalScores=[0,0];
   document.querySelectorAll(".button-synth")[0].style.display = "none";
   document.querySelectorAll(".save-button")[0].style.display = "none";
@@ -1211,6 +1217,8 @@ function showKeys() {
   document.querySelectorAll(".save-button")[0].onclick=openTextfield;
 
   document.querySelectorAll(".container-options")[0].classList.remove("container-options-open")
+  document.querySelectorAll(".button-keymodespace")[0].classList.remove("button-keymodespace-open")
+
  }
 
  /**
@@ -1259,6 +1267,32 @@ function closeMenu(){
   }
 }
 
+function fillKeyModeSpace(generalKey){
+  let indexGeneralKey=freq_key.indexOf(generalKey);
+  let indexStartNote=labelsForKeyModeSpace.indexOf(name_key[indexGeneralKey]);
+  for(let i=0;i<12;i++){
+    indexAdj=indexStartNote+i;
+    if(indexAdj>11) indexAdj-=12;
+    document.querySelectorAll(".key-labels")[11-i].innerHTML=labelsForKeyModeSpace[indexAdj];
+  }
+}
+
+function showKeyModeSpace(){
+  if(keyModeSpaceOn){
+    keyModeSpaceOn=false;
+    //document.querySelectorAll(".keymode-space")[0].classList.add("keymode-space-open");
+  } 
+  else{
+    if(onOff==1){
+      console.log(onOff);
+      showSynth();
+    } 
+    keyModeSpaceOn=true;
+    //document.querySelectorAll(".keymode-space")[0].classList.add("keymode-space-open");
+  } 
+}
+
+
 getListsong();
 fillAnglesMirrored();
 
@@ -1272,3 +1306,4 @@ document.querySelectorAll(".button-synth")[0].onclick=showSynth;
 document.querySelectorAll(".save-button")[0].onclick=openTextfield;
 document.querySelectorAll(".button-grey")[0].onclick=closeNotification;
 document.querySelectorAll(".container-transparent")[0].onclick=closeMenu;
+document.querySelectorAll(".button-keymodespace")[0].onclick=showKeyModeSpace;
