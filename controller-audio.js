@@ -71,6 +71,7 @@ function modifyOscillatorType(){
       "type" : document.querySelector(".osc:checked").id
     }
   });
+  on();
 }
 
 function envelopeModifier(){
@@ -81,6 +82,7 @@ function envelopeModifier(){
 
   clearCanvas();
   drawLines();
+  on();
 }
 
 
@@ -94,6 +96,7 @@ function updateFilterType(){
   else{
       filterType = "highpass";
   }
+  on();
 }
 
 function modifyCutoffFreq(){  
@@ -103,6 +106,7 @@ function modifyCutoffFreq(){
   maxp = cutoffknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   cutoffFreq = Math.exp(minv + scale*(cutoffknob.value - minp));
+  on();
 }
 
 function modifyResonance(){
@@ -113,6 +117,7 @@ function modifyResonance(){
   maxp = resonanceknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   resonance = Math.round(Math.exp(minv + scale*(resonanceknob.value - minp)));
+  on();
 }
 
 function modifyDelayTime(){
@@ -123,6 +128,7 @@ function modifyDelayTime(){
   maxp = delayknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   delayTime = Math.round(Math.exp(minv + scale*(delayknob.value - minp))) + "n";
+  on();
 }
 
 function modifyReverbDecay(){
@@ -132,6 +138,7 @@ function modifyReverbDecay(){
   maxp = reverbknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   decay = Math.round(Math.exp(minv + scale*(reverbknob.value - minp)));
+  on();
 }
 
 function modifyTremoloFreq(){
@@ -141,10 +148,12 @@ function modifyTremoloFreq(){
   maxp = tremoloknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   tremoloFreq = Math.exp(minv + scale*(tremoloknob.value - minp));
+  on();
 }
 
 function modifyGain(){
   gain = 20*Math.log10(gainknob.value/1000);
+  on();
 }
 
 
@@ -285,9 +294,9 @@ function on(){
     firstTime=false;
   }
 
-  Tone.context.resume();
-  // Tone.start();
-
+  //Tone.context.resume();
+  Tone.start();
+  initializeEffects();
   createAmpEnvelope();
   createFilter();
   createTremolo();
@@ -340,7 +349,7 @@ var piano =  _tone_0000_Aspirin_sf2_file;
 var elpiano = _tone_0051_FluidR3_GM_sf2_file;
 var guitar = _tone_0270_JCLive_sf2_file;
 
-function playKey(pitch){
+/*function playKey(pitch){
   if(document.getElementById("piano").checked){
   player.queueWaveTable(audioContext, audioContext.destination, piano, 0, pitch, 0.75);
   }
@@ -350,7 +359,7 @@ function playKey(pitch){
   else if(document.getElementById("guitar").checked){
     player.queueWaveTable(audioContext, audioContext.destination, guitar, 0, pitch, 0.75);
     }
-  }
+  }*/
 
 function resume_context(){
     c.resume();
@@ -377,6 +386,7 @@ function disableKeyboard(){
  */
 
 function startPlayKeyboard(){
+  on();
   if(midiKeyboard==false){
     document.body.onkeydown = function(e){
       duration=3;
@@ -398,7 +408,7 @@ function startPlayKeyboard(){
           }
         }
         else{
-        if(notes.length == 1) on();
+        //if(notes.length == 1) on();
         psynth.triggerAttackRelease(pitch, A+D+100);
         }
       }
@@ -431,6 +441,7 @@ function startPlayKeyboard(){
  * This function activate the midi input.
  */
 function startPlayMidi(){
+  on();
   /*document.body.onkeydown="none";
   document.body.onkeyup="none";*/
   if(midiKeyboard){
@@ -454,7 +465,7 @@ function startPlayMidi(){
         }
       }
       else{
-        if(notes.length == 1) on();
+        //if(notes.length == 1) on();
         psynth.triggerAttackRelease(pitch, A+D+100);
       }
     }
