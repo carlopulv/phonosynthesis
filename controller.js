@@ -1199,12 +1199,11 @@ function showKeys() {
   */
  function goToHomePage(){
   document.getElementById("synth").checked = true;
-  
   getListsong();
   deleteListsong();
   initializeModel();
   game_state=0;
-  keysshown = false;
+  keysshown=false;
   openingFile=false;
   comparingSongs=false;
   onOff=0;
@@ -1215,10 +1214,8 @@ function showKeys() {
   document.querySelectorAll(".name-song")[0].style.display="none";
   document.querySelectorAll(".name-song")[0].innerText="Artist - Title";
   document.querySelectorAll(".save-button")[0].onclick=openTextfield;
-
-  document.querySelectorAll(".container-options")[0].classList.remove("container-options-open")
-  document.querySelectorAll(".button-keymodespace")[0].classList.remove("button-keymodespace-open")
-
+  document.querySelectorAll(".container-options")[0].classList.remove("container-options-open");
+  document.querySelectorAll(".button-keymodespace")[0].classList.remove("button-keymodespace-open");
  }
 
  /**

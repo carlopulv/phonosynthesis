@@ -157,13 +157,13 @@ function draw(){
     document.querySelectorAll(".container-options")[0].style.display = "flex";
     document.querySelectorAll(".button-keymodespace")[0].style.display = "block";
 
+    //moveClouds(windowHeight*0.2);
+    moveClouds();
     drawLittlePlant();
-
     drawTrunkOnFloor();
     initializeVarToDrawLeaves();
     drawLeaves(0);  
     drawTrunkPlant(0);
-    
     drawClouds(0);
   }
   //Compare mode
@@ -206,6 +206,18 @@ function drawClouds(i){
     document.querySelectorAll(".score")[1].innerText=finalScores[1];
     document.querySelectorAll(".score")[1].style.display="block";
   }
+}
+
+function moveClouds() {   
+  pos++; 
+  let c = new Cloud(windowHeight*0.0002, pos, ranY);
+  c.plot();
+  if (pos>windowWidth) {
+    pos = 0;
+    ranY = Math.random() * (windowHeight*0.5 - windowHeight*0.13) + windowHeight*0.13;
+  }
+  var time = requestAnimationFrame(moveClouds);
+  cancelAnimationFrame(time);
 }
 
 function drawTrunkOnFloor(){

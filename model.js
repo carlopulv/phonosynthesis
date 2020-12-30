@@ -31,6 +31,8 @@ var comparingSongs=false;
 var songs=[];
 var songsname=[];
 var finalScores=[0,0];
+var pos = 0;
+var ranY = 150;
 
 let name_key = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
 let labelsForKeyModeSpace= ["C","F", "G", "A#", "D", "D#", "A", "G#", "E", "C#", "B", "F#"];
