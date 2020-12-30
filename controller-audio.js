@@ -154,7 +154,7 @@ function initializeEffects(){
   filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
   outputGain = new Tone.Gain(gain);
   // chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
-  chorus = new Tone.Tremolo((tremoloFreq, tremoloDepth));
+  chorus = new Tone.Tremolo(tremoloFreq, tremoloDepth);
 }
 
 function createAmpEnvelope(){
@@ -340,17 +340,17 @@ var piano =  _tone_0000_Aspirin_sf2_file;
 var elpiano = _tone_0051_FluidR3_GM_sf2_file;
 var guitar = _tone_0270_JCLive_sf2_file;
 
-function playKey(pitch){
-  if(document.getElementById("piano").checked){
-  player.queueWaveTable(audioContext, audioContext.destination, piano, 0, pitch, 0.75);
-  }
-  else if(document.getElementById("e-piano").checked){
-    player.queueWaveTable(audioContext, audioContext.destination, elpiano, 0, pitch, 0.75);
-    }
-  else if(document.getElementById("guitar").checked){
-    player.queueWaveTable(audioContext, audioContext.destination, guitar, 0, pitch, 0.75);
-    }
-  }
+// function playKey(pitch){
+//   if(document.getElementById("piano").checked){
+//   player.queueWaveTable(audioContext, audioContext.destination, piano, 0, pitch, 0.75);
+//   }
+//   else if(document.getElementById("e-piano").checked){
+//     player.queueWaveTable(audioContext, audioContext.destination, elpiano, 0, pitch, 0.75);
+//     }
+//   else if(document.getElementById("guitar").checked){
+//     player.queueWaveTable(audioContext, audioContext.destination, guitar, 0, pitch, 0.75);
+//     }
+//   }
 
 function resume_context(){
     c.resume();
@@ -398,7 +398,7 @@ function startPlayKeyboard(){
           }
         }
         else{
-        if(notes.length == 1) on();
+        if(notes.length == 1) on(); //note.length == 1 significa che abbiamo appena aggiunto una nota
         psynth.triggerAttackRelease(pitch, A+D+100);
         }
       }
