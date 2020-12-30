@@ -465,18 +465,16 @@ function toggleMidiKeyboard(){
     midiKeyboard=true;
     firstTimeMidi=false;
     disableKeyboard();
-  }
-
-}
-// request MIDI access
-  if (navigator.requestMIDIAccess) { //fare dentro funzione che si attiva quando clicca midi nel synth
+    // request MIDI access
+  if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess({
         sysex: false
-    }).then(onMIDISuccess, onMIDIFailure);
+      }).then(onMIDISuccess, onMIDIFailure);
     } else {
         alert("No MIDI support in your browser");
-    }
-
+      }
+  }   
+}
 
 // midi functions
 function onMIDISuccess(midiAccess) {
@@ -495,19 +493,15 @@ function onMIDIFailure(error) {
 }
 
 function onMIDIMessage(message) {
-  data = message.data; // this gives us [command/channel, note, velocity] data.
+  data = message.data;  //gives [command/channel, note, velocity] data.
     if(data.length==3){
       dataMidi=data;
       note = dataMidi[1];
       startPlayMidi();
     }
-
     //console.log(data);
 }
 
 function midiToFreq(note) {
     return 440 * Math.pow(2, (note - 69) / 12);
 }
-
-
-

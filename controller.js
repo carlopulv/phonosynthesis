@@ -1203,12 +1203,11 @@ function showKeys() {
   */
  function goToHomePage(){
   document.getElementById("synth").checked = true;
-  
   getListsong();
   deleteListsong();
   initializeModel();
   game_state=0;
-  keysshown = false;
+  keysshown=false;
   openingFile=false;
   comparingSongs=false;
   onOff=0;
