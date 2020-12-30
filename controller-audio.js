@@ -70,7 +70,7 @@ function updateFilterType(){
       filterType = "highpass";
   }
   createFilter();
-  psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyCutoffFreq(){
@@ -84,7 +84,7 @@ function modifyCutoffFreq(){
   scale = ((maxv - minv)/(maxp - minp));
   cutoffFreq = Math.exp(minv + scale*(cutoffknob.value - minp));
   createFilter();
-  psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyResonance(){
@@ -99,7 +99,7 @@ function modifyResonance(){
   resonance = Math.round(Math.exp(minv + scale*(resonanceknob.value - minp)));
   createFilter();
   filter.Q.value = resonance;
-  psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyDelayTime(){
@@ -114,7 +114,7 @@ function modifyDelayTime(){
   delayTime = Math.round(Math.exp(minv + scale*(delayknob.value - minp))) + "n";
   createDelay();
   toggleDelay();
-  psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyReverbDecay(){
@@ -129,7 +129,7 @@ function modifyReverbDecay(){
   decay = Math.round(Math.exp(minv + scale*(reverbknob.value - minp)));
   createReverb();
   toggleReverb();
-  psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyTremoloFreq(){
@@ -144,13 +144,13 @@ function modifyTremoloFreq(){
   tremoloFreq = Math.exp(minv + scale*(tremoloknob.value - minp));
   createTremolo();
   toggleTremolo();
-  psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyGain(){
   gain = 20*Math.log10(gainknob.value/1000);
   createGain();
-  psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function initializeEffects(){
@@ -245,8 +245,8 @@ function on(){
     firstTime=false;
   }
 
-  // Tone.context.resume();
-  Tone.start();
+  Tone.context.resume();
+  // Tone.start();
 
   
   initializeEffects();
@@ -649,6 +649,7 @@ function startPlayKeyboard(){
         }
         else{
         //if(notes.length == 1) on();
+        psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
         psynth.triggerAttackRelease(pitch, A+D+100);
         }
       }
@@ -706,6 +707,7 @@ function startPlayMidi(){
       }
       else{
         //if(notes.length == 1) on();
+        psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
         psynth.triggerAttackRelease(pitch, A+D+100);
       }
     }
