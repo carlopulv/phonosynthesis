@@ -640,6 +640,21 @@ body{
     to{width:11vh;height:3vh;top:92.5vh;transform: translateX(-5vh);}
 }
 
+.title-song{
+    position:absolute;
+    display:block;
+    width:47%;
+    height:4vh;
+    font-size: 3vh;
+    color:white;
+    top:10vh;
+    right:5vh;
+    background-color: transparent;
+    font-family: MontserratLight;
+    overflow: hidden;
+    text-align: right;
+}
+
 .save-button{
     position: relative;
     border: none;

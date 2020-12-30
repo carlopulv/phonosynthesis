@@ -156,6 +156,8 @@ function draw(){
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
     document.querySelectorAll(".container-options")[0].style.display = "flex";
     document.querySelectorAll(".button-keymodespace")[0].style.display = "block";
+    document.querySelectorAll(".title-song")[0].style.right="5vh";
+    document.querySelectorAll(".title-song")[0].style.transform="translateX(0vh)";
 
     drawLittlePlant();
 
@@ -175,6 +177,10 @@ function draw(){
     document.querySelectorAll(".initial-button")[6].style.display = "block";
     document.querySelectorAll(".textarea-songs")[1].style.display = "none";
     document.querySelectorAll(".textarea-songs")[2].style.display = "none";
+    document.querySelectorAll(".title-song")[0].style.right="50%";
+    document.querySelectorAll(".title-song")[0].style.transform="translateX(-5vh)";
+
+
     
     drawTrunkOnFloor();
     for(let i=0;i<songs.length;i++){
@@ -263,11 +269,26 @@ function drawLeaves(index){
 
     if(comparingSongs) adjustWidths(index);
 
+    //moving leaves
+    for(let i=0;i<anglesForLeaves.length;i++){
+      angles
+    }
+
     //Draws the leaves
+    while(chordsPlayedNoDup.length>rotationLeaves.length){
+      rotationLeaves.push(0);
+      moving.push(false);
+    }
     for(let i=0;i<heightsForLeaves.length;i++){
-      l3.transform(windowHeightMod/2500,widthsForLeaves[i],heightsForLeaves[i],anglesForLeaves[i]);
+      if(anglesForLeaves[i]+rotationLeaves[i]>130) moving[i]=true;
+      else if(anglesForLeaves[i]+rotationLeaves[i]<50) moving[i]=false;
+
+      if(moving[i]) rotationLeaves[i]-=0.2;
+      else rotationLeaves[i]+=0.2;
+
+      l3.transform(windowHeightMod/2500,widthsForLeaves[i],heightsForLeaves[i],anglesForLeaves[i]+rotationLeaves[i]);
       l3.plot();
-      l3.transform(windowHeightMod/2500,widthsForLeavesMirrored[i],heightsForLeaves[i],anglesForLeavesMirrored[i]);
+      l3.transform(windowHeightMod/2500,widthsForLeavesMirrored[i],heightsForLeaves[i],anglesForLeavesMirrored[i]-rotationLeaves[i]);
       l3.plot();
     }
   }

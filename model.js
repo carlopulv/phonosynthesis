@@ -54,6 +54,8 @@ let angles=[50,130,50,130,50,130,90,110,0,90,70,90,110,90,70,50];
 let anglesMirrored=[];
 let anglesForLeaves=[];
 let anglesForLeavesMirrored=[];
+let moving=[];
+let rotationLeaves=[];
 let onOff=0;
 let l3;
 let windowHeightMod=0;

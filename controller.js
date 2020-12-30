@@ -935,9 +935,12 @@ function showKeys() {
               songs.push(new Song(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes));
               if(songs.length==2){
                 game_state=2;
+                document.querySelectorAll(".title-song")[1].innerHTML=songname;
+                document.querySelectorAll(".title-song")[0].innerHTML=prevSongname;
                 disableKeyboard();
               }
             }else{
+              document.querySelectorAll(".title-song")[0].innerHTML=songname;
               extractSongData(dataChord,dataDistances,dataMaxmode,dataMaxtonal,dataGeneralKey,dataListnotes);
             }
           } else {
@@ -962,6 +965,7 @@ function showKeys() {
     if(document.querySelectorAll(".container-listsongs")[1].style.display!="none") songnames.push(document.querySelectorAll(".button-green")[0].innerText);
     closeNotification();
     for(let i=0;i<songnames.length;i++){
+      document.querySelectorAll(".title-song")[i].innerHTML=songnames[i];
       db.collection("songs").doc(songnames[i]).get().then(function(doc) {
           let dataChord=doc.data().chords;
           let dataDistances=doc.data().distances;
@@ -1216,9 +1220,11 @@ function showKeys() {
   document.querySelectorAll(".name-song")[0].innerText="Artist - Title";
   document.querySelectorAll(".save-button")[0].onclick=openTextfield;
 
-  document.querySelectorAll(".container-options")[0].classList.remove("container-options-open")
-  document.querySelectorAll(".button-keymodespace")[0].classList.remove("button-keymodespace-open")
+  document.querySelectorAll(".container-options")[0].classList.remove("container-options-open");
+  document.querySelectorAll(".button-keymodespace")[0].classList.remove("button-keymodespace-open");
 
+  document.querySelectorAll(".title-song")[0].innerHTML="";
+  document.querySelectorAll(".title-song")[1].innerHTML="";
  }
 
  /**
