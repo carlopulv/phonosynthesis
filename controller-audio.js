@@ -1,38 +1,50 @@
+// const audio = document.getElementById('audio');
+// function musika(){
+//   console.log("ihih");
+//   audio.play();
+// }
 
-delayknob = document.getElementById("delay");
-reverbknob = document.getElementById("reverb");
-cutoffknob = document.getElementById("cutofffreq");
-resonanceknob = document.getElementById("resonance");
-gainknob = document.getElementById("gain");
-chorusknob = document.getElementById("chorus");
 
-lpf = document.getElementById("lowpass");
-bpf = document.getElementById("bandpass");
-hpf = document.getElementById("highpass");
+var delayknob = document.getElementById("delay");
+var reverbknob = document.getElementById("reverb");
+var cutoffknob = document.getElementById("cutofffreq");
+var resonanceknob = document.getElementById("resonance");
+var gainknob = document.getElementById("gain");
+var tremoloknob = document.getElementById("tremolo");
 
-gainknob.value = 70;
+var lpf = document.getElementById("lowpass");
+var bpf = document.getElementById("bandpass");
+var hpf = document.getElementById("highpass");
+
+var A = parseFloat(document.getElementById("envelopeAttack").value);
+var D = parseFloat(document.getElementById("envelopeDecay").value);
+var S = parseFloat(document.getElementById("envelopeSustain").value);
+var R = parseFloat(document.getElementById("envelopeRelease").value);
+
 
 var minDelay = 4;
 var maxDelay = 20;
 
-var maxFreq = 10000;
 var minFreq = 150;
+var maxFreq = 10000;
+
 var minRes = Math.exp(0);
 var maxRes = 10;
 
 var minRev = Math.exp(0);
-var maxRev = 5;
+var maxRev = 8;
 
-var treshold = -40;
-var ratio = 4;
+var minTrem = 0.5;
+var maxTrem = 10;
+
+// var treshold = -40;
+// var ratio = 4;
 
 var gain = gainknob.value/100;
+
 var filterType = document.querySelector(".filter_type:checked").id;
 var rolloff = -24;
 
-var chorusFrequency = 100;
-var chorusDelayTime = 5;
-var depth = 1;
 
 var delayTime = 4 + ((delayknob.value*36)/100) + "n";
 var decay = 0.00001 + ((reverbknob.value*5)/100);
@@ -42,19 +54,14 @@ var resonance = 0 + ((resonanceknob.value*30)/100);
 var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
 var reverb = new Tone.Reverb(decay);
 // var chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
-var chorus = new Tone.Tremolo(9, 0.75);
+var tremolo = new Tone.Tremolo(tremoloFreq, tremoloDepth);
 var filter = new Tone.Filter(100, filterType);
-var compressor = new Tone.Compressor(treshold, ratio);
+var tremoloFreq = 10;
+var tremoloDepth = 0.75;
+// var compressor = new Tone.Compressor(treshold, ratio);
 var outputGain = new Tone.Gain(gain);
 
-
-
 var psynth = new Tone.PolySynth(Tone.Synth);
-
-var A = parseFloat(document.getElementById("envelopeAttack").value);
-var D = parseFloat(document.getElementById("envelopeDecay").value);
-var S = parseFloat(document.getElementById("envelopeSustain").value);
-var R = parseFloat(document.getElementById("envelopeRelease").value);
 
 
 
@@ -89,8 +96,7 @@ function updateFilterType(){
   }
 }
 
-function modifyCutoffFreq(){
-  //cutoffFreq = minFreq + ((cutoffknob.value*(maxFreq-minFreq))/100);
+function modifyCutoffFreq(){  
   minv = Math.log(minFreq);
   maxv = Math.log(maxFreq);
   minp = cutoffknob.min;
@@ -120,7 +126,6 @@ function modifyDelayTime(){
 }
 
 function modifyReverbDecay(){
-  //decay = 0.0001 + ((reverbknob.value*5)/100);
   minv = Math.log(minRev);
   maxv = Math.log(maxRev);
   minp = reverbknob.min;
@@ -129,11 +134,19 @@ function modifyReverbDecay(){
   decay = Math.round(Math.exp(minv + scale*(reverbknob.value - minp)));
 }
 
-
+function modifyTremoloFreq(){
+  minv = Math.log(minTrem);
+  maxv = Math.log(maxTrem);
+  minp = tremoloknob.min;
+  maxp = tremoloknob.max;
+  scale = ((maxv - minv)/(maxp - minp));
+  tremoloFreq = Math.exp(minv + scale*(tremoloknob.value - minp));
+}
 
 function modifyGain(){
-  gain = gainknob.value/100;
+  gain = 20*Math.log10(gainknob.value/1000);
 }
+
 
 function initializeEffects(){
   feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
@@ -141,11 +154,11 @@ function initializeEffects(){
   filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
   outputGain = new Tone.Gain(gain);
   // chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
-  chorus = new Tone.Tremolo(9,0.75);
+  chorus = new Tone.Tremolo((tremoloFreq, tremoloDepth));
 }
 
 function createAmpEnvelope(){
-  var curve = "exponential"
+  var curve = "linear"
 
   psynth.set({
     envelope:{
@@ -178,52 +191,80 @@ function createReverb(){
   reverb = new Tone.Reverb(decay);
 }
 
-function createChorus(){
-  chorus.dispose();
+function createTremolo(){
+  tremolo.dispose();
   // chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
   //chorus = new Tone.Tremolo(9, 0.75).toDestination().start();
-  chorus = new Tone.Tremolo(9, 0.75).start();
+  tremolo = new Tone.Tremolo(tremoloFreq, tremoloDepth).start();
 }
 
-function createCompressor(){
-  compressor.dispose();
-  compressor = new Tone.Compressor(treshold, ratio);
-  compressor.knee.value = 30;
-  compressor.attack.value = 0.03;
-  }
+// function createCompressor(){
+//   compressor.dispose();
+//   compressor = new Tone.Compressor(treshold, ratio);
+//   compressor.knee.value = 30;
+//   compressor.attack.value = 0.03;
+//   }
 
 function createGain(){
   outputGain.dispose();
-  outputGain = new Tone.Gain(gain);
+  outputGain = new Tone.Volume(gain);
 }
 
 
+// function toggleDelay(){
+//   if(document.getElementById("delayLed").checked == true){
+//     return;
+//   }
+//   else{
+//     feedbackDelay.disconnect();
+//   }
+// }
 
+// function toggleReverb(){
+//   if(document.getElementById("reverbLed").checked == true){
+//     psynth.connect(reverb);
+//     reverb.toDestination();
+//   }
+//   else{
+//       reverb.disconnect();
+//   }
+// }
+
+// function toggleChorus(){
+//   if(document.getElementById("chorusLed").checked == true){
+//   chorus.toDestination();
+//   psynth.connect(chorus);
+// }
+// else{
+//     chorus.disconnect();
+// }
+// }
 
 function toggleDelay(){
   if(document.getElementById("delayLed").checked == true){
-    return;
+    feedback = 0.7;
   }
   else{
-    feedbackDelay.disconnect();
+    feedbackDelay.wet.value = 0;
+    feedback = 0;
   }
 }
+
 function toggleReverb(){
   if(document.getElementById("reverbLed").checked == true){
-    psynth.connect(reverb);
-    reverb.toDestination();
+    reverb.wet.value = reverbknob.value/100;
   }
   else{
-      reverb.disconnect();
+      reverb.wet.value = 0;
   }
 }
-function toggleChorus(){
-  if(document.getElementById("chorusLed").checked == true){
-  chorus.toDestination();
-  psynth.connect(chorus);
-}
+
+function toggleTremolo(){
+  if(document.getElementById("tremoloLed").checked == true){
+    return;
+  }
 else{
-    chorus.disconnect();
+    tremolo.wet.value = 0;
 }
 }
 
@@ -238,9 +279,6 @@ function initialize(){
 initialize();
 
 
-var delayChannel = new Tone.Channel(-20).toDestination();
-var channel = new Tone.Channel(-20);
-
 function on(){
   if(firstTime){
     initializeEffects();
@@ -252,73 +290,65 @@ function on(){
 
   createAmpEnvelope();
   createFilter();
-  createChorus();
+  createTremolo();
   createDelay();
   createReverb();
-  // toggleDelay();
-  // toggleChorus();
-  // toggleReverb();
-  createCompressor();
+  toggleDelay();
+  toggleTremolo();
+  toggleReverb();
+  // createCompressor();
   createGain();
 
 
-  //psynth.chain(filter, feedbackDelay, chorus, reverb, compressor, outputGain, Tone.Destination);
-
-
-  
-  psynth.toDestination();
+  psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 
 }
-
-
-
-function selectInstrument(){
-  if(document.getElementById("instrument").checked == true){
-    console.log("mbare");
-    document.querySelectorAll(".instruments_container")[0].style.display="inline-block";
-
-  }
-
-  else{
-    document.querySelectorAll(".instruments_container")[0].style.display="none";
-  }
-
-}
-
-
-
 
 
 
 /**
  * This function is used to change from the instrument mode to the synth mode. The global variable instrumentSynth is false when we are using an instrument, true otherwise.
  */
-function toggleInstrumentSynth(){
-  selectInstrument();
 
-  if(document.getElementById("instrument").checked){
+function closeSynthShowInstruments(){
+  document.querySelectorAll(".instruments_container")[0].style.display="inline-block";
+    document.querySelectorAll(".instruments_container")[0].classList.remove("hide_instruments_container");
     document.querySelectorAll(".disable_synth_in")[0].style.display = "block";
     document.querySelectorAll(".disable_synth_in")[0].classList.remove("disable_synth_out");
-    instrumentSynth=false;
+    instrumentSynth = false;
+}
+
+function closeInstrumentsShowSynth(){
+  //document.querySelectorAll(".instruments_container")[0].style.display="none";
+  document.querySelectorAll(".instruments_container")[0].classList.add("hide_instruments_container");
+  document.querySelectorAll(".disable_synth_in")[0].classList.add("disable_synth_out");
+  instrumentSynth = true;
+}
+
+function toggleInstrumentSynth(){
+
+  if(document.getElementById("instrument").checked){
+    closeSynthShowInstruments();
   }
   else if(document.getElementById("synth").checked){
-    document.querySelectorAll(".disable_synth_in")[0].classList.add("disable_synth_out");
-    instrumentSynth=true;
+    closeInstrumentsShowSynth();
   }
 }
 
 
-
+var piano =  _tone_0000_Aspirin_sf2_file;
+var elpiano = _tone_0051_FluidR3_GM_sf2_file;
+var guitar = _tone_0270_JCLive_sf2_file;
 
 function playKey(pitch){
   if(document.getElementById("piano").checked){
-  player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_Aspirin_sf2_file, 0, pitch, 0.75);
+  player.queueWaveTable(audioContext, audioContext.destination, piano, 0, pitch, 0.75);
   }
   else if(document.getElementById("e-piano").checked){
-    player.queueWaveTable(audioContext, audioContext.destination, _tone_0040_GeneralUserGS_sf2_file, 0, pitch, 0.75);
+    player.queueWaveTable(audioContext, audioContext.destination, elpiano, 0, pitch, 0.75);
     }
   else if(document.getElementById("guitar").checked){
-    player.queueWaveTable(audioContext, audioContext.destination, _tone_0240_FluidR3_GM_sf2_file, 0, pitch, 0.75);
+    player.queueWaveTable(audioContext, audioContext.destination, guitar, 0, pitch, 0.75);
     }
   }
 
@@ -358,13 +388,13 @@ function startPlayKeyboard(){
         notes.push(pitch);
         if(!instrumentSynth){
           if(document.getElementById("piano").checked){
-            player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_Aspirin_sf2_file, 0, midiPitch, duration);
+            player.queueWaveTable(audioContext, audioContext.destination, piano, 0, midiPitch, duration);
           }
         else if(document.getElementById("e-piano").checked){
-            player.queueWaveTable(audioContext, audioContext.destination, _tone_0040_GeneralUserGS_sf2_file, 0, midiPitch, duration);
+            player.queueWaveTable(audioContext, audioContext.destination, elpiano, 0, midiPitch, duration);
           }
         else if(document.getElementById("guitar").checked){
-            player.queueWaveTable(audioContext, audioContext.destination, _tone_0240_FluidR3_GM_sf2_file, 0, midiPitch, duration);
+            player.queueWaveTable(audioContext, audioContext.destination, guitar, 0, midiPitch, duration);
           }
         }
         else{
@@ -414,13 +444,13 @@ function startPlayMidi(){
       notes.push(pitch);
       if(!instrumentSynth){
         if(document.getElementById("piano").checked){
-          player.queueWaveTable(audioContext, audioContext.destination, _tone_0000_Aspirin_sf2_file, 0, midiPitch, duration);
+          player.queueWaveTable(audioContext, audioContext.destination, piano, 0, midiPitch, duration);
         }
       else if(document.getElementById("e-piano").checked){
-          player.queueWaveTable(audioContext, audioContext.destination, _tone_0040_GeneralUserGS_sf2_file, 0, midiPitch, duration);
+          player.queueWaveTable(audioContext, audioContext.destination, elpiano, 0, midiPitch, duration);
         }
       else if(document.getElementById("guitar").checked){
-          player.queueWaveTable(audioContext, audioContext.destination, _tone_0240_FluidR3_GM_sf2_file, 0, midiPitch, duration);
+          player.queueWaveTable(audioContext, audioContext.destination, guitar, 0, midiPitch, duration);
         }
       }
       else{

@@ -2,14 +2,19 @@
 <html>
 <head>
 
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+    /> -->
+
 <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
 
 <script src="https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js"></script>
 <script src="https://surikov.github.io/webaudiofontdata/sound/0000_Aspirin_sf2_file.js"></script>
-<script src="https://surikov.github.io/webaudiofontdata/sound/0040_GeneralUserGS_sf2_file.js"></script>
-<script src="https://surikov.github.io/webaudiofontdata/sound/0240_FluidR3_GM_sf2_file.js"></script>
+<script src="https://surikov.github.io/webaudiofontdata/sound/0051_FluidR3_GM_sf2_file.js"></script>
+<script src="https://surikov.github.io/webaudiofontdata/sound/0270_JCLive_sf2_file.js"></script>
 
 <script src="input-knobs.js"></script>
 <script src="https://unpkg.com/tone@latest/build/Tone.js"></script>
@@ -22,6 +27,10 @@
   <meta name="CocoaVersion" content="1894.1">
 </head>
 <body>
+    <!-- <button class="music" onclick="musika()">
+        <audio src="111.mp3" id="audio"></audio>
+    </div> -->
+
     <div class="container-transparent"></div>
 
     <div class = "initial-button" style = "top:20%">Play</div>
@@ -239,15 +248,15 @@
                 <div class="led-container">
                     <div class="container-checkbox">
                         <div class="ext_activeLed">
-                            <input type="checkbox" class="activeEffect activeLed" value="chorus_act" id="chorusLed" onchange="toggleChorus();"/>
+                            <input type="checkbox" class="activeEffect activeLed" value="tremolo_act" id="tremoloLed" onchange="toggleTremolo();"/>
                         </div>
                     </div>
                 </div>
                 <div class="effect_container">
                     <div class="exagon">
-                        <input type="range" class="input-knob effect_type" id="chorus" min="0" max="100" width="8vh" height="8vh"  style="height: 8vh; width:8vh" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(153,122,82)"/><br/>
+                        <input type="range" class="input-knob effect_type" id="tremolo" min="0" max="100" oninput="modifyTremoloFreq()" width="8vh" height="8vh"  style="height: 8vh; width:8vh" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(153,122,82)"/><br/>
                     </div>
-                    <label for="chorus">Chorus</label>
+                    <label for="chorus">Tremolo</label>
                 </div>
             </div> 
 
@@ -306,7 +315,7 @@
                 <button onclick="toggleMidiKeyboard();">Keyboard/MIDI</button> -->
                 <div class="main_out_container">
                     <div class="exagon">
-                        <input type="range" class="input-knob" id="gain" min="0" max="100" width="8vh" height="8vh"  style="height: 8vh; width:8vh" oninput="modifyGain()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(189, 146, 97)"/>
+                        <input type="range" class="input-knob" id="gain" min="0" max="150" value = "80"; width="8vh" height="8vh"  style="height: 8vh; width:8vh" oninput="modifyGain()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(189, 146, 97)"/>
                     </div>
                     <label for="gain" class="downLabel">Out</label>
                 </div>

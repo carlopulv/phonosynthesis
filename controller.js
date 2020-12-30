@@ -1196,6 +1196,12 @@ function showKeys() {
   */
  function goToHomePage(){
   document.getElementById("synth").checked = true;
+  closeInstrumentsShowSynth();
+  
+  // document.querySelectorAll(".instruments_container")[0].classList.add("hide_instruments_container");
+  // document.querySelectorAll(".disable_synth_in")[0].classList.add("disable_synth_out");
+  // instrumentSynth=true;
+  
   
   getListsong();
   deleteListsong();
