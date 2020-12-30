@@ -24,6 +24,9 @@ function draw(){
     } 
   }
 
+  if(keyModeSpaceOn) document.querySelectorAll(".keymode-space")[0].style.display="block";
+  else document.querySelectorAll(".keymode-space")[0].style.display="none";
+
   
   createCanvas(windowWidth, windowHeightMod);
   clear();
@@ -43,6 +46,7 @@ function draw(){
     scale = windowHeightMod/900; 
     let j=0.3;
     document.querySelectorAll(".initial-button")[6].style.display="none";
+    document.querySelectorAll(".button-keymodespace")[0].style.display = "none";
 
     if (keysshown==false){
       l.transform(scale, 12, windowHeightMod*j, angle+70);
@@ -151,14 +155,17 @@ function draw(){
     document.querySelectorAll(".save-button")[0].style.display = "block";
     document.querySelectorAll(".textarea-songs")[0].style.display = "none";
     document.querySelectorAll(".container-options")[0].style.display = "flex";
+    document.querySelectorAll(".button-keymodespace")[0].style.display = "block";
+    document.querySelectorAll(".title-song")[0].style.right="5vh";
+    document.querySelectorAll(".title-song")[0].style.transform="translateX(0vh)";
 
+    //moveClouds(windowHeight*0.2);
+    moveClouds();
     drawLittlePlant();
-
     drawTrunkOnFloor();
     initializeVarToDrawLeaves();
     drawLeaves(0);  
     drawTrunkPlant(0);
-    
     drawClouds(0);
   }
   //Compare mode
@@ -170,6 +177,10 @@ function draw(){
     document.querySelectorAll(".initial-button")[6].style.display = "block";
     document.querySelectorAll(".textarea-songs")[1].style.display = "none";
     document.querySelectorAll(".textarea-songs")[2].style.display = "none";
+    document.querySelectorAll(".title-song")[0].style.right="50%";
+    document.querySelectorAll(".title-song")[0].style.transform="translateX(-5vh)";
+
+
     
     drawTrunkOnFloor();
     for(let i=0;i<songs.length;i++){
@@ -201,6 +212,18 @@ function drawClouds(i){
     document.querySelectorAll(".score")[1].innerText=finalScores[1];
     document.querySelectorAll(".score")[1].style.display="block";
   }
+}
+
+function moveClouds() {   
+  pos++; 
+  let c = new Cloud(windowHeight*0.0002, pos, ranY);
+  c.plot();
+  if (pos>windowWidth) {
+    pos = 0;
+    ranY = Math.random() * (windowHeight*0.5 - windowHeight*0.13) + windowHeight*0.13;
+  }
+  var time = requestAnimationFrame(moveClouds);
+  cancelAnimationFrame(time);
 }
 
 function drawTrunkOnFloor(){
@@ -258,11 +281,26 @@ function drawLeaves(index){
 
     if(comparingSongs) adjustWidths(index);
 
+    //moving leaves
+    for(let i=0;i<anglesForLeaves.length;i++){
+      angles
+    }
+
     //Draws the leaves
+    while(chordsPlayedNoDup.length>rotationLeaves.length){
+      rotationLeaves.push(0);
+      moving.push(false);
+    }
     for(let i=0;i<heightsForLeaves.length;i++){
-      l3.transform(windowHeightMod/2500,widthsForLeaves[i],heightsForLeaves[i],anglesForLeaves[i]);
+      if(anglesForLeaves[i]+rotationLeaves[i]>130) moving[i]=true;
+      else if(anglesForLeaves[i]+rotationLeaves[i]<50) moving[i]=false;
+
+      if(moving[i]) rotationLeaves[i]-=0.2;
+      else rotationLeaves[i]+=0.2;
+
+      l3.transform(windowHeightMod/2500,widthsForLeaves[i],heightsForLeaves[i],anglesForLeaves[i]+rotationLeaves[i]);
       l3.plot();
-      l3.transform(windowHeightMod/2500,widthsForLeavesMirrored[i],heightsForLeaves[i],anglesForLeavesMirrored[i]);
+      l3.transform(windowHeightMod/2500,widthsForLeavesMirrored[i],heightsForLeaves[i],anglesForLeavesMirrored[i]-rotationLeaves[i]);
       l3.plot();
     }
   }
@@ -274,6 +312,8 @@ function drawLittlePlant(){
   t.plot();
   l.plot();
   l.transform(windowHeightMod*0.0004,windowWidth*0.95,windowHeightMod*0.95,290);
+  l.plot();
+  l.transform(windowHeightMod*0.0004,windowWidth*0.95+windowHeightMod*0.00015*50,windowHeightMod*0.92,20);
   l.plot();
 }
 
