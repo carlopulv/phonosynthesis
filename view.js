@@ -209,7 +209,8 @@ function drawClouds(i){
   if(i==1){
     c.transform(windowHeight*0.0003,windowWidth/2-windowHeight*0.15, windowHeight*0.1);
     c.plot();
-    document.querySelectorAll(".score")[1].innerText=finalScores[1];
+    document.querySelectorAll(".score")[1].innerText=finalScores[0];
+    document.querySelectorAll(".score")[0].innerText=finalScores[1];
     document.querySelectorAll(".score")[1].style.display="block";
   }
 }
