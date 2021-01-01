@@ -4,7 +4,6 @@
 //   audio.play();
 // }
 
-
 var delayknob = document.getElementById("delay");
 var reverbknob = document.getElementById("reverb");
 var cutoffknob = document.getElementById("cutofffreq");
@@ -22,48 +21,35 @@ var S = parseFloat(document.getElementById("envelopeSustain").value);
 var R = parseFloat(document.getElementById("envelopeRelease").value);
 
 
-var minDelay = 4;
-var maxDelay = 20;
-
-var minFreq = 150;
-var maxFreq = 10000;
-
-var minRes = Math.exp(0);
-var maxRes = 10;
-
-var minRev = Math.exp(0);
-var maxRev = 8;
-
-var minTrem = 0.5;
-var maxTrem = 10;
-
-// var treshold = -40;
-// var ratio = 4;
 
 var gain = gainknob.value/100;
 
 var filterType = document.querySelector(".filter_type:checked").id;
 var rolloff = -24;
 
-
-var delayTime = 4 + ((delayknob.value*36)/100) + "n";
-var decay = 0.00001 + ((reverbknob.value*5)/100);
 var feedback = 0.7;
-var cutoffFreq = minFreq + ((cutoffknob.value*(maxFreq-minFreq))/100);
-var resonance = 0 + ((resonanceknob.value*30)/100);
-var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
-var reverb = new Tone.Reverb(decay);
-// var chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
-var tremolo = new Tone.Tremolo(tremoloFreq, tremoloDepth);
-var filter = new Tone.Filter(100, filterType);
-var tremoloFreq = 10;
+
 var tremoloDepth = 0.75;
-// var compressor = new Tone.Compressor(treshold, ratio);
-var outputGain = new Tone.Gain(gain);
+
+var delayTime;
+var cutoffFreq;
+var decay;
+var tremoloFreq;
+var resonance;
+var gain;
+
 
 var psynth = new Tone.PolySynth(Tone.Synth);
 
-
+function envelopeModifier(){
+  A = parseFloat(document.getElementById("envelopeAttack").value);
+  D = parseFloat(document.getElementById("envelopeDecay").value);
+  S = parseFloat(document.getElementById("envelopeSustain").value);
+  R = parseFloat(document.getElementById("envelopeRelease").value);
+  clearCanvas();
+  drawLines();
+  createAmpEnvelope();
+}
 
 function modifyOscillatorType(){
   psynth.set({
@@ -71,20 +57,7 @@ function modifyOscillatorType(){
       "type" : document.querySelector(".osc:checked").id
     }
   });
-  on();
 }
-
-function envelopeModifier(){
-  A = parseFloat(document.getElementById("envelopeAttack").value);
-  D = parseFloat(document.getElementById("envelopeDecay").value);
-  S = parseFloat(document.getElementById("envelopeSustain").value);
-  R = parseFloat(document.getElementById("envelopeRelease").value);
-
-  clearCanvas();
-  drawLines();
-  on();
-}
-
 
 function updateFilterType(){
   if(lpf.checked == true){
@@ -96,79 +69,116 @@ function updateFilterType(){
   else{
       filterType = "highpass";
   }
-  on();
+  createFilter();
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
-function modifyCutoffFreq(){  
+function modifyCutoffFreq(){
+  var minFreq = 150;
+  var maxFreq = 10000;  
+
   minv = Math.log(minFreq);
   maxv = Math.log(maxFreq);
   minp = cutoffknob.min;
   maxp = cutoffknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   cutoffFreq = Math.exp(minv + scale*(cutoffknob.value - minp));
-  on();
+  createFilter();
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyResonance(){
-  //resonance = 0 + ((resonanceknob.value*15)/100);
+  var minRes = Math.exp(0);
+  var maxRes = 10;
+
   minv = Math.log(minRes);
   maxv = Math.log(maxRes);
   minp = resonanceknob.min;
   maxp = resonanceknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   resonance = Math.round(Math.exp(minv + scale*(resonanceknob.value - minp)));
-  on();
+  createFilter();
+  filter.Q.value = resonance;
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyDelayTime(){
-  //delayTime = Math.round(4 + ((delayknob.value*36)/100)) + "n";
+  var minDelay = 4;
+  var maxDelay = 20;
+
   minv = Math.log(minDelay);
   maxv = Math.log(maxDelay);
   minp = delayknob.min;
   maxp = delayknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   delayTime = Math.round(Math.exp(minv + scale*(delayknob.value - minp))) + "n";
-  on();
+  createDelay();
+  toggleDelay();
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyReverbDecay(){
+  var minRev = Math.exp(0);
+  var maxRev = 8;
+
   minv = Math.log(minRev);
   maxv = Math.log(maxRev);
   minp = reverbknob.min;
   maxp = reverbknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   decay = Math.round(Math.exp(minv + scale*(reverbknob.value - minp)));
-  on();
+  createReverb();
+  toggleReverb();
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyTremoloFreq(){
+  var minTrem = 0.5;
+  var maxTrem = 10;
+
   minv = Math.log(minTrem);
   maxv = Math.log(maxTrem);
   minp = tremoloknob.min;
   maxp = tremoloknob.max;
   scale = ((maxv - minv)/(maxp - minp));
   tremoloFreq = Math.exp(minv + scale*(tremoloknob.value - minp));
-  on();
+  createTremolo();
+  toggleTremolo();
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
 function modifyGain(){
   gain = 20*Math.log10(gainknob.value/1000);
-  on();
+  createGain();
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
-
 
 function initializeEffects(){
   feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
   reverb = new Tone.Reverb(decay);
   filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
-  outputGain = new Tone.Gain(gain);
-  // chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
-  chorus = new Tone.Tremolo((tremoloFreq, tremoloDepth));
+  tremolo = new Tone.Tremolo(tremoloFreq, tremoloDepth);
+  outputGain = new Tone.Volume(gain);
 }
+
+
+
+function initializeModifiers(){
+  modifyCutoffFreq();
+  modifyDelayTime();
+  modifyResonance();
+  modifyReverbDecay();
+  modifyTremoloFreq();
+  modifyGain();
+  }
+
+initializeEffects();
+initializeModifiers();
+
+
 
 function createAmpEnvelope(){
   var curve = "linear"
-
   psynth.set({
     envelope:{
       attack: A,
@@ -185,80 +195,33 @@ function createAmpEnvelope(){
 function createFilter(){
   filter.dispose();
   filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
-  filter.Q.value = resonance;
+  // filter.Q.value = resonance;
 }
-
 function createDelay(){
   feedbackDelay.dispose();
-  // feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback).toDestination();
   feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
 }
-
 function createReverb(){
   reverb.dispose();
-  // reverb = new Tone.Reverb(decay).toDestination();
   reverb = new Tone.Reverb(decay);
 }
-
 function createTremolo(){
   tremolo.dispose();
-  // chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
-  //chorus = new Tone.Tremolo(9, 0.75).toDestination().start();
   tremolo = new Tone.Tremolo(tremoloFreq, tremoloDepth).start();
 }
-
-// function createCompressor(){
-//   compressor.dispose();
-//   compressor = new Tone.Compressor(treshold, ratio);
-//   compressor.knee.value = 30;
-//   compressor.attack.value = 0.03;
-//   }
 
 function createGain(){
   outputGain.dispose();
   outputGain = new Tone.Volume(gain);
 }
 
-
-// function toggleDelay(){
-//   if(document.getElementById("delayLed").checked == true){
-//     return;
-//   }
-//   else{
-//     feedbackDelay.disconnect();
-//   }
-// }
-
-// function toggleReverb(){
-//   if(document.getElementById("reverbLed").checked == true){
-//     psynth.connect(reverb);
-//     reverb.toDestination();
-//   }
-//   else{
-//       reverb.disconnect();
-//   }
-// }
-
-// function toggleChorus(){
-//   if(document.getElementById("chorusLed").checked == true){
-//   chorus.toDestination();
-//   psynth.connect(chorus);
-// }
-// else{
-//     chorus.disconnect();
-// }
-// }
-
 function toggleDelay(){
   if(document.getElementById("delayLed").checked == true){
-    feedback = 0.7;
   }
   else{
     feedbackDelay.wet.value = 0;
-    feedback = 0;
   }
 }
-
 function toggleReverb(){
   if(document.getElementById("reverbLed").checked == true){
     reverb.wet.value = reverbknob.value/100;
@@ -267,26 +230,14 @@ function toggleReverb(){
       reverb.wet.value = 0;
   }
 }
-
 function toggleTremolo(){
   if(document.getElementById("tremoloLed").checked == true){
     return;
   }
-else{
+  else{
     tremolo.wet.value = 0;
-}
-}
-
-function initialize(){
-  modifyCutoffFreq();
-  modifyDelayTime();
-  modifyResonance();
-  modifyReverbDecay();
-  modifyGain();
   }
-
-initialize();
-
+}
 
 function on(){
   if(firstTime){
@@ -294,8 +245,10 @@ function on(){
     firstTime=false;
   }
 
-  //Tone.context.resume();
-  Tone.start();
+  Tone.context.resume();
+  // Tone.start();
+
+  
   initializeEffects();
   createAmpEnvelope();
   createFilter();
@@ -305,14 +258,301 @@ function on(){
   toggleDelay();
   toggleTremolo();
   toggleReverb();
-  // createCompressor();
   createGain();
-
-
-  psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
-
+  
+  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// var delayTime = 4 + ((delayknob.value*36)/100) + "n";
+// var decay = 0.00001 + ((reverbknob.value*5)/100);
+// var feedback = 0.7;
+// var cutoffFreq = minFreq + ((cutoffknob.value*(maxFreq-minFreq))/100);
+// var resonance = 0 + ((resonanceknob.value*30)/100);
+// var feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
+// var reverb = new Tone.Reverb(decay);
+// // var chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
+// var tremolo = new Tone.Tremolo(tremoloFreq, tremoloDepth);
+// var filter = new Tone.Filter(100, filterType);
+// var tremoloFreq = 10;
+// var tremoloDepth = 0.75;
+// // var compressor = new Tone.Compressor(treshold, ratio);
+// var outputGain = new Tone.Gain(gain);
+
+// var psynth = new Tone.PolySynth(Tone.Synth);
+
+// function initializeEffects(){
+//   feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
+//   reverb = new Tone.Reverb(decay);
+//   filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
+//   tremolo = new Tone.Tremolo(tremoloFreq, tremoloDepth);
+//   outputGain = new Tone.Volume(gain);
+  
+// }
+
+
+// function modifyOscillatorType(){
+//   psynth.set({
+//     "oscillator" : {
+//       "type" : document.querySelector(".osc:checked").id
+//     }
+//   });
+//   on();
+// }
+
+// function envelopeModifier(){
+//   A = parseFloat(document.getElementById("envelopeAttack").value);
+//   D = parseFloat(document.getElementById("envelopeDecay").value);
+//   S = parseFloat(document.getElementById("envelopeSustain").value);
+//   R = parseFloat(document.getElementById("envelopeRelease").value);
+
+//   clearCanvas();
+//   drawLines();
+//   on();
+// }
+
+
+// function updateFilterType(){
+//   if(lpf.checked == true){
+//       filterType = "lowpass";
+//   }
+//   else if(bpf.checked == true){
+//       filterType = "bandpass";
+//   }
+//   else{
+//       filterType = "highpass";
+//   }
+//   on();
+// }
+
+// function modifyCutoffFreq(){  
+//   minv = Math.log(minFreq);
+//   maxv = Math.log(maxFreq);
+//   minp = cutoffknob.min;
+//   maxp = cutoffknob.max;
+//   scale = ((maxv - minv)/(maxp - minp));
+//   cutoffFreq = Math.exp(minv + scale*(cutoffknob.value - minp));
+  
+// }
+
+// function modifyResonance(){
+//   //resonance = 0 + ((resonanceknob.value*15)/100);
+//   minv = Math.log(minRes);
+//   maxv = Math.log(maxRes);
+//   minp = resonanceknob.min;
+//   maxp = resonanceknob.max;
+//   scale = ((maxv - minv)/(maxp - minp));
+//   resonance = Math.round(Math.exp(minv + scale*(resonanceknob.value - minp)));
+
+// }
+
+// function modifyDelayTime(){
+//   //delayTime = Math.round(4 + ((delayknob.value*36)/100)) + "n";
+//   minv = Math.log(minDelay);
+//   maxv = Math.log(maxDelay);
+//   minp = delayknob.min;
+//   maxp = delayknob.max;
+//   scale = ((maxv - minv)/(maxp - minp));
+//   delayTime = Math.round(Math.exp(minv + scale*(delayknob.value - minp))) + "n";
+
+// }
+
+// function modifyReverbDecay(){
+//   minv = Math.log(minRev);
+//   maxv = Math.log(maxRev);
+//   minp = reverbknob.min;
+//   maxp = reverbknob.max;
+//   scale = ((maxv - minv)/(maxp - minp));
+//   decay = Math.round(Math.exp(minv + scale*(reverbknob.value - minp)));
+ 
+// }
+
+// function modifyTremoloFreq(){
+//   minv = Math.log(minTrem);
+//   maxv = Math.log(maxTrem);
+//   minp = tremoloknob.min;
+//   maxp = tremoloknob.max;
+//   scale = ((maxv - minv)/(maxp - minp));
+//   tremoloFreq = Math.exp(minv + scale*(tremoloknob.value - minp));
+ 
+// }
+
+// function modifyGain(){
+//   gain = 20*Math.log10(gainknob.value/1000);
+
+// }
+
+
+
+// function createAmpEnvelope(){
+//   var curve = "linear"
+
+//   psynth.set({
+//     envelope:{
+//       attack: A,
+//       decay: D,
+//       sustain: S,
+//       release: R,
+//       "attackCurve" : curve,
+//       "decayCurve" : curve,
+//       "releaseCurve" : curve
+//     }
+//   })
+// }
+
+// function createFilter(){
+//   filter.dispose();
+//   filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
+//   filter.Q.value = resonance;
+// }
+
+// function createDelay(){
+//   feedbackDelay.dispose();
+//   // feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback).toDestination();
+//   feedbackDelay = new Tone.FeedbackDelay(delayTime, feedback);
+// }
+
+// function createReverb(){
+//   reverb.dispose();
+//   // reverb = new Tone.Reverb(decay).toDestination();
+//   reverb = new Tone.Reverb(decay);
+// }
+
+// function createTremolo(){
+//   tremolo.dispose();
+//   // chorus = new Tone.Chorus(chorusFrequency, chorusDelayTime, depth);
+//   //chorus = new Tone.Tremolo(9, 0.75).toDestination().start();
+//   tremolo = new Tone.Tremolo(tremoloFreq, tremoloDepth).start();
+// }
+
+// // function createCompressor(){
+// //   compressor.dispose();
+// //   compressor = new Tone.Compressor(treshold, ratio);
+// //   compressor.knee.value = 30;
+// //   compressor.attack.value = 0.03;
+// //   }
+
+// function createGain(){
+//   outputGain.dispose();
+//   outputGain = new Tone.Volume(gain);
+// }
+
+
+// // function toggleDelay(){
+// //   if(document.getElementById("delayLed").checked == true){
+// //     return;
+// //   }
+// //   else{
+// //     feedbackDelay.disconnect();
+// //   }
+// // }
+
+// // function toggleReverb(){
+// //   if(document.getElementById("reverbLed").checked == true){
+// //     psynth.connect(reverb);
+// //     reverb.toDestination();
+// //   }
+// //   else{
+// //       reverb.disconnect();
+// //   }
+// // }
+
+// // function toggleChorus(){
+// //   if(document.getElementById("chorusLed").checked == true){
+// //   chorus.toDestination();
+// //   psynth.connect(chorus);
+// // }
+// // else{
+// //     chorus.disconnect();
+// // }
+// // }
+
+// function toggleDelay(){
+//   if(document.getElementById("delayLed").checked == true){
+//     feedback = 0.7;
+//   }
+//   else{
+//     feedbackDelay.wet.value = 0;
+//     feedback = 0;
+//   }
+// }
+
+// function toggleReverb(){
+//   if(document.getElementById("reverbLed").checked == true){
+//     reverb.wet.value = reverbknob.value/100;
+//   }
+//   else{
+//       reverb.wet.value = 0;
+//   }
+// }
+
+// function toggleTremolo(){
+//   if(document.getElementById("tremoloLed").checked == true){
+//     return;
+//   }
+// else{
+//     tremolo.wet.value = 0;
+// }
+// }
+
+// function initialize(){
+//   modifyCutoffFreq();
+//   modifyDelayTime();
+//   modifyResonance();
+//   modifyReverbDecay();
+//   modifyGain();
+//   }
+
+// initialize();
+
+
+// function on(){
+//   if(firstTime){
+//     initializeEffects();
+//     firstTime=false;
+//   }
+
+//   Tone.context.resume();
+//   //Tone.start();
+//   initializeEffects();
+//   createAmpEnvelope();
+//   createFilter();
+//   createTremolo();
+//   createDelay();
+//   createReverb();
+//   toggleDelay();
+//   toggleTremolo();
+//   toggleReverb();
+//   // createCompressor();
+//   createGain();
+
+
+//   psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
+
+// }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 /**
@@ -349,17 +589,17 @@ var piano =  _tone_0000_Aspirin_sf2_file;
 var elpiano = _tone_0051_FluidR3_GM_sf2_file;
 var guitar = _tone_0270_JCLive_sf2_file;
 
-/*function playKey(pitch){
-  if(document.getElementById("piano").checked){
-  player.queueWaveTable(audioContext, audioContext.destination, piano, 0, pitch, 0.75);
-  }
-  else if(document.getElementById("e-piano").checked){
-    player.queueWaveTable(audioContext, audioContext.destination, elpiano, 0, pitch, 0.75);
-    }
-  else if(document.getElementById("guitar").checked){
-    player.queueWaveTable(audioContext, audioContext.destination, guitar, 0, pitch, 0.75);
-    }
-  }*/
+// function playKey(pitch){
+//   if(document.getElementById("piano").checked){
+//   player.queueWaveTable(audioContext, audioContext.destination, piano, 0, pitch, 0.75);
+//   }
+//   else if(document.getElementById("e-piano").checked){
+//     player.queueWaveTable(audioContext, audioContext.destination, elpiano, 0, pitch, 0.75);
+//     }
+//   else if(document.getElementById("guitar").checked){
+//     player.queueWaveTable(audioContext, audioContext.destination, guitar, 0, pitch, 0.75);
+//     }
+//   }
 
 function resume_context(){
     c.resume();
@@ -409,6 +649,7 @@ function startPlayKeyboard(){
         }
         else{
         //if(notes.length == 1) on();
+        psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
         psynth.triggerAttackRelease(pitch, A+D+100);
         }
       }
@@ -466,6 +707,7 @@ function startPlayMidi(){
       }
       else{
         //if(notes.length == 1) on();
+        psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
         psynth.triggerAttackRelease(pitch, A+D+100);
       }
     }

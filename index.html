@@ -250,7 +250,7 @@
                 <div class="led-container">
                     <div class="container-checkbox">
                         <div class="ext_activeLed">
-                         <input type="checkbox" class="activeEffect activeLed" value="delay_act" id="delayLed" onchange="toggleDelay();"/>
+                         <input type="checkbox" class="activeEffect activeLed" value="delay_act" id="delayLed" onchange="modifyDelayTime ();"/>
                         </div>
                     </div>
                 </div>
@@ -263,7 +263,7 @@
                 <div class="led-container">
                     <div class="container-checkbox">
                         <div class="ext_activeLed">
-                         <input type="checkbox" class="activeEffect activeLed " value="reverb_act" id="reverbLed" onchange="toggleReverb();" /> 
+                         <input type="checkbox" class="activeEffect activeLed " value="reverb_act" id="reverbLed" onchange="modifyReverbDecay();" /> 
                         </div>
                     </div>
                 </div>
@@ -276,7 +276,7 @@
                 <div class="led-container">
                     <div class="container-checkbox">
                         <div class="ext_activeLed">
-                            <input type="checkbox" class="activeEffect activeLed" value="tremolo_act" id="tremoloLed" onchange="toggleTremolo();"/>
+                            <input type="checkbox" class="activeEffect activeLed" value="tremolo_act" id="tremoloLed" onchange="modifyTremoloFreq();"/>
                         </div>
                     </div>
                 </div>
@@ -415,13 +415,16 @@
 
 
 </html>
-<html><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8"><meta name="Robots" content="NOINDEX " /></head><body></body>
-                <script type="text/javascript">
-                 var gearPage = document.getElementById('GearPage');
-                 if(null != gearPage)
-                 {
-                     gearPage.parentNode.removeChild(gearPage);
-                     document.title = "Errore";
-                 }
-                 </script>
-</html>
+<!--<html>
+    <head>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8"><meta name="Robots" content="NOINDEX " />
+    </head>
+
+    <script type="text/javascript">
+        var gearPage = document.getElementById('GearPage');
+        if(null != gearPage){
+            gearPage.parentNode.removeChild(gearPage);
+            document.title = "Errore";
+        }
+    </script>
+</html>-->

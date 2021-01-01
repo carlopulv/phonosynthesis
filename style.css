@@ -1,3 +1,7 @@
+main{
+   box-sizing: border-box;
+}
+
 body{
     margin: 0;
     width:100%;
@@ -7,6 +11,12 @@ body{
     font-weight: 400;
     background: linear-gradient(rgb(47,85,151), rgb(0,151,198) 27% ,rgb(246,248,252) 100%);
     background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.p5Canvas{
+    width:100%;
+    height:100%;
 }
 
 .initial-button{
@@ -645,7 +655,6 @@ body{
 .container-options{
     display: none;
     position: absolute;
-    float:right;
     background-color: rgba(255, 255, 255, 0);
     left: 95%;
     transform: translateX(-5vh);
@@ -656,6 +665,7 @@ body{
     animation-name:sliding-options-down;
     animation-duration:0.2s;
     animation-timing-function:linear;
+    overflow: hidden;
 }
 
 .container-options-open{
