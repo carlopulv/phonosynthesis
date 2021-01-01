@@ -27,10 +27,8 @@ function draw(){
   if(keyModeSpaceOn) document.querySelectorAll(".keymode-space")[0].style.display="block";
   else document.querySelectorAll(".keymode-space")[0].style.display="none";
 
-  
-  createCanvas(windowWidth, windowHeightMod);
+  createCanvas(windowWidth,windowHeightMod);
   clear();
-  
   
   if(onOff == 1){
     initializeRootsCoordinates();
@@ -159,7 +157,6 @@ function draw(){
     document.querySelectorAll(".title-song")[0].style.right="5vh";
     document.querySelectorAll(".title-song")[0].style.transform="translateX(0vh)";
 
-    //moveClouds(windowHeight*0.2);
     moveClouds();
     drawLittlePlant();
     drawTrunkOnFloor();
@@ -216,11 +213,14 @@ function drawClouds(i){
 
 function moveClouds() {   
   pos++; 
-  let c = new Cloud(windowHeight*0.0002, pos, ranY);
+  let c = new Cloud(windowHeight*dim*1.5, pos, ranY);
   c.plot();
-  if (pos>windowWidth) {
+  //let c1 = new Cloud(windowHeight*dim, pos, ranY+70);
+  //setTimeout(function(){c1.plot();} ,3000);
+  if (pos>windowWidth) {  //gamestate == 0??
     pos = 0;
     ranY = Math.random() * (windowHeight*0.5 - windowHeight*0.13) + windowHeight*0.13;
+    dim = Math.random() * (windowHeight*0.00000035 - windowHeight*0.00000009) + windowHeight*0.00000009;
   }
   var time = requestAnimationFrame(moveClouds);
   cancelAnimationFrame(time);

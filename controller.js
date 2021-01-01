@@ -610,7 +610,7 @@ function showKeys() {
    * This function set some variables useful for the view.
    */
   function initializePosAngleToDrawTrunk(){
-    position_x = [0,0.02,0.07,0.13,0.18,0.25,0.31,0.37,0.43,0.49,0.55,0.61,0.67,0.72];
+    position_x = [0,0.02,0.07,0.13,0.18,0.25,0.31,0.37,0.43,0.49,0.55,0.61,0.67,0.72]; 
     position_y = [0.25,0.22,0.23,0.21,0.28,0.33,0.3,0.35,0.31,0.31,0.25,0.3,0.27,0.25]; 
     pos_angle = [55,120,60,150,130,50,120,60,130,70,140,40];
     a=0;
