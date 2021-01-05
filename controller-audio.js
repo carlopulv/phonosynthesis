@@ -744,12 +744,12 @@ function startPlayKeyboard(){
  */
 function startPlayMidi(){
   // on();
-  /*document.body.onkeydown="none";
+    /*document.body.onkeydown="none";
   document.body.onkeyup="none";*/
   if(midiKeyboard){
   //midion
   if(dataMidi[2]>0 && dataMidi[2] != 64) {
-    if(psynth._voices.length>4) psynth._voices.shift();
+    if(psynth._voices.length>6) psynth._voices.shift();
     duration=3;
     //if(dataMidi.repeat )return;
       var pitch = int(midiToFreq(dataMidi[1]));
@@ -776,7 +776,7 @@ function startPlayMidi(){
     }
 
   //midioff
-  if(dataMidi[2]==0 || dataMidi[2] == 64){
+  if(dataMidi[2]==0 || dataMidi[2] == 64 || dataMidi[0]==128){
     if(notes.length==4){
           typeChord(notes);
     }
@@ -786,8 +786,8 @@ function startPlayMidi(){
 
     if(instrumentSynth){
         var pitch = int(midiToFreq(note));
-        psynth.triggerRelease(pitch);
         notes.pop();
+        psynth.triggerRelease(pitch);
         //on();
     }
     else{
@@ -842,7 +842,7 @@ function onMIDIFailure(error) {
 }
 
 function onMIDIMessage(message) {
-  data = message.data;  //gives [command/channel, note, velocity] data.
+  data = message.data;  //gives [command/channel, note, velocity] data
     if(data.length==3){
       dataMidi=data;
       note = dataMidi[1];
