@@ -221,14 +221,14 @@ function drawClouds(i){
   }
 }
 
-function moveClouds() {   
-  pos++; 
+function moveClouds() {  
+  pos++;
   let c = new Cloud(windowHeight*dim*1.5, pos, ranY);
   c.plot();
   //let c1 = new Cloud(windowHeight*dim, pos, ranY+70);
-  //setTimeout(function(){c1.plot();} ,3000);
-  if (pos>windowWidth) {  //gamestate == 0??
-    pos = 0;
+  //c1.plot();  
+  if (pos>windowWidth) { 
+    pos = -100;
     ranY = Math.random() * (windowHeight*0.5 - windowHeight*0.13) + windowHeight*0.13;
     dim = Math.random() * (windowHeight*0.00000035 - windowHeight*0.00000009) + windowHeight*0.00000009;
   }
