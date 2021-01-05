@@ -743,7 +743,6 @@ function startPlayKeyboard(){
  * This function activate the midi input.
  */
 function startPlayMidi(){
-  on();
   /*document.body.onkeydown="none";
   document.body.onkeyup="none";*/
   if(midiKeyboard){
@@ -786,8 +785,8 @@ function startPlayMidi(){
 
     if(instrumentSynth){
         var pitch = int(midiToFreq(note));
-        psynth.triggerRelease(pitch);
         notes.pop();
+        psynth.triggerRelease(pitch);
         //on();
     }
     else{
@@ -842,7 +841,7 @@ function onMIDIFailure(error) {
 }
 
 function onMIDIMessage(message) {
-  data = message.data;  //gives [command/channel, note, velocity] data.
+  data = message.data;  //gives [command/channel, note, velocity] data
     if(data.length==3){
       dataMidi=data;
       note = dataMidi[1];
