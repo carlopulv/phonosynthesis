@@ -366,7 +366,6 @@ function on(){
 //   filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
 //   tremolo = new Tone.Tremolo(tremoloFreq, tremoloDepth);
 //   outputGain = new Tone.Volume(gain);
-  
 // }
 
 
@@ -687,6 +686,7 @@ function disableKeyboard(){
 
 function startPlayKeyboard(){
   on();
+  Tone.start();
   if(midiKeyboard==false){
     document.body.onkeydown = function(e){
       if(psynth._voices.length>4) psynth._voices.shift();
@@ -743,7 +743,7 @@ function startPlayKeyboard(){
  * This function activate the midi input.
  */
 function startPlayMidi(){
-  on();
+  // on();
   /*document.body.onkeydown="none";
   document.body.onkeyup="none";*/
   if(midiKeyboard){
