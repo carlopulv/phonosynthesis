@@ -1,9 +1,40 @@
-// const audio = document.getElementById('audio');
-// function musika(){
-//   console.log("ihih");
-//   audio.play();
-// }
+ var audio = document.getElementById('audio');
+ var sound_flag = 0;
 
+ function musika(){
+  // var ac = new AudioContext(); provare a fare con web api
+  // var g = ac.createGain();
+  // .connect(g);
+  // g.connect(ac.destination);
+  // g.gain.value=0;
+  // g.gain.setValueAtTime(0 , ac.currentTime);
+  // g.gain.linearRampToValueAtTime(G , ac.currentTime + A);
+
+    if(document.getElementById("music_box").checked){
+      audio.volume = 0.4;
+      audio.play();
+      sound_flag = 1;
+     }
+     else{
+      sound_flag = 0;
+      audio.volume = 0;
+     }
+  }
+
+ function decreaseBackgroundMusic(){
+  if(sound_flag == 1){
+    sound_flag = 0;
+    decrease = setInterval(function(){
+      audio.volume = audio.volume - 0.05;
+      console.log(audio.volume);
+      if(audio.volume < 0.005){
+        clearInterval(decrease);
+        audio.volume = 0;
+      }
+      }, 200);
+    }
+ }
+ 
 var delayknob = document.getElementById("delay");
 var reverbknob = document.getElementById("reverb");
 var cutoffknob = document.getElementById("cutofffreq");
@@ -22,41 +53,74 @@ var R = parseFloat(document.getElementById("envelopeRelease").value);
 
 
 
-var gain = gainknob.value/100;
+
 
 var filterType = document.querySelector(".filter_type:checked").id;
-var rolloff = -24;
-
-var feedback = 0.7;
-
-var tremoloDepth = 0.75;
-
-var delayTime;
 var cutoffFreq;
-var decay;
-var tremoloFreq;
+var rolloff = -24;
 var resonance;
-var gain;
-
-
+var delayTime;
+var feedback = 0.7;
+var decay;
+var tremoloDepth = 0.75;
+var tremoloFreq;
+var gain = gainknob.value/100;
 var psynth = new Tone.PolySynth(Tone.Synth);
+
+function init(){
+  A = parseFloat(document.getElementById("envelopeAttack").defaultValue);
+  D = parseFloat(document.getElementById("envelopeDecay").defaultValue);
+  S = parseFloat(document.getElementById("envelopeSustain").defaultValue);
+  R = parseFloat(document.getElementById("envelopeRelease").defaultValue);
+
+  document.getElementById("envelopeAttack").value = A;
+  document.getElementById("envelopeDecay").value = D;
+  document.getElementById("envelopeSustain").value = S;
+  document.getElementById("envelopeRelease").value = R;
+  clearCanvas();
+  drawLines();
+  createAmpEnvelope();
+
+  document.getElementById("sine").checked = document.getElementById("sine").defaultChecked;
+  document.getElementById("square").checked = document.getElementById("square").defaultChecked;
+  document.getElementById("triangle").checked = document.getElementById("triangle").defaultChecked;
+  modifyOscillatorType();
+
+  document.getElementById("lowpass").checked = document.getElementById("lowpass").defaultChecked;
+  document.getElementById("bandpass").checked = document.getElementById("bandpass").defaultChecked;
+  document.getElementById("highpass").checked = document.getElementById("highpass").defaultChecked;
+  updateFilterType();
+
+  document.getElementById("delayLed").checked = document.getElementById("delayLed").defaultChecked;
+  document.getElementById("reverbLed").checked = document.getElementById("delayLed").defaultChecked;
+  document.getElementById("tremoloLed").checked = document.getElementById("delayLed").defaultChecked;
+
+  document.getElementById("cutofffreq").value = 50;
+  document.getElementById("resonance").value = 50;
+  document.getElementById("delay").value = 50;
+  document.getElementById("reverb").value = 50;
+  document.getElementById("tremolo").value = 50;
+  document.getElementById("gain").value = 75;
+
+}
 
 function envelopeModifier(){
   A = parseFloat(document.getElementById("envelopeAttack").value);
   D = parseFloat(document.getElementById("envelopeDecay").value);
   S = parseFloat(document.getElementById("envelopeSustain").value);
   R = parseFloat(document.getElementById("envelopeRelease").value);
+
   clearCanvas();
   drawLines();
   createAmpEnvelope();
 }
 
 function modifyOscillatorType(){
-  psynth.set({
-    "oscillator" : {
-      "type" : document.querySelector(".osc:checked").id
-    }
-  });
+   psynth.set({
+     "oscillator" : {
+       "type" : document.querySelector(".osc:checked").id
+     }
+   });
 }
 
 function updateFilterType(){
@@ -162,8 +226,9 @@ function initializeEffects(){
 }
 
 
-
 function initializeModifiers(){
+  modifyOscillatorType();
+  updateFilterType();
   modifyCutoffFreq();
   modifyDelayTime();
   modifyResonance();
@@ -172,8 +237,8 @@ function initializeModifiers(){
   modifyGain();
   }
 
-initializeEffects();
-initializeModifiers();
+// initializeEffects();
+// initializeModifiers();
 
 
 
@@ -192,10 +257,16 @@ function createAmpEnvelope(){
   })
 }
 
+function disposeEffects(){
+  filter.dispose();
+  feedbackDelay.dispose();
+  reverb.dispose();
+  outputGain.dispose();
+}
+
 function createFilter(){
   filter.dispose();
   filter = new Tone.Filter(cutoffFreq, filterType, rolloff);
-  // filter.Q.value = resonance;
 }
 function createDelay(){
   feedbackDelay.dispose();
@@ -217,6 +288,7 @@ function createGain(){
 
 function toggleDelay(){
   if(document.getElementById("delayLed").checked == true){
+    feedbackDelay.wet.value = delayknob.value/100;
   }
   else{
     feedbackDelay.wet.value = 0;
@@ -244,12 +316,13 @@ function on(){
     initializeEffects();
     firstTime=false;
   }
-  Tone.context.resume();
-  
-  // Tone.start();
 
-  
+  // Tone.context.resume();
+  Tone.start();
+
   initializeEffects();
+  modifyOscillatorType();
+  updateFilterType();
   createAmpEnvelope();
   createFilter();
   createTremolo();
@@ -260,20 +333,7 @@ function on(){
   toggleReverb();
   createGain();
   
-  // psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
