@@ -27,10 +27,7 @@
   <meta name="CocoaVersion" content="1894.1">
 </head>
 <body>
-    <!-- <button class="music" onclick="musika()">
-        <audio src="111.mp3" id="audio"></audio>
-    </div> -->
-
+    
     <div class="title-song"></div>
     <div class="title-song"></div>
     <div class="container-transparent"></div>
@@ -144,21 +141,21 @@
                             <!--<div class="osc_container">  -->                  
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
-                                    <input type="radio" name="osc" class="osc activeLed" value="val" id="sine"  onchange='modifyOscillatorType();'/>
+                                    <input type="radio" name="osc" class="osc activeLed" value="val" id="sine" onchange='modifyOscillatorType();'/>
                                 </div>
                             </div>
                             <!--</div>
                                 <div class="osc_container">-->
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
-                                    <input type="radio" name="osc" class="osc activeLed" value = "val" id="square" checked onchange='modifyOscillatorType();'/>
+                                    <input type="radio" name="osc" class="osc activeLed" value = "val" id="triangle" checked onchange='modifyOscillatorType();'/>
                                 </div>
                             </div>
                                 <!--</div>
                             <div class="osc_container">-->
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
-                                    <input type="radio" name="osc" class="osc activeLed" value= "val" id="triangle" onchange='modifyOscillatorType();'/>
+                                    <input type="radio" name="osc" class="osc activeLed" value= "val" id="square" onchange='modifyOscillatorType();'/>
                                 </div>
                             </div>
                                     <!-- </div>-->
@@ -343,7 +340,7 @@
                 <button onclick="toggleMidiKeyboard();">Keyboard/MIDI</button> -->
                 <div class="main_out_container">
                     <div class="exagon">
-                        <input type="range" class="input-knob" id="gain" min="0" max="150" value = "80"; width="8vh" height="8vh"  style="height: 8vh; width:8vh" oninput="modifyGain()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(189, 146, 97)"/>
+                        <input type="range" class="input-knob" id="gain" min="0" max="150" value = "90"; width="8vh" height="8vh"  style="height: 8vh; width:8vh" oninput="modifyGain()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(189, 146, 97)"/>
                     </div>
                     <label for="gain" class="downLabel" style="color:rgb(73, 60, 4)">Out</label>
                 </div>
@@ -397,6 +394,11 @@
 
         </div>
     </div>
+
+    <input type="checkbox" class="music" id="music_box" onclick="musika()">
+        <audio loop src="background_sound.mp3" id="audio"></audio>
+    </div>
+
 </body>
 
 <script src="p5/p5.min.js"></script>

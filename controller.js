@@ -5,6 +5,13 @@ function getKey(){
     generalKey=this.value;
     game_state=1;
 
+    document.querySelectorAll(".music")[0].style.display="none";
+    decreaseBackgroundMusic();
+
+    initializeEffects();
+    initializeModifiers();
+
+   
     fillKeyModeSpace(generalKey);
     startPlayKeyboard();
   }
@@ -1205,6 +1212,14 @@ function showKeys() {
  function goToHomePage(){
   document.getElementById("synth").checked = true;
   closeInstrumentsShowSynth();
+
+  disposeEffects();
+  init();
+
+  document.querySelectorAll(".music")[0].style.display="initial";
+  document.getElementById("music_box").checked = document.getElementById("music_box").defaultChecked;
+  musika();
+
   // document.querySelectorAll(".instruments_container")[0].classList.add("hide_instruments_container");
   // document.querySelectorAll(".disable_synth_in")[0].classList.add("disable_synth_out");
   // instrumentSynth=true;
