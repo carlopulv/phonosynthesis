@@ -1,3 +1,7 @@
+main{
+   box-sizing: border-box;
+}
+
 body{
     margin: 0;
     width:100%;
@@ -36,6 +40,11 @@ body{
     position: absolute;
     z-index: 1;
     left: 85%;
+}
+
+.p5Canvas{
+    width:100%;
+    height:100%;
 }
 
 
@@ -675,7 +684,6 @@ body{
 .container-options{
     display: none;
     position: absolute;
-    float:right;
     background-color: rgba(255, 255, 255, 0);
     left: 95%;
     transform: translateX(-5vh);
@@ -686,6 +694,7 @@ body{
     animation-name:sliding-options-down;
     animation-duration:0.2s;
     animation-timing-function:linear;
+    overflow: hidden;
 }
 
 .container-options-open{

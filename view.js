@@ -1,6 +1,9 @@
+let changeAngleBigLeaves=0;
+let flagChangingAngle=false;
+
 function setup() {  
   l3=new Leaf(1,windowWidth/2,500,50);
-  frameRate(20);
+  frameRate(15);
   colorBranch=color(56,87,35);
   windowHeightMod=windowHeight;
 }
@@ -48,8 +51,14 @@ function draw(){
     document.querySelectorAll(".initial-button")[6].style.display="none";
     document.querySelectorAll(".button-keymodespace")[0].style.display = "none";
 
+    if(changeAngleBigLeaves<1) flagChangingAngle=true;
+    else if(changeAngleBigLeaves>10) flagChangingAngle=false;
+
+    if(flagChangingAngle) changeAngleBigLeaves+=0.5;
+    else changeAngleBigLeaves-=0.5;
+
     if (keysshown==false){
-      l.transform(scale, 12, windowHeightMod*j, angle+70);
+      l.transform(scale, 12, windowHeightMod*j, angle+70+changeAngleBigLeaves);
       l.plot();
 
       document.querySelectorAll(".initial-button")[3].style.display="none";
@@ -78,7 +87,7 @@ function draw(){
         l.plot();
         a++;
       }
-      l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeightMod*position_y[position_y.length-1], angle+70);
+      l.transform(scale, windowWidth*position_x[position_x.length-1] , windowHeightMod*position_y[position_y.length-1], angle+70+changeAngleBigLeaves);
       l.plot();
     }
 
@@ -96,7 +105,7 @@ function draw(){
       document.querySelectorAll(".textarea-songs")[0].innerText = "Artist - Title";
     }
     j+=0.25;
-    l.transform(scale, xSecondLeave, windowHeightMod*j, angle+70);
+    l.transform(scale, xSecondLeave, windowHeightMod*j, angle+70+changeAngleBigLeaves);
     l.plot();
 
     let xThirdLeave=12;
@@ -109,11 +118,11 @@ function draw(){
 
       j+=0.21;
       drawTrunkForText(windowHeightMod*(j));
-      l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
+      l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70+changeAngleBigLeaves);
       l.plot();
       j+=0.1;
       drawTrunkForText(windowHeightMod*(j));
-      l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
+      l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70+changeAngleBigLeaves);
       l.plot();
     }
     
@@ -125,7 +134,7 @@ function draw(){
       document.querySelectorAll(".textarea-songs")[2].style.display = "none";
       document.querySelectorAll(".initial-button")[5].style.display = "none";
       j+=0.25;
-      l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70);
+      l.transform(scale, xThirdLeave, windowHeightMod*j, angle+70+changeAngleBigLeaves);
       l.plot();
     }
 
@@ -209,7 +218,8 @@ function drawClouds(i){
   if(i==1){
     c.transform(windowHeight*0.0003,windowWidth/2-windowHeight*0.15, windowHeight*0.1);
     c.plot();
-    document.querySelectorAll(".score")[1].innerText=finalScores[1];
+    document.querySelectorAll(".score")[1].innerText=finalScores[0];
+    document.querySelectorAll(".score")[0].innerText=finalScores[1];
     document.querySelectorAll(".score")[1].style.display="block";
   }
 }

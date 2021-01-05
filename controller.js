@@ -464,7 +464,7 @@ function getKey(){
       //console.log(keydistance+" "+modeDistance+" "+hammingDistance);
 
       //The keydistance has to be twice the mode distance because of the alterations distance.
-      distance=keydistance*20+modeDistance*10+hammingDistance;
+      distance=keydistance*10+modeDistance*5+hammingDistance;
   
       if(ii==len){
         chordDistances.push(distance);        
@@ -971,6 +971,7 @@ function showKeys() {
     songnames.push(document.querySelectorAll(".button-darkgreen")[0].innerText);
     if(document.querySelectorAll(".container-listsongs")[1].style.display!="none") songnames.push(document.querySelectorAll(".button-green")[0].innerText);
     closeNotification();
+    songs=[];
     for(let i=0;i<songnames.length;i++){
       document.querySelectorAll(".title-song")[i].innerHTML=songnames[i];
       db.collection("songs").doc(songnames[i]).get().then(function(doc) {
@@ -1223,6 +1224,7 @@ function showKeys() {
   // document.querySelectorAll(".disable_synth_in")[0].classList.add("disable_synth_out");
   // instrumentSynth=true;
   
+ 
   getListsong();
   deleteListsong();
   initializeModel();
