@@ -7,6 +7,35 @@ body{
     font-weight: 400;
     background: linear-gradient(rgb(47,85,151), rgb(0,151,198) 27% ,rgb(246,248,252) 100%);
     background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.music{
+    -webkit-appearance: none;
+    height: 70px;
+    width: 70px;
+    border: none;
+    background-image: url("img/save.png");
+    background-position: center;
+    background-size: contain;
+    background-image: url("img/speaker.png");
+    opacity: 0.2;
+    position: absolute;
+    z-index: 1;
+    left: 85%;
+    cursor: pointer;
+    display: initial;
+    outline: none;
+}
+
+.music:checked{
+    -webkit-appearance: none;
+    height: 70px;
+    width: 70px;
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
+    left: 85%;
 }
 
 
