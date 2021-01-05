@@ -244,8 +244,8 @@ function on(){
     initializeEffects();
     firstTime=false;
   }
-
   Tone.context.resume();
+  
   // Tone.start();
 
   
@@ -629,6 +629,7 @@ function startPlayKeyboard(){
   on();
   if(midiKeyboard==false){
     document.body.onkeydown = function(e){
+      if(psynth._voices.length>4) psynth._voices.shift();
       duration=3;
       if(e.repeat) return;
       var position = keys.indexOf(e.key);
@@ -688,11 +689,13 @@ function startPlayMidi(){
   if(midiKeyboard){
   //midion
   if(dataMidi[2]>0 && dataMidi[2] != 64) {
+    if(psynth._voices.length>4) psynth._voices.shift();
     duration=3;
-    //if(data[2].repeat)return;
-      var pitch = midiToFreq(dataMidi[1]);
-      console.log(dataMidi[1]);
-      midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
+    //if(dataMidi.repeat )return;
+      var pitch = int(midiToFreq(dataMidi[1]));
+      //console.log(dataMidi[1]);
+      //midiPitch=Math.log2((Math.pow(pitch / 261.63,12) * Math.pow(2,60))) / Math.log2(2);
+      midiPitch=dataMidi[1];
       notes.push(pitch);
       if(!instrumentSynth){
         if(document.getElementById("piano").checked){
@@ -706,7 +709,7 @@ function startPlayMidi(){
         }
       }
       else{
-        //if(notes.length == 1) on();
+        //on();
         psynth.chain(filter, feedbackDelay, reverb, tremolo, outputGain, Tone.Destination);
         psynth.triggerAttackRelease(pitch, A+D+100);
       }
@@ -720,8 +723,9 @@ function startPlayMidi(){
     else if(notes.length==1){
       if(!instrumentSynth) player.cancelQueue(audioContext);
     }
+
     if(instrumentSynth){
-        var pitch = midiToFreq(note);
+        var pitch = int(midiToFreq(note));
         psynth.triggerRelease(pitch);
         notes.pop();
         //on();
@@ -746,17 +750,19 @@ function toggleMidiKeyboard(){
   }
   else if(document.getElementById("midi").checked){
     midiKeyboard=true;
-    firstTimeMidi=false;
     disableKeyboard();
     // request MIDI access
-  if (navigator.requestMIDIAccess) {
-    navigator.requestMIDIAccess({
-        sysex: false
-      }).then(onMIDISuccess, onMIDIFailure);
-    } else {
-        alert("No MIDI support in your browser");
-      }
-  }   
+    if(firstTimeMidi){
+      if (navigator.requestMIDIAccess) {
+        navigator.requestMIDIAccess({
+            sysex: false
+          }).then(onMIDISuccess, onMIDIFailure);
+        } else {
+            alert("No MIDI support in your browser");
+          }
+    }
+    firstTimeMidi=false;
+  }
 }
 
 // midi functions
@@ -782,7 +788,7 @@ function onMIDIMessage(message) {
       note = dataMidi[1];
       startPlayMidi();
     }
-    //console.log(data);
+    //console.log(data[0]);
 }
 
 function midiToFreq(note) {
