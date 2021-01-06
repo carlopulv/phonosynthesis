@@ -16,13 +16,12 @@ body{
 
 .music{
     -webkit-appearance: none;
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
     border: none;
-    background-image: url("img/save.png");
     background-position: center;
     background-size: contain;
-    background-image: url("img/speaker.png");
+    background-image: url("img/speaker_white.png");
     opacity: 0.2;
     position: absolute;
     z-index: 1;
@@ -34,8 +33,6 @@ body{
 
 .music:checked{
     -webkit-appearance: none;
-    height: 70px;
-    width: 70px;
     opacity: 1;
     position: absolute;
     z-index: 1;
