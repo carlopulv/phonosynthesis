@@ -748,7 +748,7 @@ function startPlayMidi(){
   document.body.onkeyup="none";*/
   if(midiKeyboard){
   //midion
-  if(dataMidi[2]>0 && dataMidi[2] != 64) {
+  if(dataMidi[2]>0 && dataMidi[2] != 64 && dataMidi[0]==144) {
     if(psynth._voices.length>6) psynth._voices.shift();
     duration=3;
     //if(dataMidi.repeat )return;
