@@ -25,7 +25,7 @@ body{
     opacity: 0.2;
     position: absolute;
     z-index: 1;
-    left: 85%;
+    right: 1%;
     cursor: pointer;
     display: initial;
     outline: none;
@@ -36,7 +36,7 @@ body{
     opacity: 1;
     position: absolute;
     z-index: 1;
-    left: 85%;
+    right: 1%;
 }
 
 .p5Canvas{
@@ -717,7 +717,7 @@ body{
     display:block;
     width:47%;
     height:4vh;
-    font-size: 3vh;
+    font-size: 2vh;
     color:white;
     top:10vh;
     right:5vh;
