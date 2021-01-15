@@ -14,6 +14,15 @@ body{
     overflow: hidden;
 }
 
+.homepageImage{
+    border: 1px solid black;
+    height: 60%;
+    width:45%;
+    position: absolute;
+    left: 55%;
+    top: 40%;
+}
+
 .music{
     -webkit-appearance: none;
     height: 50px;
@@ -25,7 +34,8 @@ body{
     opacity: 0.2;
     position: absolute;
     z-index: 1;
-    left: 85%;
+    left: 96%;
+    top: 1%;
     cursor: pointer;
     display: initial;
     outline: none;
@@ -36,7 +46,6 @@ body{
     opacity: 1;
     position: absolute;
     z-index: 1;
-    left: 85%;
 }
 
 .p5Canvas{
