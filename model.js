@@ -32,8 +32,12 @@ var songs=[];
 var songsname=[];
 var finalScores=[0,0];
 var pos=-100;
+var pos1=-500;
 var ranY=150;
+var ranY1=70;
 var dim=0.00009;
+var dim1=0.00009;
+
 
 let name_key = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
 let labelsForKeyModeSpace= ["F","C", "G", "D", "A", "E", "B", "F#", "C#", "G#", "D#", "A#"];
