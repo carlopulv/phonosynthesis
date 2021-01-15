@@ -40,11 +40,12 @@ body{
     animation-name:title-fading;
     animation-duration:0.5s;
     animation-timing-function:ease-out;
+    z-index:-1;
 }
 
 @keyframes title-fading{
-    from {display: block; opacity: 1;}
-    to {display: none; opacity: 0;}
+    from {z-index:13; block; opacity: 1;}
+    to {z-index:-1;display: none; opacity: 0;}
 }
 
 .music{
