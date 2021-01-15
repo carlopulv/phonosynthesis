@@ -1342,9 +1342,14 @@ function showKeyModeSpace(){
   } 
 }
 
+function startAnimationBrand(){
+  document.querySelectorAll(".phonosynthesis-title")[0].classList.add("phonosynthesis-title-off");
+}
+
 
 getListsong();
 fillAnglesMirrored();
+setTimeout(startAnimationBrand,2500);
 
 document.querySelectorAll(".initial-button")[0].onclick=showKeys;
 document.querySelectorAll(".initial-button")[1].onclick=openFile;
