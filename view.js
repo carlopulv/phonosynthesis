@@ -48,6 +48,7 @@ function draw(){
     let j=0.3;
     document.querySelectorAll(".initial-button")[6].style.display="none";
     document.querySelectorAll(".button-keymodespace")[0].style.display = "none";
+    document.querySelectorAll(".music")[0].style.display="block";
 
     if(changeAngleBigLeaves<1) flagChangingAngle=true;
     else if(changeAngleBigLeaves>10) flagChangingAngle=false;
@@ -165,6 +166,9 @@ function draw(){
     document.querySelectorAll(".button-keymodespace")[0].style.display = "block";
     document.querySelectorAll(".title-song")[0].style.right="5vh";
     document.querySelectorAll(".title-song")[0].style.transform="translateX(0vh)";
+    document.querySelectorAll(".music")[0].style.display="none";
+    document.querySelectorAll(".music")[0].checked=false;
+    decreaseBackgroundMusic();
 
     moveClouds();
     drawLittlePlant();
@@ -185,8 +189,9 @@ function draw(){
     document.querySelectorAll(".textarea-songs")[2].style.display = "none";
     document.querySelectorAll(".title-song")[0].style.right="50%";
     document.querySelectorAll(".title-song")[0].style.transform="translateX(-5vh)";
-
-
+    document.querySelectorAll(".music")[0].style.display="none";
+    document.querySelectorAll(".music")[0].checked=false;
+    decreaseBackgroundMusic();
     
     drawTrunkOnFloor();
     for(let i=0;i<songs.length;i++){
