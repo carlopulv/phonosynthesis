@@ -228,14 +228,20 @@ function drawClouds(i){
 
 function moveClouds() {  
   pos++;
-  let c = new Cloud(windowHeight*dim*1.5, pos, ranY);
+  pos1++;
+  let c = new Cloud(windowHeight*dim, pos, ranY);
   c.plot();
-  //let c1 = new Cloud(windowHeight*dim, pos, ranY+70);
-  //c1.plot();  
+  let c1 = new Cloud(windowHeight*dim1*1.5, pos1, ranY1);
+  c1.plot();   
   if (pos>windowWidth) { 
     pos = -100;
-    ranY = Math.random() * (windowHeight*0.5 - windowHeight*0.13) + windowHeight*0.13;
-    dim = Math.random() * (windowHeight*0.00000035 - windowHeight*0.00000009) + windowHeight*0.00000009;
+    ranY = Math.random() * (windowHeight*0.6 - windowHeight*0.13) + windowHeight*0.13;
+    dim = Math.random() * (windowHeight*0.00000035 - windowHeight*0.0000001) + windowHeight*0.0000001;
+  }
+  if (pos1>windowWidth){
+    pos1 = -300;
+    ranY1 = Math.random() * (windowHeight*0.5 - windowHeight*0.1) + windowHeight*0.1;
+    dim1 = Math.random() * (windowHeight*0.00000035 - windowHeight*0.0000001) + windowHeight*0.0000001;
   }
   var time = requestAnimationFrame(moveClouds);
   cancelAnimationFrame(time);
