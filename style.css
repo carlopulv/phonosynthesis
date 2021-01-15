@@ -15,7 +15,7 @@ body{
 }
 
 .homepageImage{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 60%;
     width:45%;
     position: absolute;
