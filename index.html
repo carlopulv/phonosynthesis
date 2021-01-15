@@ -16,7 +16,7 @@
 <script src="https://surikov.github.io/webaudiofontdata/sound/0051_FluidR3_GM_sf2_file.js"></script>
 <script src="https://surikov.github.io/webaudiofontdata/sound/0270_JCLive_sf2_file.js"></script>
 
-<script src="input-knobs.js"></script>
+<script src="classes/input-knobs.js"></script>
 <script src="https://unpkg.com/tone@latest/build/Tone.js"></script>
 
 <link href="style.css" rel="stylesheet">
@@ -27,6 +27,10 @@
   <meta name="CocoaVersion" content="1894.1">
 </head>
 <body>
+
+    <div class="phonosynthesis-title">
+        <div class="title">PHONOSYNTHESIS</div>
+    </div>
     
     <div class="title-song"></div>
     <div class="title-song"></div>
@@ -70,12 +74,8 @@
 
     <div class = "container" id ="keys_list"></div>
     <div class = "container-options">
-        <div class = "button-synth">
-            <!--<div class="tooltiptext">synth</div>-->
-        </div>
-        <div class="save-button">
-            <!--<div class="tooltiptext">save</div>-->
-        </div>
+        <div class = "button-synth"></div>
+        <div class="save-button"></div>
     </div>
     <div class="button-keymodespace"></div>
     <div contenteditable="true" class="name-song" onblur="namesongOnBlur('.name-song',0)" onfocus="namesongOnFocus('.name-song',0)">Artist - Title</div>
@@ -121,6 +121,7 @@
         <div class="button-notification button-lightgreen">OK</div>
     </div>
 
+<<<<<<< HEAD
 
 
 
@@ -129,6 +130,8 @@
 
 
     
+=======
+>>>>>>> b134a2c9a93690ea94e1760d262bc47e29b87484
     <div class="container-synth">
         <div class="disable_synth_in" ></div>
         <div class="synth_window">
@@ -138,27 +141,21 @@
             <div class="oscillators">
                     <div class="oscillators_container">
                         <form name = "oscillators" method="POST">
-                            <!--<div class="osc_container">  -->                  
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
                                     <input type="radio" name="osc" class="osc activeLed" value="val" id="sine" onchange='modifyOscillatorType();'/>
                                 </div>
                             </div>
-                            <!--</div>
-                                <div class="osc_container">-->
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
                                     <input type="radio" name="osc" class="osc activeLed" value = "val" id="triangle" checked onchange='modifyOscillatorType();'/>
                                 </div>
                             </div>
-                                <!--</div>
-                            <div class="osc_container">-->
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
                                     <input type="radio" name="osc" class="osc activeLed" value= "val" id="square" onchange='modifyOscillatorType();'/>
                                 </div>
                             </div>
-                                    <!-- </div>-->
                         </form>
                     </div>  
                     <div class="oscillators_container">
@@ -190,30 +187,21 @@
             <div class="filter">
                 <div class="filters_container">
                     <form name = "filters" method="POST">
-                        <!-- <div class="group_container">                     -->
-                            <!-- <label for="lowpass">L</label><br/> -->
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
                             <input type="radio" name="filter" class=" filter_type activeLed "  value="lp" id="lowpass" checked onchange='updateFilterType();'/>
                             </div>
                             </div>
-                        <!-- </div> -->
-                        <!-- <div class="group_container"> -->
-                            <!-- <label for="bandpass">B</label><br/> -->
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
                             <input type="radio" name="filter" class="filter_type activeLed" value = "bp" id="bandpass" onchange='updateFilterType();'/>
                             </div>
                             </div>
-                        <!-- </div> -->
-                        <!-- <div class="group_container"> -->
-                            <!-- <label for="highpass">H</label><br/> -->
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
                             <input type="radio" name="filter" class="filter_type activeLed" value= "hp" id="highpass" onchange='updateFilterType();'/>
                             </div>
                             </div>
-                        <!-- </div> -->
                     </form>
                 </div>
                     <div class=filters_container>
@@ -284,25 +272,19 @@
                     <label for="chorus">Tremolo</label>
                 </div>
             </div> 
-
-            
             <div class="output">
                 <div class="output_container">
                     <form name = "synth_instrument" method="POST">
-                        <!--<div class="selector_container">  -->
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">             
                                     <input type="radio" name="synthinstrument" class="activeLed" value="val" id="synth" checked onchange="toggleInstrumentSynth();"/>
                                 </div>
                             </div>
-                        <!--</div>
-                        <div class="selector_container">-->
                             <div class="container-checkbox">
                                 <div class="ext_activeLed">
                                  <input type="radio" name="synthinstrument" class="activeLed" value= "val" id="instrument"  onchange='toggleInstrumentSynth();'/>
                                 </div>
                             </div>
-                        <!--</div>-->
                     </form>
                 </div>               
                 
@@ -336,8 +318,6 @@
                         <label for="midi">Midi</label>
                     </div>
                 </div>
-                <!-- <button onclick="toggleInstrumentSynth()">Instrument/Synth</button>
-                <button onclick="toggleMidiKeyboard();">Keyboard/MIDI</button> -->
                 <div class="main_out_container">
                     <div class="exagon">
                         <input type="range" class="input-knob" id="gain" min="0" max="150" value = "90"; width="8vh" height="8vh"  style="height: 8vh; width:8vh" oninput="modifyGain()" data-bgcolor="rgb(115, 95, 68)" data-fgcolor="rgb(189, 146, 97)"/>
@@ -405,30 +385,15 @@
 
 <script src="p5/p5.min.js"></script>
 
-<script src="song.js"></script>
-<script src="chord.js"></script>
+<script src="classes/song.js"></script>
+<script src="classes/chord.js"></script>
 <script src="model.js"></script>
-<script src="controller.js"></script>
-<script src="controller-audio.js"></script>
+<script src="controller/controller.js"></script>
+<script src="controller/controller-audio.js"></script>
 <script src="view.js"></script>
 
-<script src="leaf.js"></script>
-<script src="trunk.js"></script>
-<script src="cloud.js"></script>
-
-
+<script src="classes/leaf.js"></script>
+<script src="classes/trunk.js"></script>
+<script src="classes/cloud.js"></script>
 
 </html>
-<!--<html>
-    <head>
-        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8"><meta name="Robots" content="NOINDEX " />
-    </head>
-
-    <script type="text/javascript">
-        var gearPage = document.getElementById('GearPage');
-        if(null != gearPage){
-            gearPage.parentNode.removeChild(gearPage);
-            document.title = "Errore";
-        }
-    </script>
-</html>-->

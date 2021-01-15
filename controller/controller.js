@@ -1294,7 +1294,7 @@ function closeMenu(){
   }
 }
 
-function fillKeyModeSpace(generalKey){
+/*function fillKeyModeSpace(generalKey){
   let indexGeneralKey=freq_key.indexOf(generalKey);
   let indexStartNote=labelsForKeyModeSpace.indexOf(name_key[indexGeneralKey]);
   for(let i=0;i<12;i++){
@@ -1302,7 +1302,30 @@ function fillKeyModeSpace(generalKey){
     if(indexAdj>11) indexAdj-=12;
     document.querySelectorAll(".key-labels")[11-i].innerHTML=labelsForKeyModeSpace[indexAdj];
   }
+}*/
+function fillKeyModeSpace(generalKey){
+  let indexGeneralKey=freq_key.indexOf(generalKey);
+  let indexStartNote=labelsForKeyModeSpace.indexOf(name_key[indexGeneralKey]);
+  let fordwardBackward=false;
+  let indexBackward=indexStartNote;
+  let indexFordward=indexStartNote;
+  for(let i=0;i<12;i++){
+    document.querySelectorAll(".key-labels")[11-i].innerHTML=labelsForKeyModeSpace[indexStartNote];
+    if(fordwardBackward){
+      indexFordward++;
+      if(indexFordward>11) indexFordward-=12;
+      indexStartNote=indexFordward;
+      fordwardBackward=false;
+    }
+    else{
+      indexBackward--;
+      if(indexBackward<0) indexBackward+=12;
+      indexStartNote=indexBackward;
+      fordwardBackward=true;
+    }
+  }
 }
+
 
 function showKeyModeSpace(){
   if(keyModeSpaceOn){
@@ -1319,9 +1342,14 @@ function showKeyModeSpace(){
   } 
 }
 
+function startAnimationBrand(){
+  document.querySelectorAll(".phonosynthesis-title")[0].classList.add("phonosynthesis-title-off");
+}
+
 
 getListsong();
 fillAnglesMirrored();
+setTimeout(startAnimationBrand,2500);
 
 document.querySelectorAll(".initial-button")[0].onclick=showKeys;
 document.querySelectorAll(".initial-button")[1].onclick=openFile;
