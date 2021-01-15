@@ -472,21 +472,12 @@ function startPlayKeyboard(){
  * This function activate the midi input.
  */
 function startPlayMidi(){
-<<<<<<< HEAD
-  //on();
-  /*document.body.onkeydown="none";
-  document.body.onkeyup="none";*/
-  if(midiKeyboard){
-  //midion
-  if(dataMidi[2]>0 && dataMidi[2] != 64 && dataMidi[0]==144) {
-=======
   // on();
     /*document.body.onkeydown="none";
   document.body.onkeyup="none";*/
   if(midiKeyboard){
   //midion
   if(dataMidi[2]>0 && dataMidi[2] != 64 && dataMidi[0] == 144) {
->>>>>>> 7fafffb0351e60a3e32b93f24a30d770122930d5
     if(psynth._voices.length>6) psynth._voices.shift();
     duration=3;
     //if(dataMidi.repeat )return;
