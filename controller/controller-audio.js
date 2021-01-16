@@ -77,6 +77,7 @@ function init(){
   document.getElementById("envelopeDecay").value = D;
   document.getElementById("envelopeSustain").value = S;
   document.getElementById("envelopeRelease").value = R;
+
   clearCanvas();
   drawLines();
   createAmpEnvelope();
@@ -101,7 +102,6 @@ function init(){
   document.getElementById("reverb").value = 50;
   document.getElementById("tremolo").value = 50;
   document.getElementById("gain").value = 75;
-
 }
 
 function envelopeModifier(){
@@ -112,16 +112,35 @@ function envelopeModifier(){
 
   clearCanvas();
   drawLines();
-  createAmpEnvelope();
+
+  psynth.dispose();
+  psynth = new Tone.PolySynth(Tone.Synth);
+  setEnvOsc();
+  
+
+  // createAmpEnvelope();
 }
 
 function modifyOscillatorType(){
-   psynth.set({
-     "oscillator" : {
-       "type" : document.querySelector(".osc:checked").id
-     }
-   });
+  //  psynth.set({
+  //    "oscillator" : {
+  //      "type" : document.querySelector(".osc:checked").id
+  //    }
+  //  });
+
+  psynth.dispose();
+  psynth = new Tone.PolySynth(Tone.Synth);
+  setEnvOsc();
 }
+
+function setEnvOsc(){
+  psynth.options.envelope.attack = parseFloat(document.getElementById("envelopeAttack").value);
+  psynth.options.envelope.decay = parseFloat(document.getElementById("envelopeDecay").value);
+  psynth.options.envelope.sustain = parseFloat(document.getElementById("envelopeSustain").value);
+  psynth.options.envelope.release = parseFloat(document.getElementById("envelopeRelease").value);
+  psynth.options.oscillator.type = document.querySelector(".osc:checked").id;
+}
+
 
 function updateFilterType(){
   if(lpf.checked == true){
@@ -235,8 +254,8 @@ function initializeModifiers(){
   modifyOscillatorType();
   updateFilterType();
   modifyCutoffFreq();
-  modifyDelayTime();
   modifyResonance();
+  modifyDelayTime();
   modifyReverbDecay();
   modifyTremoloFreq();
   modifyGain();
@@ -299,6 +318,7 @@ function toggleDelay(){
     feedbackDelay.wet.value = 0;
   }
 }
+
 function toggleReverb(){
   if(document.getElementById("reverbLed").checked == true){
     reverb.wet.value = reverbknob.value/100;
@@ -337,7 +357,6 @@ function on(){
   toggleTremolo();
   toggleReverb();
   createGain();
-  
 }
 
 
@@ -387,7 +406,7 @@ var piano =  _tone_0000_Aspirin_sf2_file;
 var elpiano = _tone_0051_FluidR3_GM_sf2_file;
 var guitar = _tone_0270_JCLive_sf2_file;
 
-var instVolume = gainknob.value/100;
+var instVolume = 0.4;
 
 function resume_context(){
     c.resume();
