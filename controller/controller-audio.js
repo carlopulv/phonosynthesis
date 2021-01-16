@@ -116,11 +116,12 @@ function envelopeModifier(){
 }
 
 function modifyOscillatorType(){
-   psynth.set({
+   /*psynth.set({
      "oscillator" : {
        "type" : document.querySelector(".osc:checked").id
      }
-   });
+   });*/
+   psynth.options.oscillator.type = document.querySelector(".osc:checked").id;
 }
 
 function updateFilterType(){
