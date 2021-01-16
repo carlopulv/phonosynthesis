@@ -8,6 +8,7 @@ function getKey(){
     document.querySelectorAll(".music")[0].style.display="none";
     decreaseBackgroundMusic();
 
+    
     initializeEffects();
     initializeModifiers();
 
