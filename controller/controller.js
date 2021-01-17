@@ -906,6 +906,7 @@ function showKeys() {
     for(let i=0;i<iterations;i++){
       document.querySelectorAll(".keys_button")[0].remove();
     }
+    initializeEffects();
   }
 
   function searchSongs(){
@@ -1139,6 +1140,7 @@ function showKeys() {
     for(let i=0;i<iterations;i++){
       document.querySelectorAll(".keys_button")[0].remove();
     }
+    initializeEffects();
   }
 
   /**
