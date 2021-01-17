@@ -49,6 +49,8 @@ function draw(){
     document.querySelectorAll(".initial-button")[6].style.display="none";
     document.querySelectorAll(".button-keymodespace")[0].style.display = "none";
     document.querySelectorAll(".music")[0].style.display="block";
+    document.querySelectorAll(".name-song")[0].style.bottom="15vh";
+
 
     if(changeAngleBigLeaves<1) flagChangingAngle=true;
     else if(changeAngleBigLeaves>10) flagChangingAngle=false;

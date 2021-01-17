@@ -113,7 +113,8 @@ function envelopeModifier(){
   clearCanvas();
   drawLines();
 
-  psynth.dispose();
+  //psynth.dispose();
+  
   psynth = new Tone.PolySynth(Tone.Synth);
   setEnvOsc();
   
@@ -128,7 +129,7 @@ function modifyOscillatorType(){
   //    }
   //  });
 
-  psynth.dispose();
+  //psynth.dispose();
   psynth = new Tone.PolySynth(Tone.Synth);
   setEnvOsc();
 }
