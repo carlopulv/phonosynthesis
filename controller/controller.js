@@ -423,7 +423,7 @@ function getKey(){
   }
   
   /**
-   * Calculate the harmonic distance following a TPS-like algorithm based on the differences of key, mode and sigle notes played.
+   * Calculate the harmonic distance following a TPS-like algorithm based on the differences of key, mode and single notes played.
    * It fills the array with the distance between the actual chord and the previous chord in the even indexes and the minimum distance between the actual chord and all the others played yet in the odd indexes. 
    */
   function harmonicDistance(){
