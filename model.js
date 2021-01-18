@@ -20,6 +20,7 @@ var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();
 var player=new WebAudioFontPlayer();
 var firstTime=true;
+var firstTimeOn=true;
 var firstTimeMidi=true;
 var instrumentSynth=true;
 var midiKeyboard=false;
@@ -74,6 +75,9 @@ let a=0;
 
 let posTrunkOpeningx=[0, 0.015,0.2,0.27,0.325];
 let posTrunkOpeningy=[0, 0.0125,0.012,-0.01,0.002];
+
+let changeAngleBigLeaves=0;
+let flagChangingAngle=false;
 
 
 //Roots

@@ -8,13 +8,14 @@ function getKey(){
     document.querySelectorAll(".music")[0].style.display="none";
     decreaseBackgroundMusic();
 
-    
     initializeEffects();
     initializeModifiers();
 
    
     fillKeyModeSpace(generalKey);
     startPlayKeyboard();
+    on();
+    
   }
   
   /**
@@ -138,10 +139,10 @@ function getKey(){
         chordsPlayed.push(new Chord(0,6,0));
       }
       else{
-        if(distForModeRecog[3]-1<0){
+        if(distForModeRecog[3]-2<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[3]-1)+adj,2,0));
+        chordsPlayed.push(new Chord((distForModeRecog[3]-2)+adj,2,0));
       }
     }
     else if(distance==' 3 2 3 '){
@@ -155,10 +156,10 @@ function getKey(){
         chordsPlayed.push(new Chord(0,6,0));
       }
       else{
-        if(distForModeRecog[2]-1<0){
+        if(distForModeRecog[2]-2<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[2]-1)+adj,2,0));
+        chordsPlayed.push(new Chord((distForModeRecog[2]-2)+adj,2,0));
       }
     }
     else if(distance==' 2 3 4 '){
@@ -172,10 +173,10 @@ function getKey(){
         chordsPlayed.push(new Chord(0,6,0));
       }
       else{
-        if(distForModeRecog[1]-1<0){
+        if(distForModeRecog[1]-2<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[1]-1)+adj,2,0));
+        chordsPlayed.push(new Chord((distForModeRecog[1]-2)+adj,2,0));
       }
     }
     //Dominant chord
@@ -423,7 +424,7 @@ function getKey(){
   }
   
   /**
-   * Calculate the harmonic distance following a TPS-like algorithm based on the differences of key, mode and sigle notes played.
+   * Calculate the harmonic distance following a TPS-like algorithm based on the differences of key, mode and single notes played.
    * It fills the array with the distance between the actual chord and the previous chord in the even indexes and the minimum distance between the actual chord and all the others played yet in the odd indexes. 
    */
   function harmonicDistance(){
@@ -906,6 +907,11 @@ function showKeys() {
     for(let i=0;i<iterations;i++){
       document.querySelectorAll(".keys_button")[0].remove();
     }
+    
+    init();
+    initializeEffects();
+    initializeModifiers();
+    on();
   }
 
   function searchSongs(){
@@ -998,7 +1004,7 @@ function showKeys() {
   }
 
   function notificationManagement1(i){
-    document.querySelectorAll(".notification1-text")[0].innerText="Sorry, this song does not exist."
+    document.querySelectorAll(".notification1-text")[0].innerText="Sorry, the selected song does not exists. Try again."
     document.querySelectorAll(".notification-screen")[1].style.display="none";
     document.querySelectorAll(".notification1-text")[0].style.display="block";
     if(comparingSongs&&i==1){
@@ -1009,7 +1015,7 @@ function showKeys() {
       document.querySelectorAll(".notification-screen")[0].style.display="block";
     }else{
       document.querySelectorAll(".notification-title")[0].innerText="Choose a song from this list."
-      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, this song does not exist."
+      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, the selected song does not exists. Try again."
       document.querySelectorAll(".notification-screen")[0].style.display="block";
       document.querySelectorAll(".container-listsongs")[0].style.display="block";
       document.querySelectorAll(".container-listsongs")[1].style.display="none";
@@ -1023,13 +1029,13 @@ function showKeys() {
     if(comparingSongs){
       document.querySelectorAll(".notification-title")[0].innerText="Choose the first song from this list."
       document.querySelectorAll(".notification-title")[1].innerText="Choose the second song from this list."
-      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, this song does not exist."
+      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, the selected songs does not exists. Try again."
       document.querySelectorAll(".container-listsongs")[0].style.display="block";
       document.querySelectorAll(".container-listsongs")[1].style.display="block";
       document.querySelectorAll(".notification-screen")[1].style.display="none"; 
     }else{
       document.querySelectorAll(".notification-title")[0].innerText="Choose a song from this list."  
-      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, this song does not exist."
+      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, the selected song does not exists. Try again."
       document.querySelectorAll(".container-listsongs")[1].style.display="none";
     }
   }
@@ -1139,6 +1145,9 @@ function showKeys() {
     for(let i=0;i<iterations;i++){
       document.querySelectorAll(".keys_button")[0].remove();
     }
+    init();
+    initializeEffects();
+    initializeModifiers();
   }
 
   /**
@@ -1236,6 +1245,11 @@ function showKeys() {
   onOff=0;
   keyModeSpaceOn=false;
   finalScores=[0,0];
+  disableKeyboard();
+  document.getElementById("keyboard").checked=true;
+  document.getElementById("midi").checked=false;
+
+  if(midiKeyboard) toggleMidiKeyboard();
   document.querySelectorAll(".button-synth")[0].style.display = "none";
   document.querySelectorAll(".save-button")[0].style.display = "none";
   document.querySelectorAll(".name-song")[0].style.display="none";
