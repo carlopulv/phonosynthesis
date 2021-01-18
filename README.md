@@ -21,13 +21,12 @@ Every chord corresponds to a leaf in a particular position in the plant.
 The disposition follows the circle of fifths for the keys in vertical axis, so a maximum of 12 trunks per side that represents the 12 notes of the chromatic scale, and for the modes in the horizontal one that represents the seven possible modes of a chord. So on each trunk there can be at most 7 leaves. To summarize the farther the leaves the farther the chords.
 
 ## How to use
-Chose a modality among the three offered
+Chose a modality among the three offered in the home page
    * PLAY: Select a key and start to play your song
    * OPEN: Open a saved plant corresponding to a specific song, and possibly enrich it with other chords
    * COMPARE: Open two different songs to compare their plant representation and score
-
-Sound modulation: The set of possible sampled sounds is imported from [WebAudioFont](https://surikov.github.io/webaudiofont/).
-
+   
+In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" > Plantasia by Mort Garrison </a> plays in background. 
 
 <h3 align="center"> 
   <a href="" align="center"> WATCH A DEMO </a>
@@ -47,11 +46,12 @@ Acces the PLAY or OPEN modality to enter into game mode. From here you can play 
   Click on the note icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/synth.png" width="15">  to open the synthetizer.
 The synthetizer allows the user to select in which way to play: via pc keyboard or via MIDI input.
 There is also the possibility to select the "instrument" mode (piano / e-piano / guitar) or "synth" mode which allows to modify a set of parameters to modulate the sound:
+  - the oscillators: sinusoidal  <img src="https://github.com/carlopulv/actam19/blob/master/img/sin.png" width="15">  , triangular  <img src="https://github.com/carlopulv/actam19/blob/master/img/tri.png" width="15">   or square  <img src="https://github.com/carlopulv/actam19/blob/master/img/sqr.png" width="15"> .
   - the envelope: characterized by the ADSR model (attack - decay - sustain - release).
-  - the oscillators: sinusoidal, triangular or rectangular.
-  - frequencies: cut off frequency - resonance frequency.
-  - effects: delay - reverb - tremolo.
-
+  - the filter: low pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/lowpass.png" width="15">  , high pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/highpass.png" width="15">  and band pass filters  <img src="https://github.com/carlopulv/actam19/blob/master/img/bandpass.png" width="15">  that control the timbre.
+  - the effects: delay - reverb - tremolo.
+  
+ Sound modulation: The set of possible sampled sounds is imported from [WebAudioFont](https://surikov.github.io/webaudiofont/).
 * #### 3. Save
   click on the save icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/save.png" width="15">  in order to save the song that has been played. It allows to name the song thanks to an the artist-title box; if an existing song has the same name of the one given as input, the system notifies the user with an alert message warning that if the users decides to save the progress, the system will overwrite an already existing song. 
   
