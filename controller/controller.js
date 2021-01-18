@@ -1004,7 +1004,7 @@ function showKeys() {
   }
 
   function notificationManagement1(i){
-    document.querySelectorAll(".notification1-text")[0].innerText="Sorry, we don't have the songs that you searched."
+    document.querySelectorAll(".notification1-text")[0].innerText="Sorry, the selected song does not exists. Try again."
     document.querySelectorAll(".notification-screen")[1].style.display="none";
     document.querySelectorAll(".notification1-text")[0].style.display="block";
     if(comparingSongs&&i==1){
@@ -1015,7 +1015,7 @@ function showKeys() {
       document.querySelectorAll(".notification-screen")[0].style.display="block";
     }else{
       document.querySelectorAll(".notification-title")[0].innerText="Choose a song from this list."
-      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, we don't have the song that you searched."
+      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, the selected song does not exists. Try again."
       document.querySelectorAll(".notification-screen")[0].style.display="block";
       document.querySelectorAll(".container-listsongs")[0].style.display="block";
       document.querySelectorAll(".container-listsongs")[1].style.display="none";
@@ -1029,13 +1029,13 @@ function showKeys() {
     if(comparingSongs){
       document.querySelectorAll(".notification-title")[0].innerText="Choose the first song from this list."
       document.querySelectorAll(".notification-title")[1].innerText="Choose the second song from this list."
-      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, we don't have the songs that you searched."
+      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, the selected songs does not exists. Try again."
       document.querySelectorAll(".container-listsongs")[0].style.display="block";
       document.querySelectorAll(".container-listsongs")[1].style.display="block";
       document.querySelectorAll(".notification-screen")[1].style.display="none"; 
     }else{
       document.querySelectorAll(".notification-title")[0].innerText="Choose a song from this list."  
-      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, we don't have the song that you searched."
+      document.querySelectorAll(".notification1-text")[0].innerText="Sorry, the selected song does not exists. Try again."
       document.querySelectorAll(".container-listsongs")[1].style.display="none";
     }
   }
