@@ -9,7 +9,7 @@
 <h1 align="center"> PHONOSYNTHESIS </h1>
 
 ## Concept
-Phonosynthesis was born from the curious juxtaposition of music and plants. We followed  the concept of making music for plants, as some artists have made, for example Mother Earth’s Plantasia of Mort Garson, where they grow in different ways based on the music they listen to.
+Phonosynthesis was born from the curious juxtaposition of music and plants. We followed  the concept of making music for plants, as some artists have made, for example Mother Earth’s Plantasia of Mort Garson, where plants grow in different ways based on the music they listen to.
 In Phonosynthesis a plant will grow by playing music instead of the process of chlorophyll photosynthesis.
 
 ## introduction
@@ -35,7 +35,7 @@ Sound modulation: The set of possible sampled sounds is imported from [WebAudioF
 
 ## Controls
 Open the Play or Open modality to acces to the game mode. From here you can play a song and activate three different controls:
-<p align="center"><img src="https://github.com/carlopulv/actam19/blob/master/img/controls.png" width="30"></p>
+
 1. Open the key-mode space.
 2. Open the synth.  
 3. Save the song. 
@@ -53,4 +53,13 @@ Open the Play or Open modality to acces to the game mode. From here you can play
 * #### 3. Save
   click on the save icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/save.png" width="15">  in order to save the song that has been played. It allows to name the song thanks to an the artist-title box; if an existing song has the same name of the one given as input, the system notifies the user with an alert message warning that if the users decides to save the progress, the system will overwrite an already existing song. 
   
- 
+ ## Database
+ The model of the plants are based on some parameters that characterize them. These parameters are:
+  -string of chords 
+  -string of distances
+  -the maximum mode in string
+  -the maximum tonal in string
+  -the general key of the song and the chords in frequency in string
+To be able to recover at every moment a saved song, these parameters are stored in a cloud database hosted by Firebase.
+It allows to store and sync data between different users in real time. 
+Each time a song is loaded in the "OPEN" mode or in the "COMPARE" mode the app inquires the database and extract the infos from it in order to update and draw the plant model based on the specific parameters requred. 
