@@ -6,7 +6,7 @@
   <img src="" width="150%"/>
 </p>
 
-<h1 align="center"> PHONOSYNTHESIS </h1>
+<!-- <h1 align="center"> PHONOSYNTHESIS </h1> -->
 
 ## Concept
 Phonosynthesis was born from the curious juxtaposition of music and plants. We followed the concept of making music for plants, as some artists have made, for example Mother Earth’s Plantasia of Mort Garson, where plants grow in different ways based on the music they listen to.
