@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="" width="50%"//>
+  <img src="https://github.com/carlopulv/actam19/blob/master/img/actamgrafica2.png" width="100%"//>
 </p>
 
 <p align="center">
@@ -9,10 +9,10 @@
 <h1 align="center"> PHONOSYNTHESIS </h1>
 
 ## Concept
-Phonosynthesis was born from the curious juxtaposition of music and plants. We followed  the concept of making music for plants, as some artists have made, for example Mother Earth’s Plantasia of Mort Garson, where plants grow in different ways based on the music they listen to.
+Phonosynthesis was born from the curious juxtaposition of music and plants. We followed the concept of making music for plants, as some artists have made, for example Mother Earth’s Plantasia of Mort Garson, where plants grow in different ways based on the music they listen to.
 In Phonosynthesis a plant will grow by playing music instead of the process of chlorophyll photosynthesis.
 
-## introduction
+## Introduction
 Phonosynthesis is a web based application that aims to give an estimate of the harmonic surprise of a song and to create a visualization of it.
 The application recognizes the most common chords made of four notes, so quadriads, with respect to a reference key.
 
