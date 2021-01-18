@@ -1,6 +1,3 @@
-let changeAngleBigLeaves=0;
-let flagChangingAngle=false;
-
 function setup() {  
   l3=new Leaf(1,windowWidth/2,500,50);
   frameRate(15);
@@ -236,12 +233,12 @@ function moveClouds() {
   let c1 = new Cloud(windowHeight*dim1*1.5, pos1, ranY1);
   c1.plot();   
   if (pos>windowWidth) { 
-    pos = -100;
+    pos = -90;
     ranY = Math.random() * (windowHeight*0.6 - windowHeight*0.13) + windowHeight*0.13;
     dim = Math.random() * (windowHeight*0.00000035 - windowHeight*0.0000001) + windowHeight*0.0000001;
   }
   if (pos1>windowWidth){
-    pos1 = -300;
+    pos1 = -400;
     ranY1 = Math.random() * (windowHeight*0.5 - windowHeight*0.1) + windowHeight*0.1;
     dim1 = Math.random() * (windowHeight*0.00000035 - windowHeight*0.0000001) + windowHeight*0.0000001;
   }
