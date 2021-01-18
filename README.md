@@ -44,8 +44,10 @@ Acces the PLAY or OPEN modality to enter into game mode. From here you can play 
   Click on the grid icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/keymodespace.png" width="15">  to make the key-mode space appear. The key-mode space is a grid where it is possible to check the key and the mode of each leaf of the plant according to what has been played. 
 
 * #### 2. The synth
-  Click on the note icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/synth.png" width="15">  to open the synthetizer. The synthetizer allows to     user to switch from pc keyboard to MIDI input. It also allows to select a sampled instrument (piano / e-piano / guitar) or synth sound which allows to modify a set of  parameters to modulate the sound:
-  - the envelope: characterized by the ADSR model.
+  Click on the note icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/synth.png" width="15">  to open the synthetizer.
+The synthetizer allows the user to select in which way to play: via pc keyboard or via MIDI input.
+There is also the possibility to select the "instrument" mode (piano / e-piano / guitar) or "synth" mode which allows to modify a set of parameters to modulate the sound:
+  - the envelope: characterized by the ADSR model (attack - decay - sustain - release).
   - the oscillators: sinusoidal, triangular or rectangular.
   - frequencies: cut off frequency - resonance frequency.
   - effects: delay - reverb - tremolo.
@@ -54,12 +56,14 @@ Acces the PLAY or OPEN modality to enter into game mode. From here you can play 
   click on the save icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/save.png" width="15">  in order to save the song that has been played. It allows to name the song thanks to an the artist-title box; if an existing song has the same name of the one given as input, the system notifies the user with an alert message warning that if the users decides to save the progress, the system will overwrite an already existing song. 
   
  ## Database
- The model of the plants are based on some parameters that characterize them. These parameters are:
-  -string of chords 
-  -string of distances
-  -the maximum mode in string
-  -the maximum tonal in string
-  -the general key of the song and the chords in frequency in string
-To be able to recover at every moment a saved song, these parameters are stored in a cloud database hosted by Firebase.
-It allows to store and sync data between different users in real time. 
-Each time a song is loaded in the "OPEN" mode or in the "COMPARE" mode the app inquires the database and extract the infos from it in order to update and draw the plant model based on the specific parameters requred. 
+ The model of the plants are based on these parameters:
+ 
+ - string of chords 
+ - string of distances
+ - the maximum mode in string
+ - the maximum tonal in string
+ - the general key of the song and the chords in frequency in string
+ 
+To be able to recover at every moment a saved song, these parameters are stored in a cloud database hosted by Firebase. It allows to store and sync data between different users in real time. 
+
+Each time a song is loaded in the "OPEN" mode or in the "COMPARE" mode the app inquires the database and extract the infos from it in order to update and draw the plant model based on the specific parameters required. 
