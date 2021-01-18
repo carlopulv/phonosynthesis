@@ -115,7 +115,7 @@ function envelopeModifier(){
 
   //psynth.dispose();
   
-  psynth = new Tone.PolySynth(Tone.Synth);
+  //psynth = new Tone.PolySynth(Tone.Synth);
   setEnvOsc();
   
 
@@ -130,16 +130,34 @@ function modifyOscillatorType(){
   //  });
 
   //psynth.dispose();
-  psynth = new Tone.PolySynth(Tone.Synth);
+  //psynth = new Tone.PolySynth(Tone.Synth);
   setEnvOsc();
 }
 
-function setEnvOsc(){
+/*function setEnvOsc(){
+  //psynth._availableVoices=[];
   psynth.options.envelope.attack = parseFloat(document.getElementById("envelopeAttack").value);
   psynth.options.envelope.decay = parseFloat(document.getElementById("envelopeDecay").value);
   psynth.options.envelope.sustain = parseFloat(document.getElementById("envelopeSustain").value);
   psynth.options.envelope.release = parseFloat(document.getElementById("envelopeRelease").value);
   psynth.options.oscillator.type = document.querySelector(".osc:checked").id;
+}*/
+
+function setEnvOsc(){
+  let length=psynth._availableVoices.length;
+  A = parseFloat(document.getElementById("envelopeAttack").value);
+  D = parseFloat(document.getElementById("envelopeDecay").value);
+  S = parseFloat(document.getElementById("envelopeSustain").value);
+  R = parseFloat(document.getElementById("envelopeRelease").value);
+  let typeOsc = document.querySelector(".osc:checked").id;
+  for(let i=0;i<length;i++){
+    psynth._availableVoices[i].envelope.attack=A;
+    psynth._availableVoices[i].envelope.decay=D;
+    psynth._availableVoices[i].envelope.sustain=S;
+    psynth._availableVoices[i].envelope.release=R;
+    psynth._availableVoices[i].oscillator.type=typeOsc;
+  }
+  
 }
 
 
@@ -343,7 +361,7 @@ function on(){
     firstTime=false;
   }
 
-  // Tone.context.resume();
+  Tone.context.resume();
   Tone.start();
 
   initializeEffects();
@@ -434,7 +452,6 @@ function disableKeyboard(){
  */
 
 function startPlayKeyboard(){
-  on();
   Tone.start();
   if(midiKeyboard==false){
     document.body.onkeydown = function(e){
@@ -498,7 +515,7 @@ function startPlayMidi(){
   if(midiKeyboard){
   //midion
   if(dataMidi[2]>0 && dataMidi[2] != 64 && dataMidi[0] == 144) {
-    if(psynth._voices.length>6) psynth._voices.shift();
+    if(psynth._voices.length>4) psynth._voices.shift();
     duration=3;
     //if(dataMidi.repeat )return;
       var pitch = int(midiToFreq(dataMidi[1]));

@@ -8,13 +8,14 @@ function getKey(){
     document.querySelectorAll(".music")[0].style.display="none";
     decreaseBackgroundMusic();
 
-    
     initializeEffects();
     initializeModifiers();
 
    
     fillKeyModeSpace(generalKey);
     startPlayKeyboard();
+    on();
+    
   }
   
   /**
@@ -138,10 +139,10 @@ function getKey(){
         chordsPlayed.push(new Chord(0,6,0));
       }
       else{
-        if(distForModeRecog[3]-1<0){
+        if(distForModeRecog[3]-2<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[3]-1)+adj,2,0));
+        chordsPlayed.push(new Chord((distForModeRecog[3]-2)+adj,2,0));
       }
     }
     else if(distance==' 3 2 3 '){
@@ -155,10 +156,10 @@ function getKey(){
         chordsPlayed.push(new Chord(0,6,0));
       }
       else{
-        if(distForModeRecog[2]-1<0){
+        if(distForModeRecog[2]-2<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[2]-1)+adj,2,0));
+        chordsPlayed.push(new Chord((distForModeRecog[2]-2)+adj,2,0));
       }
     }
     else if(distance==' 2 3 4 '){
@@ -172,10 +173,10 @@ function getKey(){
         chordsPlayed.push(new Chord(0,6,0));
       }
       else{
-        if(distForModeRecog[1]-1<0){
+        if(distForModeRecog[1]-2<0){
           adj=12;
         }
-        chordsPlayed.push(new Chord((distForModeRecog[1]-1)+adj,2,0));
+        chordsPlayed.push(new Chord((distForModeRecog[1]-2)+adj,2,0));
       }
     }
     //Dominant chord
@@ -906,7 +907,11 @@ function showKeys() {
     for(let i=0;i<iterations;i++){
       document.querySelectorAll(".keys_button")[0].remove();
     }
+    
+    init();
     initializeEffects();
+    initializeModifiers();
+    on();
   }
 
   function searchSongs(){
@@ -1140,7 +1145,9 @@ function showKeys() {
     for(let i=0;i<iterations;i++){
       document.querySelectorAll(".keys_button")[0].remove();
     }
+    init();
     initializeEffects();
+    initializeModifiers();
   }
 
   /**
@@ -1238,6 +1245,11 @@ function showKeys() {
   onOff=0;
   keyModeSpaceOn=false;
   finalScores=[0,0];
+  disableKeyboard();
+  document.getElementById("keyboard").checked=true;
+  document.getElementById("midi").checked=false;
+
+  if(midiKeyboard) toggleMidiKeyboard();
   document.querySelectorAll(".button-synth")[0].style.display = "none";
   document.querySelectorAll(".save-button")[0].style.display = "none";
   document.querySelectorAll(".name-song")[0].style.display="none";

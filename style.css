@@ -1190,7 +1190,7 @@ body{
     transform: translateX(-5vh);
 }
 
-@media (max-width: 805px) {
+@media (max-width: 920px) {
     #envelopeCanvas {
         width:30%;
       height:60%;
