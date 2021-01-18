@@ -24,7 +24,7 @@ The disposition follows the circle of fifths for the keys in vertical axis, so a
 Chose a modality among the three offered
    * PLAY: Select a key and start to play your song
    * OPEN: Open a saved plant corresponding to a specific song, and possibly enrich it with other chords
-   * COMPARE: Open two different songs to compare their plant representation
+   * COMPARE: Open two different songs to compare their plant representation and score
 
 Sound modulation: The set of possible sampled sounds is imported from [WebAudioFont](https://surikov.github.io/webaudiofont/).
 
@@ -34,7 +34,7 @@ Sound modulation: The set of possible sampled sounds is imported from [WebAudioF
 </h3>
 
 ## Controls
-Open the Play or Open modality to acces to the game mode. From here you can play a song and activate three different controls:
+Acces the PLAY or OPEN modality to enter into game mode. From here you can play a song and activate three different controls:
 
 1. Open the key-mode space.
 2. Open the synth.  
