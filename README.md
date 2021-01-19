@@ -20,16 +20,18 @@ Phonosynthesis is a web based application that aims to give an estimate of the h
 The application recognizes the most common chords made of four notes, so quadriads, with respect to a selected reference key.
 Every chord corresponds to a leaf in a particular position in the plant: the farther the leaves the farther the chords.
 
+<h3 align="center"> 
+  <a href="" align="center"> WATCH A DEMO </a>
+</h3>
+
 ## Game Modes
 Choose a modality among the three offered in the home page:
    * **Play** : Select a key and start to play your song
    * **Open** : Open a saved plant corresponding to a specific song, and possibly enrich it with other chords
    * **Compare** : Open two different songs to compare their plant representation and score
    
-In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" > Plantasia by Mort Garrison </a> plays in background. <img src="https://github.com/carlopulv/actam19/blob/master/img/speaker.png" width="15"> 
-<h3 align="center"> 
-  <a href="" align="center"> WATCH A DEMO </a>
-</h3>
+In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" > Plantasia by Mort Garson </a> plays in background. <img src="https://github.com/carlopulv/actam19/blob/master/img/speaker.png" width="15"> 
+
 
 ## Controls
 Access the **Play** or **Open** modality to enter into game mode. From there you can play a song and activate three different controls:
@@ -45,6 +47,10 @@ Access the **Play** or **Open** modality to enter into game mode. From there you
 * #### 1. The key-mode space
   Click on the grid icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/keymodespace.png" width="15">  to make the key-mode space appear. The key-mode space is a grid where it is possible to check the key and the mode of each leaf of the plant according to what has been played.
   The leaves' disposition follows the circle of fifths for the keys in vertical axis, so a maximum of 12 trunks per side that represents the 12 notes of the chromatic scale, and for the modes in the horizontal one that represents the seven possible modes of a chord. So on each trunk there can be at most 7 leaves.
+  
+  <p align="center">
+  <img src="https://github.com/carlopulv/actam19/blob/master/img/grid.png" width="80%"/>
+</p>
 
 * #### 2. The sound controller
   Click on the note icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/synth.png" width="15">  to open the sound controller.
@@ -62,6 +68,10 @@ There is the possibility to select the **Instrument** mode (piano / e-piano / gu
  
 * #### 3. Save
 Click on the save icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/save.png" width="15">  in order to save the song that has been played. It allows to name the song in the *artist-title* box; if an existing song has the same name of the one given as input, the user will be able to choose, through an alert message, whether to overwrite the song or cancel the operation.
+  
+  <p align="center">
+  <img src="https://github.com/carlopulv/actam19/blob/master/img/savesong.png" width="80%"/>
+</p>
   
  ## Database
  The database is hosted by Google Firebase that allows the application to store and sync data between different users in real time and to recover pre-played and stored songs.  
