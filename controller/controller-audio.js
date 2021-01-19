@@ -118,7 +118,6 @@ function envelopeModifier(){
   //psynth = new Tone.PolySynth(Tone.Synth);
   setEnvOsc();
   
-
   // createAmpEnvelope();
 }
 
