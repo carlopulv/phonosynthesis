@@ -19,9 +19,9 @@ Every chord corresponds to a leaf in a particular position in the plant: the far
 
 ## Game Modes
 Choose a modality among the three offered in the home page:
-   * **PLAY** : Select a key and start to play your song
-   * **OPEN** : Open a saved plant corresponding to a specific song, and possibly enrich it with other chords
-   * **COMPARE** : Open two different songs to compare their plant representation and score
+   * **Play** : Select a key and start to play your song
+   * **Open** : Open a saved plant corresponding to a specific song, and possibly enrich it with other chords
+   * **Compare** : Open two different songs to compare their plant representation and score
    
 In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" > Plantasia by Mort Garrison </a> plays in background. <img src="https://github.com/carlopulv/actam19/blob/master/img/speaker.png" width="15"> 
 <h3 align="center"> 
