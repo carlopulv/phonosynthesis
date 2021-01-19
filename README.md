@@ -7,6 +7,10 @@
 Phonosynthesis was born from the curious juxtaposition of music and plants. We followed the concept of making music for plants, as some artists have made, for example Mort Garson's Mother Earth’s Plantasia, where plants grow in different ways based on the music they listen to.
 In Phonosynthesis a plant will grow by playing music instead of following chlorophyll photosynthesis process.
 
+<p align="center">
+  <img src="" alt="growing plant" width="100%"/>
+</p>
+
 ## Introduction
 Phonosynthesis is a web based application that aims to give an estimate of the harmonic surprise of a song and to create a visualization of it.
 The application recognizes the most common chords made of four notes, so quadriads, with respect to a selected reference key.
@@ -26,6 +30,10 @@ In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" 
 ## Controls
 Access the **Play** or **Open** modality to enter into game mode. From there you can play a song and activate three different controls:
 
+<p align="center">
+  <img src="https://github.com/carlopulv/actam19/blob/master/img/commands.png" width="80"/>
+</p>
+
 1. Open the **Key-Mode space**.
 2. Open the **Sound controller**.  
 3. **Save** the song. 
@@ -43,8 +51,10 @@ There is the possibility to select the **Instrument** mode (piano / e-piano / gu
   - **Filter**: low pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/lowpass.png" width="15">  , high pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/highpass.png" width="15">  and band pass filters  <img src="https://github.com/carlopulv/actam19/blob/master/img/bandpass.png" width="15">  that control the timbre.
   - **Effects**: Delay - Reverb - Tremolo.
   
+ <p align="center"><img src="https://github.com/carlopulv/actam19/blob/master/img/synthGif.gif" width="80%"/></p>
+  
  The set of sampled Instruments is imported from [WebAudioFont](https://surikov.github.io/webaudiofont/).
- The Synth controls are developed using Tone.js library.
+ The Synth controls are developed using [Tone.js](https://tonejs.github.io/) library.
  
 * #### 3. Save
 Click on the save icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/save.png" width="15">  in order to save the song that has been played. It allows to name the song in the *artist-title* box; if an existing song has the same name of the one given as input, the user will be able to choose, through an alert message, whether to overwrite the song or cancel the operation.
