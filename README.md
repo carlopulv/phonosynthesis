@@ -44,7 +44,7 @@ Access the **Play** or **Open** modality to enter into game mode. From there you
 2. Open the **Sound controller**.  
 3. **Save** the song. 
 
-* #### 1. The key-mode space
+* #### 1. The Key-Mode space
   Click on the grid icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/keymodespace.png" width="15">  to make the key-mode space appear. The key-mode space is a grid where it is possible to check the key and the mode of each leaf of the plant according to what has been played.
   The leaves' disposition follows the circle of fifths for the keys in vertical axis, so a maximum of 12 trunks per side that represents the 12 notes of the chromatic scale, and for the modes in the horizontal one that represents the seven possible modes of a chord. So on each trunk there can be at most 7 leaves.
   
@@ -52,7 +52,7 @@ Access the **Play** or **Open** modality to enter into game mode. From there you
   <img src="https://github.com/carlopulv/actam19/blob/master/img/grid.png" width="80%"/>
 </p>
 
-* #### 2. The sound controller
+* #### 2. The Sound controller
   Click on the note icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/synth.png" width="15">  to open the sound controller.
 It allows the user to select a preferred input: pc keyboard or a MIDI controller.
 There is the possibility to select the **Instrument** mode (piano / e-piano / guitar) or **Synth** mode which allows to modify a set of parameters to modulate the sound:
