@@ -88,3 +88,19 @@ Click on the save icon  <img src="https://github.com/carlopulv/actam19/blob/mast
  - The chords in frequency in string
  
 Each time a song is loaded in the **Open** mode or in the **Compare** mode the app inquires the database and extracts the infos from it in order to update and draw the plant model based on the specific parameters required. 
+
+## Distance algorithm
+Every chord is characterized by its key and its mode.
+The distance between two chords is composed by three parameter:
+* the key distance
+* the mode distacne
+* the hamming distance
+
+The key distance is the difference between the chords tonals following the circle of fifth.
+The mode distance is the difference of chords modes following the circle of fifth.
+The hamming distance is the number of different notes between two chords.
+
+The final value per each computation is given by two factor:
+* the local distance: distance between the chord just played and the previous one.
+* the global distance: the minimum among the distances between the chord just played and all the preceding ones.
+
