@@ -104,3 +104,13 @@ The final value per each computation is given by two factor:
 * the local distance: distance between the chord just played and the previous one.
 * the global distance: the minimum among the distances between the chord just played and all the preceding ones.
 
+## Links
+
+* [Phonosynthesis]()
+* [GitHub repository](https://github.com/carlopulv/actam19)
+* [Video Demo]() - on YouTube
+
+[1]: https://www.youtube.com/watch?v=LkesIsPGlSU
+[2]: https://surikov.github.io/webaudiofont/
+[3]: https://tonejs.github.io/
+
