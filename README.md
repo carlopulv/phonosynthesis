@@ -17,13 +17,14 @@ Phonosynthesis is a web based application that aims to give an estimate of the h
 The application recognizes the most common chords made of four notes, so quadriads, with respect to a selected reference key.
 Every chord corresponds to a leaf in a particular position in the plant: the farther the leaves the farther the chords.
 
- The distance computation is based on three parameters: the key, the mode and the note distance.
+KEYMODE: The distance computation is based on three parameters: the key, the mode and the note distance.
 The disposition follows the circle of fifths for the keys in vertical axis, so a maximum of 12 trunks per side that represents the 12 notes of the chromatic scale, and for the modes in the horizontal one that represents the seven possible modes of a chord. So on each trunk there can be at most 7 leaves.
-## How to use
-Chose a modality among the three offered in the home page:
-   * PLAY: Select a key and start to play your song
-   * OPEN: Open a saved plant corresponding to a specific song, and possibly enrich it with other chords
-   * COMPARE: Open two different songs to compare their plant representation and score
+
+## Game Modes
+Choose a modality among the three offered in the home page:
+   * **PLAY** : Select a key and start to play your song
+   * **OPEN** : Open a saved plant corresponding to a specific song, and possibly enrich it with other chords
+   * **COMPARE** : Open two different songs to compare their plant representation and score
    
 In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" > Plantasia by Mort Garrison </a> plays in background. <img src="https://github.com/carlopulv/actam19/blob/master/img/speaker.png" width="15"> 
 <h3 align="center"> 
