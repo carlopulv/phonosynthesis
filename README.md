@@ -12,7 +12,7 @@ Phonosynthesis was born from the curious juxtaposition of music and plants. We f
 In Phonosynthesis a plant will grow by playing music instead of following chlorophyll photosynthesis process.
 
 <p align="center">
-  <img src="" alt="growing plant" width="100%"/>
+  <img src="https://github.com/carlopulv/actam19/blob/master/img/growing.gif" alt="growing plant" width="40%"/>
 </p>
 
 ## Introduction
