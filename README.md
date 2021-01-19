@@ -54,7 +54,10 @@ Access the **Play** or **Open** modality to enter into game mode. From there you
 
 * #### 2. The Sound controller
   Click on the note icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/synth.png" width="15">  to open the sound controller.
-It allows the user to select a preferred input: pc keyboard or a MIDI controller.
+It allows the user to select a preferred input: pc keyboard or a MIDI controller. 
+
+  <p align="center"><img src="https://github.com/carlopulv/actam19/blob/master/img/keyskeyboardgif.gif" width="40%"/></p>
+
 There is the possibility to select the **Instrument** mode (piano / e-piano / guitar) or **Synth** mode which allows to modify a set of parameters to modulate the sound:
   - **Oscillators**: sinusoidal  <img src="https://github.com/carlopulv/actam19/blob/master/img/sin.png" width="15">  , triangular  <img src="https://github.com/carlopulv/actam19/blob/master/img/tri.png" width="15">   or square  <img src="https://github.com/carlopulv/actam19/blob/master/img/sqr.png" width="15"> .
   - **Envelope**: characterized by the ADSR model (Attack - Decay - Sustain - Release).
