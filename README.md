@@ -14,12 +14,11 @@ In Phonosynthesis a plant will grow by playing music instead of following chloro
 
 ## Introduction
 Phonosynthesis is a web based application that aims to give an estimate of the harmonic surprise of a song and to create a visualization of it.
-The application recognizes the most common chords made of four notes, so quadriads, with respect to a reference key.
+The application recognizes the most common chords made of four notes, so quadriads, with respect to a selected reference key.
+Every chord corresponds to a leaf in a particular position in the plant: the farther the leaves the farther the chords.
 
-The distance computation is based on three parameters: the key, the mode and the note distance. 
-Every chord corresponds to a leaf in a particular position in the plant.
-The disposition follows the circle of fifths for the keys in vertical axis, so a maximum of 12 trunks per side that represents the 12 notes of the chromatic scale, and for the modes in the horizontal one that represents the seven possible modes of a chord. So on each trunk there can be at most 7 leaves. To summarize the farther the leaves the farther the chords.
-
+ The distance computation is based on three parameters: the key, the mode and the note distance.
+The disposition follows the circle of fifths for the keys in vertical axis, so a maximum of 12 trunks per side that represents the 12 notes of the chromatic scale, and for the modes in the horizontal one that represents the seven possible modes of a chord. So on each trunk there can be at most 7 leaves.
 ## How to use
 Chose a modality among the three offered in the home page:
    * PLAY: Select a key and start to play your song
