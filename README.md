@@ -70,7 +70,7 @@ There is the possibility to select the **Instrument** mode (piano / e-piano / gu
 Click on the save icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/save.png" width="15">  in order to save the song that has been played. It allows to name the song in the *artist-title* box; if an existing song has the same name of the one given as input, the user will be able to choose, through an alert message, whether to overwrite the song or cancel the operation.
   
   <p align="center">
-  <img src="https://github.com/carlopulv/actam19/blob/master/img/savesong.png" width="80%"/>
+  <img src="https://github.com/carlopulv/actam19/blob/master/img/saveGif.gif" width="80%"/>
 </p>
   
  ## Database
