@@ -10,7 +10,7 @@
 
 ## Concept
 Phonosynthesis was born from the curious juxtaposition of music and plants. We followed the concept of making music for plants, as some artists have made, for example Mort Garson's Mother Earth’s Plantasia, where plants grow in different ways based on the music they listen to.
-In Phonosynthesis a plant will grow by playing music instead of the process of chlorophyll photosynthesis.
+In Phonosynthesis a plant will grow by playing music instead of following chlorophyll photosynthesis process.
 
 ## Introduction
 Phonosynthesis is a web based application that aims to give an estimate of the harmonic surprise of a song and to create a visualization of it.
