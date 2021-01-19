@@ -1,18 +1,18 @@
 <p align="center">
-  <img src="" width="50%"//>
+  <img src="https://github.com/carlopulv/actam19/blob/master/img/actamgrafica2.png" width="100%"//>
 </p>
 
 <p align="center">
   <img src="" width="150%"/>
 </p>
 
-<h1 align="center"> PHONOSYNTHESIS </h1>
+<!-- <h1 align="center"> PHONOSYNTHESIS </h1> -->
 
 ## Concept
-Phonosynthesis was born from the curious juxtaposition of music and plants. We followed  the concept of making music for plants, as some artists have made, for example Mother Earth’s Plantasia of Mort Garson, where plants grow in different ways based on the music they listen to.
+Phonosynthesis was born from the curious juxtaposition of music and plants. We followed the concept of making music for plants, as some artists have made, for example Mother Earth’s Plantasia of Mort Garson, where plants grow in different ways based on the music they listen to.
 In Phonosynthesis a plant will grow by playing music instead of the process of chlorophyll photosynthesis.
 
-## introduction
+## Introduction
 Phonosynthesis is a web based application that aims to give an estimate of the harmonic surprise of a song and to create a visualization of it.
 The application recognizes the most common chords made of four notes, so quadriads, with respect to a reference key.
 
@@ -21,7 +21,7 @@ Every chord corresponds to a leaf in a particular position in the plant.
 The disposition follows the circle of fifths for the keys in vertical axis, so a maximum of 12 trunks per side that represents the 12 notes of the chromatic scale, and for the modes in the horizontal one that represents the seven possible modes of a chord. So on each trunk there can be at most 7 leaves. To summarize the farther the leaves the farther the chords.
 
 ## How to use
-Chose a modality among the three offered in the home page
+Chose a modality among the three offered in the home page:
    * PLAY: Select a key and start to play your song
    * OPEN: Open a saved plant corresponding to a specific song, and possibly enrich it with other chords
    * COMPARE: Open two different songs to compare their plant representation and score
@@ -32,10 +32,10 @@ In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" 
 </h3>
 
 ## Controls
-Acces the PLAY or OPEN modality to enter into game mode. From here you can play a song and activate three different controls:
+Access the PLAY or OPEN modality to enter into game mode. From there you can play a song and activate three different controls:
 
 1. Open the key-mode space.
-2. Open the synth.  
+2. Open the sound controller.  
 3. Save the song. 
 
 * #### 1. The key-mode space
@@ -45,10 +45,10 @@ Acces the PLAY or OPEN modality to enter into game mode. From here you can play 
   Click on the note icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/synth.png" width="15">  to open the synthetizer.
 The synthetizer allows the user to select in which way to play: via pc keyboard or via MIDI input.
 There is also the possibility to select the "instrument" mode (piano / e-piano / guitar) or "synth" mode which allows to modify a set of parameters to modulate the sound:
-  - the oscillators: sinusoidal  <img src="https://github.com/carlopulv/actam19/blob/master/img/sin.png" width="15">  , triangular  <img src="https://github.com/carlopulv/actam19/blob/master/img/tri.png" width="15">   or square  <img src="https://github.com/carlopulv/actam19/blob/master/img/sqr.png" width="15"> .
-  - the envelope: characterized by the ADSR model (attack - decay - sustain - release).
-  - the filter: low pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/lowpass.png" width="15">  , high pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/highpass.png" width="15">  and band pass filters  <img src="https://github.com/carlopulv/actam19/blob/master/img/bandpass.png" width="15">  that control the timbre.
-  - the effects: delay - reverb - tremolo.
+  - Oscillators: sinusoidal  <img src="https://github.com/carlopulv/actam19/blob/master/img/sin.png" width="15">  , triangular  <img src="https://github.com/carlopulv/actam19/blob/master/img/tri.png" width="15">   or square  <img src="https://github.com/carlopulv/actam19/blob/master/img/sqr.png" width="15"> .
+  - Envelope: characterized by the ADSR model (attack - decay - sustain - release).
+  - Filter: low pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/lowpass.png" width="15">  , high pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/highpass.png" width="15">  and band pass filters  <img src="https://github.com/carlopulv/actam19/blob/master/img/bandpass.png" width="15">  that control the timbre.
+  - Effects: delay - reverb - tremolo.
   
  Sound modulation: The set of possible sampled sounds is imported from [WebAudioFont](https://surikov.github.io/webaudiofont/).
 * #### 3. Save
