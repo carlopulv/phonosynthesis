@@ -1,11 +1,6 @@
 <p align="center">
   <img src="https://github.com/carlopulv/actam19/blob/master/img/titleGif.gif" width="100%"//>
 </p>
-
-<p align="center">
-  <img src="" width="150%"/>
-</p>
-
 <!-- <h1 align="center"> PHONOSYNTHESIS </h1> -->
 
 ## Concept
