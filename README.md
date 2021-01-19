@@ -44,23 +44,25 @@ Access the **Play** or **Open** modality to enter into game mode. From there you
 It allows the user to select a preferred input: pc keyboard or a MIDI controller.
 There is the possibility to select the **Instrument** mode (piano / e-piano / guitar) or **Synth** mode which allows to modify a set of parameters to modulate the sound:
   - **Oscillators**: sinusoidal  <img src="https://github.com/carlopulv/actam19/blob/master/img/sin.png" width="15">  , triangular  <img src="https://github.com/carlopulv/actam19/blob/master/img/tri.png" width="15">   or square  <img src="https://github.com/carlopulv/actam19/blob/master/img/sqr.png" width="15"> .
-  - **Envelope**: characterized by the ADSR model (attack - decay - sustain - release).
+  - **Envelope**: characterized by the ADSR model (Attack - Decay - Sustain - Release).
   - **Filter**: low pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/lowpass.png" width="15">  , high pass  <img src="https://github.com/carlopulv/actam19/blob/master/img/highpass.png" width="15">  and band pass filters  <img src="https://github.com/carlopulv/actam19/blob/master/img/bandpass.png" width="15">  that control the timbre.
-  - **Effects**: delay - reverb - tremolo.
+  - **Effects**: Delay - Reverb - Tremolo.
   
- Sound modulation: The set of possible sampled sounds is imported from [WebAudioFont](https://surikov.github.io/webaudiofont/).
+ The set of sampled Instruments is imported from [WebAudioFont](https://surikov.github.io/webaudiofont/).
+ The Synth controls are developed using Tone.js library.
+ 
 * #### 3. Save
-  click on the save icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/save.png" width="15">  in order to save the song that has been played. It allows to name the song thanks to an the artist-title box; if an existing song has the same name of the one given as input, the system notifies the user with an alert message warning that if the users decides to save the progress, the system will overwrite an already existing song. 
+Click on the save icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/save.png" width="15">  in order to save the song that has been played. It allows to name the song in the *artist-title* box; if an existing song has the same name of the one given as input, the user will be able to choose, through an alert message, whether to overwrite the song or cancel the operation.
   
  ## Database
+ The database is hosted by Google Firebase that allows the application to store and sync data between different users in real time and to recover pre-played and stored songs.  
  The model of the plants are based on these parameters:
  
- - string of chords 
- - string of distances
- - the maximum mode in string
- - the maximum tonal in string
- - the general key of the song and the chords in frequency in string
+ - String of chords 
+ - String of distances
+ - The maximum mode in string
+ - The maximum tonal in string
+ - The general key of the song 
+ - The chords in frequency in string
  
-To be able to recover at every moment a saved song, these parameters are stored in a cloud database hosted by Firebase. It allows to store and sync data between different users in real time. 
-
-Each time a song is loaded in the "OPEN" mode or in the "COMPARE" mode the app inquires the database and extract the infos from it in order to update and draw the plant model based on the specific parameters required. 
+Each time a song is loaded in the **Open** mode or in the **Compare** mode the app inquires the database and extracts the infos from it in order to update and draw the plant model based on the specific parameters required. 
