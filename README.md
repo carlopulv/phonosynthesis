@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/carlopulv/actam19/blob/master/img/actamgrafica2.png" width="100%"//>
+  <img src="https://github.com/carlopulv/actam19/blob/master/img/titleGif.gif" width="100%"//>
 </p>
 
 <p align="center">
