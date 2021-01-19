@@ -20,6 +20,10 @@ Phonosynthesis is a web based application that aims to give an estimate of the h
 The application recognizes the most common chords made of four notes, so quadriads, with respect to a selected reference key.
 Every chord corresponds to a leaf in a particular position in the plant: the farther the leaves the farther the chords.
 
+<h3 align="center"> 
+  <a href="" align="center"> WATCH A DEMO </a>
+</h3>
+
 ## Game Modes
 Choose a modality among the three offered in the home page:
    * **Play** : Select a key and start to play your song
@@ -27,9 +31,7 @@ Choose a modality among the three offered in the home page:
    * **Compare** : Open two different songs to compare their plant representation and score
    
 In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" > Plantasia by Mort Garson </a> plays in background. <img src="https://github.com/carlopulv/actam19/blob/master/img/speaker.png" width="15"> 
-<h3 align="center"> 
-  <a href="" align="center"> WATCH A DEMO </a>
-</h3>
+
 
 ## Controls
 Access the **Play** or **Open** modality to enter into game mode. From there you can play a song and activate three different controls:
