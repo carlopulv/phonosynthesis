@@ -26,7 +26,7 @@ Choose a modality among the three offered in the home page:
    * **Open** : Open a saved plant corresponding to a specific song, and possibly enrich it with other chords
    * **Compare** : Open two different songs to compare their plant representation and score
    
-In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" > Plantasia by Mort Garrison </a> plays in background. <img src="https://github.com/carlopulv/actam19/blob/master/img/speaker.png" width="15"> 
+In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" > Plantasia by Mort Garson </a> plays in background. <img src="https://github.com/carlopulv/actam19/blob/master/img/speaker.png" width="15"> 
 <h3 align="center"> 
   <a href="" align="center"> WATCH A DEMO </a>
 </h3>
