@@ -452,6 +452,7 @@ function disableKeyboard(){
 
 function startPlayKeyboard(){
   Tone.start();
+  setEnvOsc();
   if(midiKeyboard==false){
     document.body.onkeydown = function(e){
       if(psynth._voices.length>4) psynth._voices.shift();
@@ -511,6 +512,7 @@ function startPlayMidi(){
   // on();
     /*document.body.onkeydown="none";
   document.body.onkeyup="none";*/
+  setEnvOsc();
   if(midiKeyboard){
   //midion
   if(dataMidi[2]>0 && dataMidi[2] != 64 && dataMidi[0] == 144) {
