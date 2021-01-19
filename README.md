@@ -17,9 +17,6 @@ Phonosynthesis is a web based application that aims to give an estimate of the h
 The application recognizes the most common chords made of four notes, so quadriads, with respect to a selected reference key.
 Every chord corresponds to a leaf in a particular position in the plant: the farther the leaves the farther the chords.
 
-KEYMODE: The distance computation is based on three parameters: the key, the mode and the note distance.
-The disposition follows the circle of fifths for the keys in vertical axis, so a maximum of 12 trunks per side that represents the 12 notes of the chromatic scale, and for the modes in the horizontal one that represents the seven possible modes of a chord. So on each trunk there can be at most 7 leaves.
-
 ## Game Modes
 Choose a modality among the three offered in the home page:
    * **PLAY** : Select a key and start to play your song
@@ -32,14 +29,15 @@ In the home page the song <a href="https://www.youtube.com/watch?v=LkesIsPGlSU" 
 </h3>
 
 ## Controls
-Access the PLAY or OPEN modality to enter into game mode. From there you can play a song and activate three different controls:
+Access the **Play** or **Open** modality to enter into game mode. From there you can play a song and activate three different controls:
 
-1. Open the key-mode space.
-2. Open the sound controller.  
-3. Save the song. 
+1. Open the **Key-Mode space**.
+2. Open the **Sound controller**.  
+3. **Save** the song. 
 
 * #### 1. The key-mode space
-  Click on the grid icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/keymodespace.png" width="15">  to make the key-mode space appear. The key-mode space is a grid where it is possible to check the key and the mode of each leaf of the plant according to what has been played. 
+  Click on the grid icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/keymodespace.png" width="15">  to make the key-mode space appear. The key-mode space is a grid where it is possible to check the key and the mode of each leaf of the plant according to what has been played. KEYMODE: The distance computation is based on three parameters: the key, the mode and the note distance.
+The disposition follows the circle of fifths for the keys in vertical axis, so a maximum of 12 trunks per side that represents the 12 notes of the chromatic scale, and for the modes in the horizontal one that represents the seven possible modes of a chord. So on each trunk there can be at most 7 leaves.
 
 * #### 2. The synth
   Click on the note icon  <img src="https://github.com/carlopulv/actam19/blob/master/img/synth.png" width="15">  to open the synthetizer.
