@@ -21,7 +21,7 @@ The application recognizes the most common chords made of four notes, so quadria
 Every chord corresponds to a leaf in a particular position in the plant: the farther the leaves the farther the chords.
 
 <h3 align="center"> 
-  <a href="" align="center"> WATCH A DEMO </a>
+  <a href="https://www.youtube.com/watch?v=eVHMAzDCALU" align="center"> WATCH A DEMO </a>
 </h3>
 
 ## Game Modes
