@@ -108,7 +108,7 @@ The final value per each computation is given by two factor:
 
 * [Phonosynthesis]()
 * [GitHub repository](https://github.com/carlopulv/actam19)
-* [Video Demo]() - on YouTube
+* [Video Demo](https://www.youtube.com/watch?v=eVHMAzDCALU) - on YouTube
 
 [1]: https://www.youtube.com/watch?v=LkesIsPGlSU
 [2]: https://surikov.github.io/webaudiofont/
