@@ -109,7 +109,7 @@ The final value per each computation is given by two factor:
 * [Phonosynthesis](https://carlopulv.github.io/phonosynthesis)
 * [GitHub repository](https://github.com/carlopulv/phonosynthesis)
 * [Video Demo](https://www.youtube.com/watch?v=eVHMAzDCALU) - on YouTube
-
+* [Knobs library](https://g200kg.github.io/input-knobs/)
 [1]: https://www.youtube.com/watch?v=LkesIsPGlSU
 [2]: https://surikov.github.io/webaudiofont/
 [3]: https://tonejs.github.io/
