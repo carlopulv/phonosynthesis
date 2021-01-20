@@ -113,4 +113,5 @@ The final value per each computation is given by two factor:
 [1]: https://www.youtube.com/watch?v=LkesIsPGlSU
 [2]: https://surikov.github.io/webaudiofont/
 [3]: https://tonejs.github.io/
+[4]: https://g200kg.github.io/input-knobs/
 
