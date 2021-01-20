@@ -117,3 +117,13 @@ The final value per each computation is given by two factor:
 [3]: https://tonejs.github.io/
 [4]: https://g200kg.github.io/input-knobs/
 
+## References
+* **A SURVEY OF CHORD DISTANCES WITH COMPARISON FOR CHORD ANALYSIS.**
+Thomas Rocher, Matthias Robine, Pierre Hanna, Myriam Desainte-Catherine
+LaBRI - University of Bordeaux, France.
+
+* **TONAL PITCH STEP DISTANCE: A SIMILARITY MEASURE FOR CHORD PROGRESSIONS.**
+W.Bas de Haas, Remco C. Veltkamp, Frans Wiering
+Departement of Information and Computing Sciences, Utrecht University
+
+
