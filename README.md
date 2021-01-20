@@ -4,7 +4,7 @@
 <!-- <h1 align="center"> PHONOSYNTHESIS </h1> -->
 
 <h1 align="center">
-<a href="https://github.com/carlopulv/phonosynthesis" align="center"> OPEN PHONOSYNTHESIS</a>
+<a href="https://carlopulv.github.io/phonosynthesis" align="center"> OPEN PHONOSYNTHESIS</a>
 </h1>
 
 ## Concept
@@ -106,7 +106,7 @@ The final value per each computation is given by two factor:
 
 ## Links
 
-* [Phonosynthesis](https://github.com/carlopulv/phonosynthesis)
+* [Phonosynthesis](https://carlopulv.github.io/phonosynthesis)
 * [GitHub repository](https://github.com/carlopulv/phonosynthesis)
 * [Video Demo](https://www.youtube.com/watch?v=eVHMAzDCALU) - on YouTube
 
