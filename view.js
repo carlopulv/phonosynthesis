@@ -64,7 +64,7 @@ function draw(){
     }
     else{
       document.querySelectorAll(".initial-button")[0].style.display="none";
-      document.querySelectorAll(".initial-button")[3].style.display="block";
+      //document.querySelectorAll(".initial-button")[3].style.display="block";
       keys_list.style.display = "block";
       //disegna ramo
       initializePosAngleToDrawTrunk();
