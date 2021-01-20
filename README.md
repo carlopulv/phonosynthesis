@@ -118,7 +118,7 @@ The final value per each computation is given by two factor:
 [4]: https://g200kg.github.io/input-knobs/
 
 ## References
-* **A SURVEY OF CHORD DISTANCES WITH COMPARISON FOR CHORD ANALYSIS.**
+* **A SURVEY OF CHORD DISTANCES WITH COMPARISON FOR CHORD ANALYSIS.** //
 Thomas Rocher, Matthias Robine, Pierre Hanna, Myriam Desainte-Catherine
 LaBRI - University of Bordeaux, France.
 
