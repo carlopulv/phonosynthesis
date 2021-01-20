@@ -12,7 +12,6 @@ body{
     background: linear-gradient(rgb(47,85,151), rgb(0,151,198) 27% ,rgb(246,248,252) 100%);
     background-repeat: no-repeat;
     overflow: hidden;
-    overscroll-behavior:none;
 }
 
 .homepageImage{
