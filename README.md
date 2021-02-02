@@ -93,7 +93,7 @@ Each time a song is loaded in the **Open** mode or in the **Compare** mode the a
 Every chord is characterized by its key and its mode.
 The distance between two chords is composed by three parameter:
 * the key distance
-* the mode distacne
+* the mode distance
 * the hamming distance
 
 The key distance is the difference between the chords tonals following the circle of fifth.
