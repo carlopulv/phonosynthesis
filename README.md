@@ -83,7 +83,7 @@ Click on the save icon  <img src="https://github.com/carlopulv/phonosynthesis/bl
  - String of chords 
  - String of distances
  - The maximum mode in string
- - The maximum tonal in string
+ - The maximum key in string
  - The general key of the song 
  - The chords in frequency in string
  
@@ -96,7 +96,7 @@ The distance between two chords is composed by three parameter:
 * the mode distance
 * the hamming distance
 
-The key distance is the difference between the chords tonals following the circle of fifth.
+The key distance is the difference between the chords reference keys following the circle of fifth.
 The mode distance is the difference of chords modes following the circle of fifth.
 The hamming distance is the number of different notes between two chords.
 
