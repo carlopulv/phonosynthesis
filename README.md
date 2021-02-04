@@ -109,7 +109,7 @@ The final value per each computation is given by two factor:
 * [Phonosynthesis](https://carlopulv.github.io/phonosynthesis)
 * [GitHub repository](https://github.com/carlopulv/phonosynthesis)
 * [Video Demo](https://www.youtube.com/watch?v=eVHMAzDCALU) - on YouTube
-* [Presentation](https://www.canva.com/design/DAEVBRrYU5k/UdwIXTmesRlWIVcJdhQlAg/viewutm_content=DAEVBRrYU5k&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton) - Canva
+* [Presentation](https://www.canva.com/design/DAEVBRrYU5k/UdwIXTmesRlWIVcJdhQlAg/view?utm_content=DAEVBRrYU5k&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton) - Canva
 * [Knobs library](https://g200kg.github.io/input-knobs/)
 
 
